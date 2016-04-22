@@ -4,7 +4,7 @@ angular.module('couchInn',[]).controller(
     [
         '$scope',
         function ($scope) {
-          console.log("se instanció bien");
+          $scope.model = "algo";
         }
     ]
 );
