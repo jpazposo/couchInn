@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:ng="http://angularjs.org" ng-app="couchInn" ng-strict-di>
 
 <head>
   <meta charset="utf-8">
@@ -8,27 +8,28 @@
   <meta name="viewport" content="width=device-width">
 </head>
 
-<body id="angularApp" ng-app="couchInn" ng-strict-di>
+<body>
 
 
 
-  <div class="header" >
-    <div class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-        </div>
+<div class="header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
       </div>
     </div>
   </div>
-  <div class="container">
-    <div ng-view></div>
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> J.L.S </p>
-      </div>
+</div>
+
+<div class="container">
+  <div ng-view></div>
+</div>
+
+<div class="footer">
+    <div class="container">
+      <p><span class="glyphicon glyphicon-heart"></span> J.L.S </p>
     </div>
-
-
+</div>
 
 <!--angular sources-->
 <script src="components/angular/angular.min.js"></script>
