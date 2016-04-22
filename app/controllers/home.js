@@ -16,3 +16,7 @@ router.get('/', function (req, res, next) {
     });
   });
 });
+
+router.get('/conie', function (req, res, next) {
+    res.send("Conie es muy bonita");
+});
