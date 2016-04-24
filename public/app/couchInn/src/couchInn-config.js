@@ -2,7 +2,11 @@
 
 angular.module('couchInn',
     [
-        'ngRoute']).config(
+        'ngRoute',
+        'ngMaterial',
+        'ngAria'
+
+      ]).config(
     [
         '$routeProvider',
         function ($routeProvider) {

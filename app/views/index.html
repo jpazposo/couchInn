@@ -6,6 +6,11 @@
   <title>CoachInn</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
+
+
+  <!-- Angular Material CSS -->
+  <link rel="stylesheet" href="components/angular-material/angular-material.min.css">
+
 </head>
 
 <body>
@@ -23,13 +28,13 @@
 
   <div class="container" ng-controller="couchInnController">
     <div ng-view>
-      {{model}}
+      
     </div>
   </div>
 
   <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> J.L.S </p>
+        <p><span class="glyphicon glyphicon-heart"></span></p>
       </div>
   </div>
 
@@ -43,8 +48,16 @@
 <script src="components/angular-touch/angular-touch.min.js"></script>
 <!--End angular sources-->
 
+<!--couchInn sources-->
 <script src="app/couchInn/src/couchInn-config.js"></script>
 <script src="app/couchInn/src/couchInn-controller.js"></script>
+
+
+<!-- Angular Material Dependencies -->
+<script src="components/angular-aria/angular-aria.min.js"></script>
+<script src="components/angular-material/angular-material.min.js"></script>
+
+
 </body>
 
 </html>
