@@ -5,11 +5,14 @@
   <meta charset="utf-8">
   <title>CoachInn</title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 
   <!-- Angular Material CSS -->
   <link rel="stylesheet" href="components/angular-material/angular-material.min.css">
+
+  <!--couchInn sources-->
+  <link rel="stylesheet" href="app/couchInn/src/stylesheets/couchInn.css">
 
 </head>
 
@@ -26,36 +29,76 @@
     </div>
   </div>
 
-  <div class="container" ng-controller="couchInnController">
+  <div class="container">
+
+    <!-- esta sección de la vista, ng-view ,
+     cambia en base a la ruta interna (# en adelante)  -->
     <div ng-view>
-      
+
+      <div layout="column" layout-align="center center">
+        <div flex="none" style="height: 400px">
+          <!-- <video autoplay loop muted>
+            <source src="https://a0.muscache.com/airbnb/static/P1-background-vid-compressed.webm" type="video/webm">
+          </video> -->
+          <h1>UN LUGAR EN EL QUE VIVIR</h1>
+          <h5>Reserva alojamientos de anfitriones locales en más de 191 países
+             y disfruta de la ciudad como un habitante más.
+          </h5>
+          <button>Cómo funciona</button>
+        </div>
+
+        <div flex="none">
+          <form>
+            <label>
+              <span>Buscar por ciudad, vecindario o dirección...</span>
+              <input placeholder="Buscar por ciudad, vecindario o dirección..." />
+            </label>
+            <div>Por favor, elige una ubicación</span>
+            </div>
+            <div>
+              <label>
+                <span>Llegada</span>
+                <input type="text" id="startDate" name="startDate" value="" placeholder="Llegada" autocomplete="off" maxlength="10">
+              </label>
+              <div>Llegada</div>
+            </div>
+
+          </form>
+
+        </div>
+
+        <div flex="auto">
+        </div>
+
+      </div>
+
     </div>
   </div>
 
-  <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span></p>
-      </div>
+  <div layout="column" class="footer">
+    <div flex>
+      <p>Footer</p>
+    </div>
   </div>
 
-<!--angular sources-->
-<script src="components/angular/angular.min.js"></script>
-<script src="components/angular-route/angular-route.min.js"></script>
-<script src="components/angular-animate/angular-animate.min.js"></script>
-<script src="components/angular-cookies/angular-cookies.min.js"></script>
-<script src="components/angular-resource/angular-resource.min.js"></script>
-<script src="components/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="components/angular-touch/angular-touch.min.js"></script>
-<!--End angular sources-->
+  <!--angular sources-->
+  <script src="components/angular/angular.min.js"></script>
+  <script src="components/angular-route/angular-route.min.js"></script>
+  <script src="components/angular-animate/angular-animate.min.js"></script>
+  <script src="components/angular-cookies/angular-cookies.min.js"></script>
+  <script src="components/angular-resource/angular-resource.min.js"></script>
+  <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="components/angular-touch/angular-touch.min.js"></script>
+  <!--End angular sources-->
 
-<!--couchInn sources-->
-<script src="app/couchInn/src/couchInn-config.js"></script>
-<script src="app/couchInn/src/couchInn-controller.js"></script>
+  <!--couchInn sources-->
+  <script src="app/couchInn/src/couchInn-config.js"></script>
+  <script src="app/couchInn/src/couchInn-controller.js"></script>
 
 
-<!-- Angular Material Dependencies -->
-<script src="components/angular-aria/angular-aria.min.js"></script>
-<script src="components/angular-material/angular-material.min.js"></script>
+  <!-- Angular Material Dependencies -->
+  <script src="components/angular-aria/angular-aria.min.js"></script>
+  <script src="components/angular-material/angular-material.min.js"></script>
 
 
 </body>
