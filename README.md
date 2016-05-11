@@ -18,4 +18,4 @@ Sistema de gestión para hospedaje de intercambio cultural
 - Dependencias de Bower `bower install`
 
 ### Levantar el servidor HTTP
-- npm start
+- `npm start`
