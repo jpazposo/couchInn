@@ -8,7 +8,7 @@ Sistema de gestión para hospedaje de intercambio cultural
 
 - Clonar el proyecto `git clone git@github.com:luchopcerra/couchInn.git` 
 - Instalar las dependencias npm: `npm install`
-- Instalas las dependencias de Bower: `bower install` 
+- Instalar las dependencias de Bower: `bower install` 
 - Instalar [MongoDB](https://www.mongodb.com/download-center)
 -------------------------------
 ### Levantar el servidor HTTP
