@@ -1,10 +1,10 @@
-'use strict';
-angular.module('couchInn',[]).controller(
+"use strict";
+angular.module('couchinn',[]).controller(
     'couchInnController',
     [
         '$scope',
         function ($scope) {
-          $scope.model = "algo";
+          alert('llegamos');
         }
     ]
 );

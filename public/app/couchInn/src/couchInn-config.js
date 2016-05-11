@@ -1,15 +1,28 @@
 "use strict";
-
-angular.module('couchInn',
+angular.module('couchinn',
     [
         'ngRoute',
         'ngMaterial',
         'ngAria'
 
-      ]).config(
+    ]
+
+).config(
     [
         '$routeProvider',
         function ($routeProvider) {
+
+          $routeProvider.when(
+            '/ruta-interna',
+            {
+              templateUrl: 'app/couchInn/src/html/couchinn.html',
+              controller: 'couchInnController'
+            }
+          ).otherwise(
+            {
+              redirectTo: '/404'
+            }
+          );
 
         }
     ]

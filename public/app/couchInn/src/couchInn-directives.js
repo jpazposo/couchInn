@@ -1,6 +1,6 @@
-'use strict';
-angular.module('couchInn').directive(
-  'mainView',
+/*"use strict";
+angular.module('couchinn').directive(
+  'someDirective',
   [
     function () {
       return {
@@ -13,8 +13,8 @@ angular.module('couchInn').directive(
 
         },
         transclude: false,
-        templateUrl: 'app/couchInn/src/html/couchinn.html'
+        templateUrl: 'app/couchInn/src/html/some.html'
       }
     }
   ]
-)
+);*/
