@@ -1,10 +1,10 @@
 "use strict";
-angular.module('couchinn',[]).controller(
+angular.module('couchinn').controller(
     'couchInnController',
     [
         '$scope',
         function ($scope) {
-          alert('llegamos');
+          console.log('se cargó el controller');
         }
     ]
 );

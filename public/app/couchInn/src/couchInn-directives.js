@@ -1,4 +1,4 @@
-/*"use strict";
+"use strict";
 angular.module('couchinn').directive(
   'someDirective',
   [
@@ -17,4 +17,4 @@ angular.module('couchinn').directive(
       }
     }
   ]
-);*/
+);

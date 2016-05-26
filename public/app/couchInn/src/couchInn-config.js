@@ -1,5 +1,5 @@
 "use strict";
-var myApp = angular.module("couchinn",
+angular.module("couchinn",
     [
         'ngRoute',
         'ngMaterial',
