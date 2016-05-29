@@ -3,8 +3,7 @@
   "description": "",
   "main": "",
   "authors": [
-    "Luciano Perez Cerra <luchopcerra@gmail.com>",
-    "Javier Paz Poso <javierpazposo@gmail.com>"
+    "Luciano Perez Cerra <luchopcerra@gmail.com>"
   ],
   "license": "MIT",
   "homepage": "https://github.com/luchopcerra/couchInn",
