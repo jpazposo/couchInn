@@ -4,6 +4,7 @@ angular.module("couchinn",
         'ngRoute',
         'ngMaterial',
         'ngAria',
+        'ngResource',
         'header',
         'register',
         'login'

@@ -1,7 +1,7 @@
-<div style="width:100%">
+<!--<div style="width:100%">
   <div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
-    <form name="form" ng-submit="vm.register()" role="form">
+    <form name="form" ng-submit="register()" role="form">
       <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
         <label for="username">First name</label>
         <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
@@ -23,9 +23,11 @@
         <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
       </div>
       <div class="form-actions">
-        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
-        <a href="#/login" class="btn btn-link">Cancel</a>
+        <button type="submit" ng-disabled="form.$inclass="btn btn-primary">Register</button>
+        <a href="#/login" class="btn btn-link">Cancel</a>valid || vm.dataLoading"
       </div>
     </form>
   </div>
-</div>
+</div>-->
+
+<button ng-click="register()">Register</button>
