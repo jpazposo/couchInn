@@ -5,7 +5,8 @@ angular.module("couchinn",
         'ngMaterial',
         'ngAria',
         'header',
-        'register'
+        'register',
+        'login'
     ]
 
 ).config(
@@ -26,6 +27,14 @@ angular.module("couchinn",
               {
                 templateUrl: 'app/register/src/html/register.html',
                 controller: 'registrationController'
+              }
+            )
+
+            .when(
+              '/login',
+              {
+                templateUrl: 'app/login/src/html/login.html',
+                controller: 'loginController'
               }
             )
 
