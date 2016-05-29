@@ -4,7 +4,8 @@ angular.module("couchinn",
         'ngRoute',
         'ngMaterial',
         'ngAria',
-        'header'
+        'header',
+        'register'
     ]
 
 ).config(
@@ -12,13 +13,23 @@ angular.module("couchinn",
         '$routeProvider',
         function ($routeProvider) {
 
-          $routeProvider.when(
+          $routeProvider
+            .when(
             '/',
             {
               templateUrl: 'app/couchInn/src/html/couchinn.html',
               controller: 'couchInnController'
             }
-          ).otherwise(
+          )
+            .when(
+              '/register',
+              {
+                templateUrl: 'app/register/src/html/register.html',
+                controller: 'registrationController'
+              }
+            )
+
+            .otherwise(
             {
               redirectTo: '/404'
             }

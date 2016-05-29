@@ -4,7 +4,7 @@ angular.module('couchinn').controller(
     [
         '$scope',
         function ($scope) {
-          console.log('se cargó el controller');
+          console.log('se cargó el controller couchInnController');
         }
     ]
 );

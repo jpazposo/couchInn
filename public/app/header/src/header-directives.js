@@ -2,11 +2,16 @@
 angular.module('header').directive(
   'couchinnHeader',
   [
-    function () {
+    '$location',
+    function ($location) {
       return {
         restrict: 'AE',
         replace: true,
-        link: function () {
+        link: function ($scope) {
+
+          $scope.go = function ( path ) {
+            $location.path( path );
+          };
 
         },
         transclude: false,

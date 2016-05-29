@@ -1,10 +1,12 @@
 "use strict";
-angular.module('couchinn').controller(
-    'couchInnController',
+angular.module('header').controller(
+    'headerController',
     [
         '$scope',
-        function ($scope) {
-          console.log('se cargó el controller');
+        '$location',
+        function ($scope, $location) {
+          console.log('se cargó el controller headerController');
+          
         }
     ]
 );
