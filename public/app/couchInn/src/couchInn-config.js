@@ -3,8 +3,8 @@ angular.module("couchinn",
     [
         'ngRoute',
         'ngMaterial',
-        'ngAria'
-
+        'ngAria',
+        'header'
     ]
 
 ).config(
@@ -13,7 +13,7 @@ angular.module("couchinn",
         function ($routeProvider) {
 
           $routeProvider.when(
-            '/ruta-interna',
+            '/',
             {
               templateUrl: 'app/couchInn/src/html/couchinn.html',
               controller: 'couchInnController'
