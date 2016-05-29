@@ -7,20 +7,21 @@ angular.module('register').controller(
         function ($scope, couchinnService) {
           console.log('se cargó el controller registerController');
 
+          $scope.user = {}; // modelo a completarse con el formulario.
+
 
           $scope.register = function () {
-            couchinnService.registerUser({
-              nombre: "Luciano Mock Test",
-              apellido: "perez Mock Test",
-              email: "luchopcerra@gmail.com Mock Test",
-              nacimiento: "10/10/10 Mock Test",
-              password: "pass Mock Test",
-            })
+            console.log('se va a registrar a este usuario:-----------');
+            console.log(JSON.stringify($scope.user));
+
+            couchinnService.registerUser($scope.user)
               .then(function (user) {
                 console.log('successfull registration of : ----------------');
                 console.log(JSON.stringify(user));
               })
               .catch(function (error) {
+
+                // code 11000 means user already exist
                 console.log(error);
               });
           }
