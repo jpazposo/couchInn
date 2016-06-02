@@ -1,13 +1,19 @@
 "use strict";
 angular.module('lodgin').controller(
-    'lodgingController',
-    [
+  'lodgingController',
+  [
+    '$scope',
+    function ($scope) {
       $scope.tipos = [
         'casa',
-        'habitacion',
+        'habitacion'
       ];
-      $scope.addTipo = function(){
+
+
+      $scope.addTipo = function () {
         $scope.tipos.push({title: 'un nuevo tipo!'});
       };
-    ]
+    }
+
+  ]
 );

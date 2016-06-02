@@ -14,12 +14,13 @@ var LodginSchema = new Schema({
     numero: Number,
     piso:  Number,
     departamento: String
-  }
+  },
   fechaInicio:{ type: Date, default: Date.now },
   fechaFin: Date,
 });
 
 LodginSchema.pre('save', function(next) {
   var lodgin = this;
-}
+});
+
 module.exports = mongoose.model('Lodgin', LodginSchema);
