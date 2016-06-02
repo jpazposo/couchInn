@@ -1,0 +1,44 @@
+<couchinn-header></couchinn-header>
+
+<div>
+  <form name="lodginForm">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre publicacion</label>
+      <input ngmodel="lodgin.nombre">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Descripcion del lugar</label>
+      <input ngmodel="lodgin.descripcion">
+    </md-input-container>
+    <md-input-container>
+      <label>Elige un tipo de lugar:</label>
+      <md-select ng-model="md-block">
+        <md-option ng-value="tipo" ng-repeat="tipo in tipos">{{ tipo }}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Cantidad de personas que se pueden hospedar</label>
+      <input ngmodel="lodgin.cantidad">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Direccion del lugar</label><br>
+      <input ngmodel="lodgin.calle">
+      <input ngmodel="lodgin.numero">
+      <input ngmodel="lodgin.departamento">
+      <input ngmodel="lodgin.piso">
+    </md-input-container>
+    <md-input-container>
+      <label>Fecha inicio</label>
+      <md-datepicker ng-model="fecha.inicio" md-placeholder="Fecha inicio" >
+    </md-input-container>
+    <md-input-container>
+      <label>Fecha fin</label>
+      <md-datepicker ng-model="fecha.fin" md-placeholder="Fecha fin" >
+    </md-input-container>
+  </form>
+  <form ng-submit="addTipo()">
+    <input type="text" ng-model="title"></input>
+    <button type="submit">Agregar tipo</button>
+  </form>
+</div>
+
