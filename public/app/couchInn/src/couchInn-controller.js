@@ -3,8 +3,9 @@ angular.module('couchinn').controller(
     'couchInnController',
     [
         '$scope',
-        function ($scope) {
-          console.log('se cargó el controller');
+        '$location',
+        function ($scope, $location) {
+          console.log('se cargó el controller couchInnController');
         }
     ]
 );

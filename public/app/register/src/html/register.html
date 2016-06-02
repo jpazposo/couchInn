@@ -1,0 +1,30 @@
+<form name="userForm">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>First name</label>
+      <input ng-model="user.nombre">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Apellido</label>
+      <input ng-model="user.apellido">
+    </md-input-container>
+    <md-datepicker ng-model="user.nacimiento" md-placeholder="Nacimiento" >
+    </md-datepicker>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block">
+      <label>Email</label>
+      <input ng-model="user.email">
+    </md-input-container>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>password</label>
+        <input ng-model="user.password">
+      </md-input-container>
+    </div>
+  </div>
+
+  <md-button ng-disabled="false" ng-click="register()"> Register user </md-button>
+
+</form>
