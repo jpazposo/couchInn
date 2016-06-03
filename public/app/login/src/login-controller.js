@@ -26,15 +26,23 @@ angular.module('login').controller(
             }).catch(function (err) {
               //alert("Usuario Inexistente, vuelve a intentar");
 
-              $mdDialog.show(
-                $mdDialog.alert()
-                  .parent(angular.element(document.querySelector('#popupContainer')))
-                  .clickOutsideToClose(true)
-                  .title('Error de Login')
-                  .textContent('Usuario Inexistente, vuelve a intentar')
-                  .ariaLabel('Alert Dialog Demo')
-                  .ok('Reintentar')
-              );
+              /*alert(JSON.stringify(err));*/
+
+              if (err.status == 401){
+
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Error de Login')
+                    .textContent('Usuario o password incorrectos')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Reintentar')
+                );
+
+                return;
+
+              }
 
               $scope.username = $scope.password = '';
             });
