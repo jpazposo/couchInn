@@ -1,6 +1,8 @@
 
 <div class="container">
 
+  <div ng-init="tiposDeHospedaje = dameTiposDeHospedaje()">
+
   <div class="col-sm-4 col-sm-offset-1 text-center" ng-prueba>
     <h1> Listado de Tipos de Hospedaje <span class="label label-success"></span></h1>
   </div>
@@ -9,11 +11,11 @@
       <table class="table table-striped">
         <tr class="info">
           <td>Nombre</td>
-          <td>Capacidad</td>
+          <td>Capacidad Máxima</td>
         </tr>
         <tr ng-repeat="tipoHos in tiposDeHospedaje" ng-click="">
-          <td>{{ tipoHos.nombre }}</td>
-          <td>{{ tipoHos.capacidad }}</td>
+          <td>  {{ tipoHos.nombre }}  </td>
+          <td>  {{ tipoHos.capacidadMax }}  </td>
         </tr>
       </table>
     </div>

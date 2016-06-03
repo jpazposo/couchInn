@@ -8,8 +8,7 @@ angular.module("couchinn",
         'header',
         'register',
         'login',
-        'tipoHospedaje',
-        'listadoTipoHospedaje'
+        'tipoHospedaje'
     ]
 
 ).config(
@@ -48,12 +47,12 @@ angular.module("couchinn",
             }
             )
             .when(
-            '/listadoTipoHospedaje',
-            {
-              templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
-              controller: 'tipoHospedajeController'
-            }
-          )
+              '/listadoTipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
+                controller: 'tipoHospedajeController'
+              }
+            )
             .otherwise(
             {
               redirectTo: '/404'
