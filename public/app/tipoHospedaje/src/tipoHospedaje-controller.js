@@ -12,6 +12,17 @@ angular.module('tipoHospedaje').controller(
       $scope.tipoHospedajeSeleccionado = false;
       $scope.error1 = false;
 
+      $scope.headerButtons = [
+        {
+          location: '/listadoTipoHospedaje',
+          name: 'Listar Tipos de Hospedaje'
+        },
+        {
+          location: '/nuevoTipoHospedaje',
+          name: 'Agregar Tipo de Hospedaje'
+        }
+      ];
+
       // guardar Tipo de Hospedaje
       $scope.guardarTipoHosp = function () {
         console.log('se va a guardar el tipo de hospedaje:-----------');

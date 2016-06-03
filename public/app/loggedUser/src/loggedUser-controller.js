@@ -17,8 +17,8 @@ angular.module('loggedUser').controller(
               name: 'Nuevo Tipo de Hospedaje'
             },
             {
-              location: '/tipoHospedaje',
-              name: 'Tipo de Hospedaje'
+              location: '/listadoTipoHospedaje',
+              name: 'Listar Tipos de Hospedaje'
             },
             {
               location: '/logout',
