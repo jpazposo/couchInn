@@ -62,6 +62,13 @@ angular.module("couchinn",
               }
             )
 
+            .when(
+              '/listadoTipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
+                controller: 'tipoHospedajeController'
+              }
+            )
             .otherwise(
             {
               redirectTo: '/404'
