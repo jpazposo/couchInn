@@ -69,6 +69,15 @@ angular.module("couchinn",
                 controller: 'tipoHospedajeController'
               }
             )
+
+            .when(
+              '/updateUser',
+              {
+                templateUrl: 'app/updateUser/src/html/updateUser.html',
+                controller: 'updateUserController'
+              }
+            )
+
             .otherwise(
             {
               redirectTo: '/404'
