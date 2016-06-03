@@ -9,7 +9,8 @@ angular.module("couchinn",
         'header',
         'register',
         'login',
-        'tipoHospedaje'
+        'tipoHospedaje',
+        'loggedUser'
     ]
 
 ).config(
@@ -51,6 +52,14 @@ angular.module("couchinn",
               {
                 templateUrl: 'app/tipoHospedaje/src/html/tipoHospedaje.html',
                 controller: 'tipoHospedajeController'
+              }
+            )
+
+            .when(
+              '/user-logged/:user',
+              {
+                templateUrl: 'app/loggedUser/src/html/loggedUser.html',
+                controller: 'loggedUserController'
               }
             )
 

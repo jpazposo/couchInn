@@ -133,12 +133,12 @@ router.delete('/user/:username', function (req, res, next) {
 
 
 
-router.post('/user/login', passport.authenticate('local', { successRedirect: '/', failureFlash: true }), function (req, res) {
+router.post('/user-action/login', passport.authenticate('local', { session: true}), function (req, res) {
 
 
   console.log('se logueo con exito');
 
-  res.send(200);
+  res.json(req.user);
 
 
   /*  // test a matching password
@@ -156,7 +156,7 @@ router.post('/user/login', passport.authenticate('local', { successRedirect: '/'
 
 });
 
-router.get('/user/logout',function(req, res){
+router.get('/user-action/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.render('index');
 });

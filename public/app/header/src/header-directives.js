@@ -12,6 +12,7 @@ angular.module('header').directive(
 
           $scope.logout = function () {
             couchinnService.logout().then(function () {
+              $location.path('/');
             });
           };
 

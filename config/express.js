@@ -9,13 +9,13 @@ var compress = require('compression');
 var methodOverride = require('method-override');
 
 var passport = require('passport');
-var JwtStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt;
+/*var JwtStrategy = require('passport-jwt').Strategy,
+  ExtractJwt = require('passport-jwt').ExtractJwt;*/
 var LocalStrategy = require('passport-local').Strategy;
 
-var opts = {};
+/*var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
-opts.secretOrKey = 'secret';
+opts.secretOrKey = 'secret';*/
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
@@ -46,29 +46,29 @@ module.exports = function(app, config) {
   app.use(passport.session());
 
   passport.serializeUser(function(user, cb) {
-    cb(null, user.id);
+    cb(null, user.username);
   });
 
   passport.deserializeUser(function(id, cb) {
-    db.users.findById(id, function (err, user) {
+    User.findById(id, function (err, user) {
       if (err) { return cb(err); }
       cb(null, user);
     });
   });
 
-  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+/*  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    return done(null, {  });
+    console.log('JwtStrategy');
     User.findOne({id: jwt_payload.sub}, function(err, user) {
-      if (err) {
-        return done(err, false);
-      }
-      if (user) {
-        done(null, user);
-      } else {
-        done(null, false);
-        // or you could create a new account
-      }
+      console.log(err);
+      console.log(user);
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      console.log(user.comparePassword(password));
+      if (!user.comparePassword(password)) { return done(null, false); }
+      return done(null, user);
     });
-  }));
+  }));*/
 
   passport.use(new LocalStrategy(
     function(username, password, done) {

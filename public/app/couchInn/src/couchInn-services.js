@@ -6,6 +6,8 @@ angular.module('couchinn').service(
 
           var apiPath = "/api/";
 
+          var user = {};
+
           this.registerUser = function  (user) {
             /**
              * @param user type JSON{ nombre: String, Apellido: String, email:String, nacimiento: String, password: String }
@@ -23,14 +25,23 @@ angular.module('couchinn').service(
              * @return: user
              */
             return $resource(
-              apiPath + 'user/login'
+              apiPath + 'user-action/login'
             ).save(user).$promise;
+
           };
 
           this.logout = function () {
             return $resource(
-              apiPath + 'user/logout'
+              apiPath + 'user-action/logout'
             ).get().$promise;
+          };
+
+          this.getUser = function (user) {
+            return this.user;
+          };
+
+          this.setUser = function (user) {
+            this.user = user;
           };
 
           this.guardarTipoHospedaje = function  (tipoHospedaje) {
