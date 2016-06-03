@@ -23,7 +23,7 @@ angular.module('header').directive(
         },
         transclude: false,
         scope: {
-          botones: '='
+          buttons: '='
         },
         templateUrl: 'app/header/src/html/header.html'
       }
