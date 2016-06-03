@@ -75,10 +75,10 @@ router.get('/user/:username', function (req, res, next) {
 
 });
 // Update
-router.put('/user/:username', function (req, res, next) {
+router.post('/update/user', function (req, res, next) {
 
 
-  return User.findOne({username: req.params.username})
+  return User.findOne({username: req.body.username})
     // Caso de éxito
     .then(function (user) {
 

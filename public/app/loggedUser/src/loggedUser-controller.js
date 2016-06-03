@@ -21,6 +21,10 @@ angular.module('loggedUser').controller(
               name: 'Listar Tipos de Hospedaje'
             },
             {
+              location: '/actualizar-perfil',
+              name: 'Modificar mis datos'
+            },
+            {
               location: '/logout',
               name: 'Cerrar Sesión'
             }

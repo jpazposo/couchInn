@@ -19,6 +19,13 @@ angular.module('couchinn').service(
 
           };
 
+          this.editUser = function (user) {
+
+            return $resource(
+              apiPath + 'update/user'
+            ).save(user).$promise;
+          };
+
           this.login = function (user) {
             /**
              * @param user type JSON{ username: String, password: String }
