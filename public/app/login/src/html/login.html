@@ -1,17 +1,17 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 
-<form name="userForm">
+<form name="form">
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Username</label>
-      <input ng-model="username">
+      <input ng-model="username" type="text" name="username" required>
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Password</label>
-      <input ng-model="password">
+      <input ng-model="password" type="password" name="password" required>
     </md-input-container>
   </div>
 
-  <md-button ng-disabled="false" ng-click="login()"> login </md-button>
+  <md-button ng-disabled="form.$invalid" ng-click="login()"> login </md-button>
 
 </form>
