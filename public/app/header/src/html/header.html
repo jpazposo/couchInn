@@ -2,8 +2,12 @@
   <div class="md-toolbar-tools">
     <span flex></span>
 
-
-
+    <!-- logo -->
+    <div layout="row" flex="100">
+      <md-button class="md-raized" ng-click="go('/')">
+        <img id="logo" src="/images/Couchinn.png"></img>
+      </md-button>
+    </div>
     <md-button class="md-raised" ng-click="go('/register')">Registrate</md-button>
     <md-button class="md-raised" ng-click="go('/login')">Iniciar Sesión</md-button>
     <md-button class="md-raised" ng-click="go('/tipoHospedaje')">Tipo de Hospedaje</md-button>

@@ -33,3 +33,6 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+.wraper{
+   padding: 100px;
+}
