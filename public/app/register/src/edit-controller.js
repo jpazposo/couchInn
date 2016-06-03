@@ -30,7 +30,7 @@ angular.module('register').controller(
           .then(function (user) {
             console.log('successfull modification of : ----------------');
             console.log(JSON.stringify(user));
-            $location.url('/login');
+            $location.url('/user-logged/' + user.nombre);
           })
           .catch(function (error) {
 
