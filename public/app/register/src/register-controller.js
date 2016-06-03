@@ -10,6 +10,13 @@ angular.module('register').controller(
           $scope.user = {}; // modelo a completarse con el formulario.
 
 
+          $scope.headerButtons = [
+            {
+              location: '/login',
+              name: 'Iniciar Sessión'
+            }
+          ];
+          
           $scope.register = function () {
             console.log('se va a registrar a este usuario:-----------');
             console.log(JSON.stringify($scope.user));

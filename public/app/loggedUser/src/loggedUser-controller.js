@@ -9,7 +9,22 @@ angular.module('loggedUser').controller(
           console.log('se cargó el controller loggedUserController');
 
           $scope.user = couchinnService.getUser();
-          console.log($scope.user);
+
+
+          $scope.headerButtons = [
+            {
+              location: '/nuevoTipoHospedaje',
+              name: 'Nuevo Tipo de Hospedaje'
+            },
+            {
+              location: '/tipoHospedaje',
+              name: 'Tipo de Hospedaje'
+            },
+            {
+              location: '/logout',
+              name: 'Cerrar Sesión'
+            }
+          ];
 
         }
     ]

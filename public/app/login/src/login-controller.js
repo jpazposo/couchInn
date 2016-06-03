@@ -8,6 +8,13 @@ angular.module('login').controller(
         function ($scope, couchinnService, $location) {
           console.log('se cargó el controller loginController');
 
+          $scope.headerButtons = [
+            {
+              location: '/register',
+              name: 'Registrarse'
+            }
+          ];
+
           $scope.login = function () {
             couchinnService.login({
                 username: $scope.username,

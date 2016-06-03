@@ -17,6 +17,10 @@ angular.module('header').directive(
           };
 
           $scope.go = function ( path ) {
+            if (path === '/logout'){
+              $scope.logout();
+              return;
+            }
             $location.path( path );
           };
 
