@@ -11,11 +11,6 @@ angular.module('tipoHospedaje').controller(
       $scope.tiposDeHospedaje = [];
       $scope.tipoHospedajeSeleccionado = false;
       
-      [{
-        'uri': '/sarsa',
-        'nombre': 
-      }]
-
       // guardar Tipo de Hospedaje
       $scope.guardarTipoHosp = function () {
         console.log('se va a guardar el tipo de hospedaje:-----------');
