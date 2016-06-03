@@ -15,6 +15,9 @@ angular.module('header').directive(
 
         },
         transclude: false,
+        scope: {
+          botones: '='
+        },
         templateUrl: 'app/header/src/html/header.html'
       }
     }

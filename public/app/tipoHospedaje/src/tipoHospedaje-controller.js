@@ -8,8 +8,13 @@ angular.module('tipoHospedaje').controller(
       console.log('se cargó el controller tipoHospedajeController');
 
       $scope.tipoHospedaje = {}; // modelo a completarse con el formulario.
-      $scope.tiposDeHospedaje = {};
+      $scope.tiposDeHospedaje = [];
       $scope.tipoHospedajeSeleccionado = false;
+      
+      [{
+        'uri': '/sarsa',
+        'nombre': 
+      }]
 
       // guardar Tipo de Hospedaje
       $scope.guardarTipoHosp = function () {
@@ -33,10 +38,13 @@ angular.module('tipoHospedaje').controller(
         console.log('se solicitan los tipos guardados:-----------');
         console.log(JSON.stringify($scope.tiposDeHospedaje));
 
-        couchinnService.obtenerTiposDeHospedaje($scope.tiposDeHospedaje)
+        couchinnService.obtenerTiposDeHospedaje()
           .then(function (tiposDeHospedaje) {
             console.log('se obtuvieron los tipos: ----------------');
             console.log(JSON.stringify(tiposDeHospedaje));
+            $scope.tiposDeHospedaje = tiposDeHospedaje;
+            console.log($scope.tiposDeHospedaje);
+
           })
           .catch(function (error) {
 

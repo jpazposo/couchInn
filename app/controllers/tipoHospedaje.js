@@ -57,10 +57,12 @@ router.get('/tiposDeHospedaje', function (req, res, next) {
 
   return TipoHospedaje.find({})
     // Caso de éxito
-    .then(function (error, tiposDeHospedaje) {
-        if (error)
-          res.status(412).json({"error": "Error en la lectura de los tipos de Hospedaje"});
-        res.json(tiposDeHospedaje);
+    .then(function (tiposDeHospedajes) {
+        console.log(tiposDeHospedajes);
+        res.json(
+          {
+            data: tiposDeHospedajes
+          });
       }
       //Caso de error
     ).catch(function (err) {

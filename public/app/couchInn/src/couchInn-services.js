@@ -29,7 +29,9 @@ angular.module('couchinn').service(
 
             return $resource(
               apiPath + 'tiposDeHospedaje'
-            ).send(tiposDeHospedaje).$promise;
+            ).get(tiposDeHospedaje).$promise.then(function (response) {
+              return response.data;
+            });
 
           };
 
