@@ -20,9 +20,11 @@ angular.module('login').controller(
                 username: $scope.username,
                 password: $scope.password
             }).then(function (user) {
-
               couchinnService.setUser(user);
               $location.path('/user-logged/' + user.nombre);
+            }).catch(function (err) {
+              alert("Usuario Inexistente, vuelve a intentar");
+              $scope.username = $scope.password = '';
             });
           };
         }
