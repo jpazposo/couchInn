@@ -4,12 +4,16 @@ var mongoose = require('mongoose'),
   SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
-  nombre: String,
-  apellido: String,
-  email: String,
-  nacimiento: String,
+  nombre: { type: String, required: true },
+  apellido: { type: String, required: true },
+  email: { type: String, required: true },
+  nacimiento: { type: String, required: true },
   username: { type: String, required: true, index: { unique: true } },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  address: String,
+  tel: String,
+  profile: String,
+  adds: Boolean
 });
 
 UserSchema.pre('save', function(next) {

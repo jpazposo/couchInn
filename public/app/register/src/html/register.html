@@ -1,32 +1,65 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 
-<form name="userForm">
+<form name="form" id="form">
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>First name</label>
-      <input ng-model="user.nombre">
+      <input ng-model="user.nombre" name="nombre" ng-required="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Apellido</label>
-      <input ng-model="user.apellido">
+      <input ng-model="user.apellido" ng-required="true" name="apellido">
     </md-input-container>
-    <md-datepicker ng-model="user.nacimiento" md-placeholder="Nacimiento" >
+    <md-datepicker ng-model="user.nacimiento"
+                   md-placeholder="Nacimiento" >
     </md-datepicker>
   </div>
 
   <div layout-gt-sm="row">
-    <md-input-container class="md-block">
+    <md-input-container class="md-block" flex-gt-sm>
       <label>Email</label>
-      <input ng-model="user.email">
+      <input ng-model="user.email" type="email" ng-required="true" name="email">
     </md-input-container>
     <div layout-gt-sm="row">
       <md-input-container class="md-block" flex-gt-sm>
         <label>password</label>
-        <input ng-model="user.password">
+        <input ng-model="user.password" type="password" ng-required="true" name="password">
       </md-input-container>
     </div>
   </div>
 
-  <md-button ng-disabled="false" ng-click="register()"> Register user </md-button>
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Domicilio</label>
+      <input ng-model="user.address" name="address">
+    </md-input-container>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Teléfono</label>
+        <input ng-model="user.tel" name="tel" type="number">
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout-gt-sm="row">
+
+    <md-input-container>
+      <label>Perfil</label>
+      <md-select ng-model="user.profile" placeholder="Definir un perfil" name="profile">
+        <md-option ng-value="anfitrion" >Anfitrión</md-option>
+        <md-option ng-value="huesped" >Huésped</md-option>
+      </md-select>
+    </md-input-container>
+
+    <div layout-gt-sm="row">
+
+        <label>Recibir publicidad</label>
+        <md-checkbox ng-model="user.adds" aria-label="recibe publicaciones?" name="adds">
+        </md-checkbox>
+
+    </div>
+  </div>
+
+  <md-button ng-disabled="form.$invalid" ng-click="register()"> Register user </md-button>
 
 </form>

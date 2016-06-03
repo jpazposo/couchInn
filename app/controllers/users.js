@@ -21,8 +21,13 @@ router.post('/user', function (req, res, next) {
     email: req.body.email,
     nacimiento: req.body.nacimiento,
     username: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    address: req.body.address || null,
+    tel: req.body.tel || null,
+    profile: req.body.profile || null,
+    adds: req.body.adds || null
   });
+
 
   newUser.save()
     .then(function (user) {
