@@ -17,9 +17,7 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
   var newTipoHospedaje = new TipoHospedaje({
     nombre: req.body.nombre,
-    capacidad: req.body.capacidad,
-    descripcion: req.body.descripcion,
-    direccion: req.body.direccion
+    capacidadMax: req.body.capacidadMax
   });
 
   newTipoHospedaje.save()
@@ -39,13 +37,15 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
 });
 // Read
-router.get('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
+router.get('/buscarTipoHospedaje/:nombreTipoHospedaje :capacidadTipoHospedaje', function (req, res, next) {
 
-  return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje})
+  return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje},{capacidadMax: req.params.capacidadTipoHospedaje})
     // Caso de éxito
     .then(function (tipoHospedaje) {
         if (!tipoHospedaje) res.status(412).json({"error": "Tipo de Hospedaje no Encontrado"});
-        res.json(tipoHospedaje);
+        res.json({
+          data: tipoHospedaje
+        });
       }
       //Caso de error
     ).catch(function (err) {
@@ -83,9 +83,7 @@ router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
 
         tipoHospedaje.nombre = req.body.nombre || tipoHospedaje.nombre;
-        tipoHospedaje.capacidad =  req.body.capacidad || tipoHospedaje.capacidad;
-        tipoHospedaje.descripcion = req.body.descripcion || tipoHospedaje.descripcion;
-        tipoHospedaje.direccion =  req.body.direccion || tipoHospedaje.direccion;
+        tipoHospedaje.capacidadMax =  req.body.capacidadMax || tipoHospedaje.capacidcapacidadMaxad;
 
         tipoHospedaje.save()
 

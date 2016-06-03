@@ -62,6 +62,17 @@ angular.module('couchinn').service(
 
           };
 
+          this.buscarTipoHospedaje = function  (nombreTipoDeHospedaje, capacidadTipoDeHospedaje) {
+
+            return $resource(
+              apiPath + 'buscarTipoHospedaje'
+            ).get(tipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
+              return response.data;
+            });
+
+          };
+
+
         }
     ]
 );

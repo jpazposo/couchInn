@@ -46,13 +46,12 @@ angular.module("couchinn",
                 controller: 'loginController'
               }
             )
-
             .when(
-              '/tipoHospedaje',
-              {
-                templateUrl: 'app/tipoHospedaje/src/html/tipoHospedaje.html',
-                controller: 'tipoHospedajeController'
-              }
+            '/nuevoTipoHospedaje',
+            {
+              templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
+              controller: 'tipoHospedajeController'
+            }
             )
 
             .when(
