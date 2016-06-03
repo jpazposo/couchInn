@@ -1,9 +1,24 @@
 <md-toolbar class="md-medium-tall" >
   <div class="md-toolbar-tools">
     <span flex></span>
+
+
+
+    <md-button
+      ng-repeat="button in buttons"
+      class="md-raised"
+      ng-click="go(button.location)"
+    >
+      {{ button.name }}
+    </md-button>
+
+<!--
     <md-button class="md-raised" ng-click="go('/register')">Registrate</md-button>
     <md-button class="md-raised" ng-click="go('/login')">Iniciar Sesión</md-button>
     <md-button class="md-raised" ng-click="go('/nuevoTipoHospedaje')">Nuevo Tipo de Hospedaje</md-button>
-    <md-button class="md-raised" ng-click="go('/listadoTipoHospedaje')" ng-init="obtenerTiposDeHospedaje()">Listado de Tipos de Hospedaje</md-button>
+    <md-button class="md-raised" ng-click="logout()">Cerrar Sesión</md-button>
+    <md-button class="md-raised" ng-click="go('/tipoHospedaje')">Tipo de Hospedaje</md-button>-->
+
+
   </div>
 </md-toolbar>

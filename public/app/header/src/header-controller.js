@@ -1,12 +1,15 @@
 "use strict";
 angular.module('header').controller(
-    'headerController',
-    [
-        '$scope',
-        '$location',
-        function ($scope, $location) {
-          console.log('se cargó el controller headerController');
-          
-        }
-    ]
+  'headerController',
+  [
+    '$scope',
+    '$location',
+    'couchinnService',
+    function ($scope, $location, couchinnService) {
+      console.log('se cargó el controller headerController');
+
+
+
+    }
+  ]
 );
