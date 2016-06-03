@@ -3,11 +3,17 @@ angular.module('header').directive(
   'couchinnHeader',
   [
     '$location',
-    function ($location) {
+    'couchinnService',
+    function ($location,couchinnService) {
       return {
-        restrict: 'AE',
+        restrict: 'E',
         replace: true,
         link: function ($scope) {
+
+          $scope.logout = function () {
+            couchinnService.logout().then(function () {
+            });
+          };
 
           $scope.go = function ( path ) {
             $location.path( path );

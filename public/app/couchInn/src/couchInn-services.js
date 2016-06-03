@@ -17,6 +17,22 @@ angular.module('couchinn').service(
 
           };
 
+          this.login = function (user) {
+            /**
+             * @param user type JSON{ username: String, password: String }
+             * @return: user
+             */
+            return $resource(
+              apiPath + 'user/login'
+            ).save(user).$promise;
+          };
+
+          this.logout = function () {
+            return $resource(
+              apiPath + 'user/logout'
+            ).get().$promise;
+          };
+
           this.guardarTipoHospedaje = function  (tipoHospedaje) {
 
             return $resource(

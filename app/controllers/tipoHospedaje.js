@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   TipoHospedaje = mongoose.model('TipoHospedaje');
 
+var passport = require('passport');
+
 module.exports = function (app) {
   app.use('/api/', router);
 };
@@ -53,7 +55,7 @@ router.get('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
 });
 // Read All
-router.get('/tiposDeHospedaje', function (req, res, next) {
+router.get('/tiposDeHospedaje', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 
   return TipoHospedaje.find({})
     // Caso de éxito
