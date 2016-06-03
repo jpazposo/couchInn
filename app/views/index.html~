@@ -10,7 +10,6 @@
 
     <!-- Angular Material CSS -->
     <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.min.css" >
-
     <!--couchInn sources-->
     <link rel="stylesheet" type="text/css" href="app/couchInn/src/stylesheets/couchInn.css" >
 
@@ -67,9 +66,6 @@
       <!--login-->
       <script type="application/javascript" src="app/login/src/login-config.js"></script>
       <script type="application/javascript" src="app/login/src/login-controller.js"></script>
-      <!--tipoHospedaje-->
-      <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-config.js"></script>
-      <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-controller.js"></script>
     <!--modules sources-->
 
   </body>

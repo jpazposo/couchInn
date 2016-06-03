@@ -1,0 +1,30 @@
+{
+  "name": "couchinn",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Luciano Perez Cerra <luchopcerra@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/luchopcerra/couchInn",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-animate": "^1.5.5",
+    "angular-cookies": "^1.5.5",
+    "angular-resource": "^1.5.5",
+    "angular-sanitize": "^1.5.5",
+    "angular-touch": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-material": "^1.0.7",
+    "angular-aria": "^1.5.5",
+    "material-design-icons": "^2.2.3"
+  }
+}

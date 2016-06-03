@@ -7,7 +7,8 @@ angular.module("couchinn",
         'ngResource',
         'header',
         'register',
-        'login'
+        'login',
+        'tipoHospedaje'
     ]
 
 ).config(
@@ -36,6 +37,14 @@ angular.module("couchinn",
               {
                 templateUrl: 'app/login/src/html/login.html',
                 controller: 'loginController'
+              }
+            )
+
+            .when(
+              '/tipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/tipoHospedaje.html',
+                controller: 'tipoHospedajeController'
               }
             )
 

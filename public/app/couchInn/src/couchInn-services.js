@@ -16,6 +16,25 @@ angular.module('couchinn').service(
             ).save(user).$promise;
 
           };
+
+          this.guardarTipoHospedaje = function  (tipoHospedaje) {
+
+            return $resource(
+              apiPath + 'tipoHospedaje'
+            ).save(tipoHospedaje).$promise;
+
+          };
+
+          this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
+
+            return $resource(
+              apiPath + 'tiposDeHospedaje'
+            ).get(tiposDeHospedaje).$promise.then(function (response) {
+              return response.data;
+            });
+
+          };
+
         }
     ]
 );
