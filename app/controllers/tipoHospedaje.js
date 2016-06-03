@@ -37,7 +37,7 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
 });
 // Read
-router.get('/buscarTipoHospedaje/:nombreTipoHospedaje :capacidadTipoHospedaje', function (req, res, next) {
+router.get('/buscarTipoHospedaje/:nombreTipoHospedaje/:capacidadTipoHospedaje', function (req, res, next) {
 
   return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje},{capacidadMax: req.params.capacidadTipoHospedaje})
     // Caso de éxito
@@ -55,7 +55,7 @@ router.get('/buscarTipoHospedaje/:nombreTipoHospedaje :capacidadTipoHospedaje', 
 
 });
 // Read All
-router.get('/tiposDeHospedaje', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+router.get('/tiposDeHospedaje', function (req, res, next) {
 
   return TipoHospedaje.find({})
     // Caso de éxito
