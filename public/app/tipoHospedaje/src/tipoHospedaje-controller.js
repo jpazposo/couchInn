@@ -11,6 +11,7 @@ angular.module('tipoHospedaje').controller(
       $scope.tiposDeHospedaje = [];
       $scope.tipoHospedajeSeleccionado = false;
       $scope.error1 = false;
+      $scope.tipoHospedajeEncontrado = {};
 
      // [{
       //  'uri': '/sarsa',
@@ -22,18 +23,20 @@ angular.module('tipoHospedaje').controller(
         console.log('se va a guardar el tipo de hospedaje:-----------');
         console.log(JSON.stringify($scope.tipoHospedaje));
 
+        $scope.tipoHospedajeEncontrado = couchinnService.buscarTipoHospedaje();
 
-          couchinnService.guardarTipoHospedaje($scope.tipoHospedaje)
-            .then(function (tipoHospedaje) {
-              console.log('se guardo correctamente : ----------------');
-              console.log(JSON.stringify(tipoHospedaje));
-            })
-            .catch(function (error) {
+          if (!$scope.tipoHospedajeEncontrado) {
+            couchinnService.guardarTipoHospedaje($scope.tipoHospedaje)
+              .then(function (tipoHospedaje) {
+                console.log('se guardo correctamente : ----------------');
+                console.log(JSON.stringify(tipoHospedaje));
+              })
+              .catch(function (error) {
 
-              // code 11000 means user already exist
-              console.log(error);
-            });
-
+                // code 11000 means user already exist
+                console.log(error);
+              });
+          } else {$scope.error1 = true;}
 
       };
 
