@@ -4,7 +4,8 @@ angular.module('tipoHospedaje').controller(
   [
     '$scope',
     'couchinnService',
-    function ($scope, couchinnService) {
+    '$location',
+    function ($scope, couchinnService, $location) {
       console.log('se cargó el controller tipoHospedajeController');
 
       $scope.tipoHospedaje = {}; // modelo a completarse con el formulario.
@@ -32,6 +33,7 @@ angular.module('tipoHospedaje').controller(
           .then(function (tipoHospedaje) {
             console.log('se guardo correctamente : ----------------');
             console.log(JSON.stringify(tipoHospedaje));
+            $location.path('/');
           })
           .catch(function (error) {
 

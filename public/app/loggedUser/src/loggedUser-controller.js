@@ -27,11 +27,8 @@ angular.module('loggedUser').controller(
             {
               location: '/logout',
               name: 'Cerrar Sesión'
-            },
-            {
-              location:'/updateUser',
-              name: 'Modificar Usuario'
             }
+
           ];
 
         }
