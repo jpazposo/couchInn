@@ -2,7 +2,8 @@ angular.module('couchinn').service(
     'couchinnService',
     [
         '$resource',
-        function ($resource) {
+        'store',
+        function ($resource, store) {
 
           var apiPath = "/api/";
 
@@ -33,7 +34,9 @@ angular.module('couchinn').service(
              */
             return $resource(
               apiPath + 'user-action/login'
-            ).save(user).$promise;
+            ).save(user).$promise.then(function (jwt) {
+              store.set('token', jwt.token);
+            });
 
           };
 

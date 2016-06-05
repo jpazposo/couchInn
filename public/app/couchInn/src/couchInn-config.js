@@ -5,23 +5,21 @@ angular.module("couchinn",
         'ngMaterial',
         'ngAria',
         'ngResource',
-        'angular-jwt',
         'header',
         'register',
         'login',
         'tipoHospedaje',
-        'loggedUser'
+        'loggedUser',
+        'ajaxInterceptor',
+        'angular-storage'
     ]
 
 ).config(
     [
         '$routeProvider',
-        function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
+        function ($routeProvider) {
 
-          /*jwtInterceptorProvider.tokenGetter = function(config) {
-              return localStorage.getItem('id_token');
-          };
-          $httpProvider.interceptors.push('jwtInterceptor');*/
+
 
           $routeProvider
             .when(
