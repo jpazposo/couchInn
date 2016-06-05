@@ -13,7 +13,8 @@ var UserSchema = new Schema({
   address: String,
   tel: String,
   profile: String,
-  adds: Boolean
+  adds: Boolean,
+  role: String
 });
 
 UserSchema.pre('save', function(next) {
@@ -37,12 +38,18 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-  console.log('compare Password Method');
-  console.log('candidato: ' + candidatePassword);
-  console.log('pass : ' + this.password);
-  return bcrypt.compareSync(candidatePassword, this.password);
+UserSchema.methods.comparePassword = function(candidatePassword) {
+  return new Promise((resolve, reject)=>{
+    bcrypt.compare(candidatePassword, this.password, (err, result)=>{
+        if(err){
+          reject(err);
+          return;
+        }
+
+        resolve(resolve);
+    });
+
+  });
 };
 
 module.exports = mongoose.model('User', UserSchema);
-
