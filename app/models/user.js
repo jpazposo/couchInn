@@ -3,14 +3,17 @@ var mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
   SALT_WORK_FACTOR = 10;
 
-
 var UserSchema = new Schema({
-  nombre: String,
-  apellido: String,
-  email: String,
-  nacimiento: String,
+  nombre: { type: String, required: true },
+  apellido: { type: String, required: true },
+  email: { type: String, required: true },
+  nacimiento: { type: String, required: true },
   username: { type: String, required: true, index: { unique: true } },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  address: String,
+  tel: String,
+  profile: String,
+  adds: Boolean
 });
 
 UserSchema.pre('save', function(next) {
@@ -35,10 +38,10 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
+  console.log('compare Password Method');
+  console.log('candidato: ' + candidatePassword);
+  console.log('pass : ' + this.password);
+  return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 module.exports = mongoose.model('User', UserSchema);

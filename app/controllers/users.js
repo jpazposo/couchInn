@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   User = mongoose.model('User');
 
+var passport = require('passport');
+
 module.exports = function (app) {
   app.use('/api/', router);
 };
@@ -19,8 +21,13 @@ router.post('/user', function (req, res, next) {
     email: req.body.email,
     nacimiento: req.body.nacimiento,
     username: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    address: req.body.address || null,
+    tel: req.body.tel || null,
+    profile: req.body.profile || null,
+    adds: req.body.adds || null
   });
+
 
   newUser.save()
     .then(function (user) {
@@ -127,4 +134,34 @@ router.delete('/user/:username', function (req, res, next) {
     });
 
 
+});
+
+
+
+router.post('/user-action/login', passport.authenticate('local', { session: true}), function (req, res) {
+
+
+  console.log('se logueo con exito');
+
+  res.json(req.user);
+
+
+  /*  // test a matching password
+   user.comparePassword(req.body.password, function(err, isMatch) {
+   if (err) throw err;
+   console.log(req.body.password, isMatch); // -> Password123: true
+   });
+
+   // test a failing password
+   user.comparePassword(req.body.password, function(err, isMatch) {
+   if (err) throw err;
+   console.log(req.body.password, isMatch); // -> 123Password: false
+   });*/
+
+
+});
+
+router.get('/user-action/logout', function(req, res){
+  req.logout();
+  res.render('index');
 });

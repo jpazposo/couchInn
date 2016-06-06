@@ -13,10 +13,16 @@ angular.module('tipoHospedaje').controller(
       $scope.error1 = false;
       $scope.tipoHospedajeEncontrado = {};
 
-     // [{
-      //  'uri': '/sarsa',
-     //   'nombre':
-     // }]
+      $scope.headerButtons = [
+        {
+          location: '/listadoTipoHospedaje',
+          name: 'Listar Tipos de Hospedaje'
+        },
+        {
+          location: '/nuevoTipoHospedaje',
+          name: 'Agregar Tipo de Hospedaje'
+        }
+      ];
 
       // guardar Tipo de Hospedaje
       $scope.guardarTipoHosp = function () {

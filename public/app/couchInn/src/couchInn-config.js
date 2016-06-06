@@ -5,16 +5,23 @@ angular.module("couchinn",
         'ngMaterial',
         'ngAria',
         'ngResource',
+        'angular-jwt',
         'header',
         'register',
         'login',
-        'tipoHospedaje'
+        'tipoHospedaje',
+        'loggedUser'
     ]
 
 ).config(
     [
         '$routeProvider',
-        function ($routeProvider) {
+        function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
+
+          /*jwtInterceptorProvider.tokenGetter = function(config) {
+              return localStorage.getItem('id_token');
+          };
+          $httpProvider.interceptors.push('jwtInterceptor');*/
 
           $routeProvider
             .when(
@@ -47,6 +54,21 @@ angular.module("couchinn",
             }
             )
 
+            .when(
+              '/user-logged/:user',
+              {
+                templateUrl: 'app/loggedUser/src/html/loggedUser.html',
+                controller: 'loggedUserController'
+              }
+            )
+
+            .when(
+              '/listadoTipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
+                controller: 'tipoHospedajeController'
+              }
+            )
             .otherwise(
             {
               redirectTo: '/404'

@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   TipoHospedaje = mongoose.model('TipoHospedaje');
 
+var passport = require('passport');
+
 module.exports = function (app) {
   app.use('/api/', router);
 };
@@ -35,7 +37,7 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
 });
 // Read
-router.get('/buscarTipoHospedaje/:nombreTipoHospedaje :capacidadTipoHospedaje', function (req, res, next) {
+router.get('/buscarTipoHospedaje/:nombreTipoHospedaje/:capacidadTipoHospedaje', function (req, res, next) {
 
   return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje},{capacidadMax: req.params.capacidadTipoHospedaje})
     // Caso de éxito
