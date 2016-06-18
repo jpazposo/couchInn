@@ -66,7 +66,7 @@ angular.module('couchinn').service(
 
             return $resource(
               apiPath + 'buscarTipoHospedaje'
-            ).get(tipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
+            ).get(nombreTipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
               return response.data;
             });
 
