@@ -7,7 +7,7 @@ let express = require('express'),
 var passport = require('passport');
 
 module.exports = function (app) {
-  app.use('/api/', router);
+  app.use('/admin/', router);
 };
 
 /**

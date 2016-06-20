@@ -5,8 +5,9 @@ angular.module('login').controller(
         '$scope',
         'couchinnService',
         '$location',
-      '$mdDialog',
-        function ($scope, couchinnService, $location, $mdDialog) {
+        'jwtHelper',
+        '$mdDialog',
+        function ($scope, couchinnService, $location, jwtHelper, $mdDialog) {
           console.log('se cargó el controller loginController');
 
           $scope.headerButtons = [
@@ -20,7 +21,8 @@ angular.module('login').controller(
             couchinnService.login({
                 username: $scope.username,
                 password: $scope.password
-            }).then(function (user) {
+            }).then(function (token) {
+              var user = jwtHelper.decodeToken(token);
               couchinnService.setUser(user);
               $location.path('/user-logged/' + user.nombre);
             }).catch(function (err) {

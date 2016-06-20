@@ -14,7 +14,7 @@ angular.module('ajaxInterceptor', [])
                         'request': function (config) {
                           config.headers = config.headers || {};
                           if (store.get('token')) {
-                            config.headers.Authorization = 'Bearer ' + store.get('token');
+                            config.headers.Authorization = store.get('token');
                           }
                           return config;
                         }
