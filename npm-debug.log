@@ -1,6 +1,6 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/home/luciano/.nvm/versions/node/v6.1.0/bin/node',
-1 verbose cli   '/home/luciano/.nvm/versions/node/v6.1.0/bin/npm',
+1 verbose cli   '/home/luciano/.nvm/versions/node/v6.1.0/lib/node_modules/npm/bin/npm-cli.js',
 1 verbose cli   'start' ]
 2 info using npm@3.8.6
 3 info using node@v6.1.0
@@ -9,7 +9,7 @@
 6 silly lifecycle couchinn@0.0.1~prestart: no script for prestart, continuing
 7 info lifecycle couchinn@0.0.1~start: couchinn@0.0.1
 8 verbose lifecycle couchinn@0.0.1~start: unsafe-perm in lifecycle true
-9 verbose lifecycle couchinn@0.0.1~start: PATH: /home/luciano/.nvm/versions/node/v6.1.0/lib/node_modules/npm/bin/node-gyp-bin:/home/luciano/repos/couchInn/node_modules/.bin:/home/luciano/.nvm/versions/node/v6.1.0/bin:/home/luciano/.nvm/versions/node/v6.1.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+9 verbose lifecycle couchinn@0.0.1~start: PATH: /home/luciano/.nvm/versions/node/v6.1.0/lib/node_modules/npm/bin/node-gyp-bin:/home/luciano/repos/couchInn/node_modules/.bin:/home/luciano/.nvm/versions/node/v6.1.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 10 verbose lifecycle couchinn@0.0.1~start: CWD: /home/luciano/repos/couchInn
 11 silly lifecycle couchinn@0.0.1~start: Args: [ '-c', 'node app.js' ]
 12 silly lifecycle couchinn@0.0.1~start: Returned: code: 1  signal: null
@@ -26,8 +26,8 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid couchinn@0.0.1
 16 verbose cwd /home/luciano/repos/couchInn
-17 error Linux 4.4.0-24-generic
-18 error argv "/home/luciano/.nvm/versions/node/v6.1.0/bin/node" "/home/luciano/.nvm/versions/node/v6.1.0/bin/npm" "start"
+17 error Linux 4.6.2-1-ARCH
+18 error argv "/home/luciano/.nvm/versions/node/v6.1.0/bin/node" "/home/luciano/.nvm/versions/node/v6.1.0/lib/node_modules/npm/bin/npm-cli.js" "start"
 19 error node v6.1.0
 20 error npm  v3.8.6
 21 error code ELIFECYCLE
