@@ -15,6 +15,8 @@ angular.module('couchinn').service(
              * @param user type JSON{ nombre: String, Apellido: String, email:String, nacimiento: String, password: String }
              * @return: user
              */
+
+            user.username = user.email; // Esto es una decision arbitriaria de la aplicación, el username es el email.
             return $resource(
                '/register'
             ).save(user).$promise;
