@@ -3,7 +3,8 @@ angular.module('buscar').controller(
     'buscarController',
     [
         '$scope',
-        function ($scope) {
+        'buscarService',
+        function ($scope, buscarService) {
           console.log('se cargó el controller buscarController');
 
           $scope.headerButtons = [
@@ -16,6 +17,15 @@ angular.module('buscar').controller(
               name: 'Iniciar Sesión'
             }
           ];
+          
+          $scope.searchFilter = {};
+          $scope.resultList = []:
+          
+          $scope.search = function () {
+            buscarService.buscarPublicaciones(searchFilter)
+              .then((result)=> $scope.resultList = result)
+              .catch((err)=> console.log(err));
+          };
           
           
           
