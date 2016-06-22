@@ -1,4 +1,4 @@
-let express = require('express'),
+var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
@@ -10,29 +10,27 @@ module.exports = function (app) {
 
 router.post('/register', function (req, res) {
   User.create(req.body)
-      .then((user) => res.status(201).json(user))
-      .catch((err) => res.status(500).json({ err: err }));
+      .then(function(user){ res.status(201).json(user)})
+      .catch(function(err){ res.status(500).json({ err: err })});
 });
 
 router.post('/login', function (req, res) {
-  let uss;
+  var uss;
 
   User.findOne({username: req.body.username})
-      .then((user) => {
+      .then(function(user){
         if(!user){
           throw { message: "User not found" };
         }
         uss = user;
         return user.comparePassword(req.body.password);
       })
-      .then((result)=>{
+      .then(function(result){
         if(!result){
           res.status(403).json({});
           return;
         }
-
-
-        let token = jwt.sign({
+        var token = jwt.sign({
           id: uss._id,
           username: uss.username,
           nombre: uss.nombre,
@@ -46,7 +44,7 @@ router.post('/login', function (req, res) {
         });
 
       })
-      .catch((err) => {
+      .catch(function(err){
         console.error(err);
         res.status(412).json({err: err});
     });

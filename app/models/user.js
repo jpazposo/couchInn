@@ -39,16 +39,14 @@ UserSchema.pre('save', function(next) {
 });
 
 UserSchema.methods.comparePassword = function(candidatePassword) {
-  return new Promise((resolve, reject)=>{
-    bcrypt.compare(candidatePassword, this.password, (err, result)=>{
+  return new Promise(function(resolve, reject){
+    bcrypt.compare(candidatePassword, this.password, function(err, result){
         if(err){
           reject(err);
           return;
         }
-
         resolve(resolve);
     });
-
   });
 };
 
