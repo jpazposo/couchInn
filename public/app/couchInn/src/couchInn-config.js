@@ -63,12 +63,28 @@ angular.module("couchinn",
             )
 
             .when(
+              '/actualizar-perfil',
+              {
+                templateUrl: 'app/register/src/html/register.html',
+                controller: 'editController'
+              }
+            )
+
+            .when(
               '/listadoTipoHospedaje',
               {
                 templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
                 controller: 'tipoHospedajeController'
               }
             )
+            .when(
+              '/updateUser',
+              {
+                templateUrl: 'app/updateUser/src/html/updateUser.html',
+                controller: 'updateUserController'
+              }
+            )
+
             .otherwise(
             {
               redirectTo: '/404'

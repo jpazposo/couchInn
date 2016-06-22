@@ -1,0 +1,15 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+
+<form name="userForm">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre</label>
+      <input ng-model="user.nombre">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Apellido</label>
+      <input ng-model="user.apellido">
+    </md-input-container>
+  </div>
+  <md-button ng-click="updateUser({{user.username}})"> Actualizar user </md-button>
+</form>

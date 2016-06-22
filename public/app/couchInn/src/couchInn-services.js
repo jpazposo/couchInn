@@ -19,6 +19,13 @@ angular.module('couchinn').service(
 
           };
 
+          this.editUser = function (user) {
+
+            return $resource(
+              apiPath + 'update/user'
+            ).save(user).$promise;
+          };
+
           this.login = function (user) {
             /**
              * @param user type JSON{ username: String, password: String }
@@ -44,33 +51,6 @@ angular.module('couchinn').service(
             this.user = user;
           };
 
-          this.guardarTipoHospedaje = function  (tipoHospedaje) {
-
-            return $resource(
-              apiPath + 'tipoHospedaje'
-            ).save(tipoHospedaje).$promise;
-
-          };
-
-          this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
-
-            return $resource(
-              apiPath + 'tiposDeHospedaje'
-            ).get(tiposDeHospedaje).$promise.then(function (response) {
-              return response.data;
-            });
-
-          };
-
-          this.buscarTipoHospedaje = function  (nombreTipoDeHospedaje, capacidadTipoDeHospedaje) {
-
-            return $resource(
-              apiPath + 'buscarTipoHospedaje'
-            ).get(nombreTipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
-              return response.data;
-            });
-
-          };
 
 
         }

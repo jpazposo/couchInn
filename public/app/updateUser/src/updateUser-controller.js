@@ -1,12 +1,12 @@
 "use strict";
-angular.module('loggedUser').controller(
-    'loggedUserController',
-    [
+angular.module('updateUser').controller(
+    'updateUserController',
+ [
         '$scope',
         'couchinnService',
         '$location',
         function ($scope, couchinnService, $location) {
-          console.log('se cargó el controller loggedUserController');
+          console.log('se cargó el controller updateUserController');
 
           $scope.user = couchinnService.getUser();
 
@@ -17,20 +17,19 @@ angular.module('loggedUser').controller(
               name: 'Nuevo Tipo de Hospedaje'
             },
             {
-              location: '/listadoTipoHospedaje',
-              name: 'Listar Tipos de Hospedaje'
-            },
-            {
-              location: '/actualizar-perfil',
-              name: 'Modificar mis datos'
+              location: '/tipoHospedaje',
+              name: 'Tipo de Hospedaje'
             },
             {
               location: '/logout',
               name: 'Cerrar Sesión'
+            },
+            {
+              location:'/updateUser',
+              name: 'Modificar Usuario'
             }
+         ];
 
-          ];
-
-        }
-    ]
+      }
+ ]
 );

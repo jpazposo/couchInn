@@ -37,9 +37,9 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
 });
 // Read
-router.get('/buscarTipoHospedaje/:nombreTipoHospedaje/:capacidadTipoHospedaje', function (req, res, next) {
+router.get('/buscarTipoHospedaje/:nombre/:capacidadMax', function (req, res, next) {
 
-  return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje},{capacidadMax: req.params.capacidadTipoHospedaje})
+  return TipoHospedaje.findOne({nombre : req.params.nombre, capacidadMax : req.params.capacidadMax})
     // Caso de éxito
     .then(function (tipoHospedaje) {
         if (!tipoHospedaje) res.status(412).json({"error": "Tipo de Hospedaje no Encontrado"});
@@ -50,6 +50,56 @@ router.get('/buscarTipoHospedaje/:nombreTipoHospedaje/:capacidadTipoHospedaje', 
       //Caso de error
     ).catch(function (err) {
       console.error(err);
+      res.status(500).json(err);
+    });
+
+});
+
+// Buscar por nombre
+router.get('/buscarTipoHospedaje/:nombreTipoHospedaje/:capacidadTipoHospedaje', function (req, res, next) {
+  console.log("router.get('/buscarTipoHospedajePorNombre'");
+  return TipoHospedaje.findOne({nombre : req.params.nombreTipoHospedaje,
+    capacidadMax : req.params.capacidadTipoHospedaje})
+    // Caso de éxito
+    .then(function (tipoHospedaje) {
+        if (!tipoHospedaje) res.status(412).json({"error": "Tipo de Hospedaje no Encontrado"});
+        res.json({
+          data: tipoHospedaje
+        });
+      }
+      //Caso de error
+    ).catch(function (err) {
+      console.error(err);
+      console.log("estoy en tipoHopedaje.js");
+      res.status(500).json(err);
+    });
+
+});
+
+
+
+
+
+
+
+
+
+// Buscar por nombre
+router.get('/buscarTipoHospedajePorNombre', function (req, res, next) {
+  console.log("router.get('/buscarTipoHospedajePorNombre'");
+  return TipoHospedaje.findOne({nombre : "casa"})
+    // Caso de éxito
+    .then(function (tipoHospedaje) {
+        console.log("Sin error pero no encotrado");
+        if (!tipoHospedaje) res.status(412).json({"error": "Tipo de Hospedaje no Encontrado"});
+        res.json({
+          data: tipoHospedaje
+        });
+      }
+      //Caso de error
+    ).catch(function (err) {
+      console.error(err);
+      console.log("estoy en tipoHopedaje.js");
       res.status(500).json(err);
     });
 

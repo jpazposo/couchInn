@@ -25,14 +25,17 @@
 
 
 
- <md-content layout="column" flex>
-   <div flex layout="column">
-     <div ng-if="" style="background-color:SteelBlue;color:white;"></div>
-   </div>
-   <footer flex="none" style="background-color:orange;color:white;">
-     <div>footer item</div>
-   </footer>
- </md-content>
+    <md-content layout="column" flex>
+      <div flex layout="column">
+        <div ng-if="" style="background-color:SteelBlue;color:white;"></div>
+      </div>
+      <footer flex="none" style="background-color:orange;color:white;">
+        <div> Para mas informacion contactenos a
+          <a href="mailto:couchinn@gmail.com"> couchinn@gmail.com</a><br>
+          <small>Copyright © 2016 Couchinn </small>
+        </div>
+      </footer>
+    </md-content>
 
     <!--angular sources-->
     <script type="application/javascript" src="components/angular/angular.min.js"></script>
@@ -65,13 +68,15 @@
       <!--register-->
       <script type="application/javascript" src="app/register/src/register-config.js"></script>
       <script type="application/javascript" src="app/register/src/register-controller.js"></script>
+      <script type="application/javascript" src="app/register/src/edit-controller.js"></script>
       <!--login-->
       <script type="application/javascript" src="app/login/src/login-config.js"></script>
       <script type="application/javascript" src="app/login/src/login-controller.js"></script>
       <!--tipoHospedaje-->
       <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-config.js"></script>
       <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-controller.js"></script>
-      <!--logged user-->
+      <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-services.js"></script>
+    <!--logged user-->
       <script type="application/javascript" src="app/loggedUser/src/loggedUser-config.js"></script>
       <script type="application/javascript" src="app/loggedUser/src/loggedUser-controller.js"></script>
     <!--modules sources-->

@@ -8,10 +8,11 @@
   </div>
 
     <div class="col-sm-6 col-sm-offset-1 text-center">
-      <table class="table table-striped">
+
+      <table class="table table-striped" border="1">
         <tr class="info">
-          <td>Nombre</td>
-          <td>Capacidad Máxima</td>
+          <th>Nombre</th>
+          <th>Capacidad Máxima</th>
         </tr>
         <tr ng-repeat="tipoHos in tiposDeHospedaje" ng-click="">
           <td>  {{ tipoHos.nombre }}  </td>
