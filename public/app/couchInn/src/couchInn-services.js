@@ -2,9 +2,11 @@ angular.module('couchinn').service(
     'couchinnService',
     [
         '$resource',
-        function ($resource) {
+        'store',
+        function ($resource, store) {
 
           var apiPath = "/api/";
+          var adminPath = "/admin/";
 
           var user = {};
 
@@ -13,8 +15,10 @@ angular.module('couchinn').service(
              * @param user type JSON{ nombre: String, Apellido: String, email:String, nacimiento: String, password: String }
              * @return: user
              */
+
+            user.username = user.email; // Esto es una decision arbitriaria de la aplicación, el username es el email.
             return $resource(
-              apiPath + 'user'
+               '/register'
             ).save(user).$promise;
 
           };
@@ -22,7 +26,7 @@ angular.module('couchinn').service(
           this.editUser = function (user) {
 
             return $resource(
-              apiPath + 'update/user'
+              adminPath + 'update/user'
             ).save(user).$promise;
           };
 
@@ -32,14 +36,17 @@ angular.module('couchinn').service(
              * @return: user
              */
             return $resource(
-              apiPath + 'user-action/login'
-            ).save(user).$promise;
+              '/login'
+            ).save(user).$promise.then(function (jwt) {
+              store.set('token', jwt.token);
+              return jwt.token;
+            });
 
           };
 
           this.logout = function () {
             return $resource(
-              apiPath + 'user-action/logout'
+               '/user-action/logout'
             ).get().$promise;
           };
 
@@ -51,6 +58,33 @@ angular.module('couchinn').service(
             this.user = user;
           };
 
+          this.guardarTipoHospedaje = function  (tipoHospedaje) {
+
+            return $resource(
+              adminPath + 'tipoHospedaje'
+            ).save(tipoHospedaje).$promise;
+
+          };
+
+          this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
+
+            return $resource(
+              adminPath + 'tiposDeHospedaje'
+            ).get(tiposDeHospedaje).$promise.then(function (response) {
+              return response.data;
+            });
+
+          };
+
+          this.buscarTipoHospedaje = function  (nombreTipoDeHospedaje, capacidadTipoDeHospedaje) {
+
+            return $resource(
+              adminPath + 'buscarTipoHospedaje'
+            ).get(tipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
+              return response.data;
+            });
+
+          };
 
 
         }

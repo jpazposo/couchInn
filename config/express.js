@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var jwt = require('jsonwebtoken');
 
 var passport = require('passport');
 /*var JwtStrategy = require('passport-jwt').Strategy,
@@ -19,6 +20,37 @@ opts.secretOrKey = 'secret';*/
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+
+
+var hasPermission = function (rol, url) {
+  /**
+  ** @param rol ('admin' | 'user' | 'anonymous')
+  ** @param url : ( /admin/(..) /user-action/(..))
+  ** @return Boolean
+  */
+  var userPattern = new RegExp("\/user-action\/*|^\/$");
+  var adminPattern = new RegExp("\/admin\/*|^\/$");
+  var anonymousPattern = new RegExp("^\/login$|^\/register$|^\/$");
+
+  var result = false;
+
+  switch (rol) {
+    case 'admim':
+      result = adminPattern.test(url); // @todo review reg exp
+      break;
+    case 'user':
+      result = userPattern.test(url); // @todo review reg exp
+      break;
+    case 'anonymous':
+      result = anonymousPattern.test(url); // @todo review reg exp
+      break;
+    default:
+      result = true;
+  }
+
+  return result;
+
+};
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -42,47 +74,41 @@ module.exports = function(app, config) {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
-  app.use(passport.initialize());
-  app.use(passport.session());
 
-  passport.serializeUser(function(user, cb) {
-    cb(null, user.username);
-  });
-
-  passport.deserializeUser(function(id, cb) {
-    User.findById(id, function (err, user) {
-      if (err) { return cb(err); }
-      cb(null, user);
-    });
-  });
-
-/*  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    return done(null, {  });
-    console.log('JwtStrategy');
-    User.findOne({id: jwt_payload.sub}, function(err, user) {
-      console.log(err);
-      console.log(user);
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      console.log(user.comparePassword(password));
-      if (!user.comparePassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }));*/
-
-  passport.use(new LocalStrategy(
-    function(username, password, done) {
-      User.findOne({ username: username }, function (err, user) {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        console.log(user.comparePassword(password));
-        if (!user.comparePassword(password)) { return done(null, false); }
-        return done(null, user);
-      });
+  app.use(function authenticate(req, res, next) {
+    console.log('pasó por authenticate');
+    token = req.headers.authorization;
+    try {
+      var decoded = jwt.verify(token, 'shhhhh');
+      req.role = decoded.role;
+      console.log(decoded);
+    } catch (e) {
+      req.role = 'anonymous'
+    } finally {
+      next();
     }
-  ));
+  });
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  app.use(function checkForPermission(req, res, next){
+    console.log('pasó por checkForPermission ');
+    console.log(req.role);
+    console.log(req.url);
+
+    if (req.role == "admin"){
+      next();
+    }
+    else {
+      if (hasPermission(req.role, req.url)){
+        next();
+      } else {
+        res.sendStatus(403);
+      }
+    }
+  });
+
+
+
+  var controllers = glob.sync(config.root + '/app/controllers/**/*.js');
   controllers.forEach(function (controller) {
     require(controller)(app);
   });

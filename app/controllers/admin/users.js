@@ -1,62 +1,23 @@
-var express = require('express'),
+let express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+  jwt = require('jsonwebtoken');
 
 var passport = require('passport');
 
 module.exports = function (app) {
-  app.use('/api/', router);
+  app.use('/admin/', router);
 };
 
 /**
  * CRUD operations
  */
 // Create
-router.post('/user', function (req, res, next) {
-
-  var newUser = new User({
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    email: req.body.email,
-    nacimiento: req.body.nacimiento,
-    username: req.body.email,
-    password: req.body.password,
-    address: req.body.address || null,
-    tel: req.body.tel || null,
-    profile: req.body.profile || null,
-    adds: req.body.adds || null
-  });
-
-
-  newUser.save()
-    .then(function (user) {
-
-      User.findOne(user).then(function (user) {
-        res.status(201).json(user);
-      }).catch(function (err) {
-        console.error(err);
-        res.status(500).json(err);
-      });
-
-    }).catch(function (err) {
-      console.error(err);
-      res.status(500).json(err);
-    });
-
-
-/*  // test a matching password
-  user.comparePassword(req.body.password, function(err, isMatch) {
-    if (err) throw err;
-    console.log(req.body.password, isMatch); // -> Password123: true
-  });
-
-  // test a failing password
-  user.comparePassword(req.body.password, function(err, isMatch) {
-    if (err) throw err;
-    console.log(req.body.password, isMatch); // -> 123Password: false
-  });*/
-
+router.post('/user', function (req, res) {
+  User.create(req.body)
+      .then((user) => res.status(201).json(user))
+      .catch((err) => res.status(500).json({ err: err }));
 });
 // Read
 router.get('/user/:username', function (req, res, next) {
@@ -138,27 +99,41 @@ router.delete('/user/:username', function (req, res, next) {
 
 
 
-router.post('/user-action/login', passport.authenticate('local', { session: true}), function (req, res) {
+router.post('/user-action/login', function (req, res) {
+  let uss;
+
+  User.findOne({username: req.body.username})
+      .then((user) => {
+        if(!user){
+          throw { message: "User not found" };
+        }
+        uss = user;
+        return user.comparePassword(req.body.password);
+      })
+      .then((result)=>{
+        if(!result){
+          res.status(403).json({});
+          return;
+        }
 
 
-  console.log('se logueo con exito');
+        let token = jwt.sign({
+          id: uss._id,
+          username: uss.username,
+          role: uss.role
+        }, 'shhhhh', {
+          expiresIn: "1h"
+        });
 
-  res.json(req.user);
+        res.json({
+          token: token
+        });
 
-
-  /*  // test a matching password
-   user.comparePassword(req.body.password, function(err, isMatch) {
-   if (err) throw err;
-   console.log(req.body.password, isMatch); // -> Password123: true
-   });
-
-   // test a failing password
-   user.comparePassword(req.body.password, function(err, isMatch) {
-   if (err) throw err;
-   console.log(req.body.password, isMatch); // -> 123Password: false
-   });*/
-
-
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(412).json({err: err});
+    });
 });
 
 router.get('/user-action/logout', function(req, res){
