@@ -1,0 +1,68 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Agregar Publicacion</div>
+<div ng-init="lodgins = obtenerPublicaciones()">
+
+<form name="lodginForm">
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre Publicacion</label>
+      <input ng-model="lodgin.nombre" requerid>
+    </md-input-container>
+  </div>
+
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Descripcion Publicacion</label>
+    <input ng-model="lodgin.descripcion" requerid>
+  </md-input-container>
+
+  <div layout-gt-sm="row">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Tipo de lugar:</label>
+     <md-select ng-model="lodgin.tipo">
+      <md-option ng-value="tipo" ng-repeat="tipo in lodgins.tipos">{{ tipo.nombre }}</md-option>
+    </md-select>
+  </md-input-container>
+
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Capacidad Máxima</label>
+    <input type="number" ng-model="lodgin.capacidadMax" ng-min="1" ng-max="100" ng-required="true" name="capacidadMax">
+  </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input ng-model="lodgin.calle" requerid>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero</label>
+      <input ng-model="lodgin.numero" requerid>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Departamento</label>
+      <input ng-model="lodgin.departamento">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Piso</label>
+      <input ng-model="lodgin.piso">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-datepicker ng-model="lodgin.fechaInicio"
+                   md-placeholder="Desde" >
+    </md-datepicker>
+    <input type="hidden" ng-model="lodgin.fechaInicio" required>
+    <md-datepicker ng-model="lodgin.fechaFin"
+                   md-placeholder="Hasta" >
+    </md-datepicker>
+    <input type="hidden" ng-model="lodgin.fechaFin" required>
+  </div>
+
+  <md-button ng-click="guardarLodgin()" ng-disabled="!lodgin.nombre || !lodgin.descripcion || !lodgin.calle || !lodgin.numero || !lodgin.capacidadMax || !lodgin.fechaInicio || !lodgin.fechaFin" <!-- || !lodgin.tipo "--> Agregar Publicacion </md-button>
+</form>
+

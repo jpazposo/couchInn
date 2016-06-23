@@ -27,6 +27,22 @@ angular.module('loggedUser').controller(
             {
               location: '/logout',
               name: 'Cerrar Sesión'
+            },
+            {
+              location: '/myDonations',
+              name: 'Mis Donaciones'
+            },
+            {
+              location: '/donate',
+              name: 'Donar'
+            },
+            {
+              location: '/myLodgins',
+              name: 'Mis Publicaciones'
+            },
+            {
+              location: '/addLodgin',
+              name: 'Crear Publicacion'
             }
 
           ];

@@ -10,6 +10,8 @@ angular.module("couchinn",
         'login',
         'tipoHospedaje',
         'loggedUser',
+        'lodgin',
+        'donation',
         'ajaxInterceptor',
         'angular-storage'
     ]
@@ -23,12 +25,13 @@ angular.module("couchinn",
 
           $routeProvider
             .when(
-            '/',
-            {
-              templateUrl: 'app/couchInn/src/html/couchinn.html',
-              controller: 'couchInnController'
-            }
-          )
+              '/',
+              {
+                templateUrl: 'app/couchInn/src/html/couchinn.html',
+                controller: 'couchInnController'
+              }
+            )
+
             .when(
               '/register',
               {
@@ -45,11 +48,11 @@ angular.module("couchinn",
               }
             )
             .when(
-            '/nuevoTipoHospedaje',
-            {
-              templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
-              controller: 'tipoHospedajeController'
-            }
+              '/nuevoTipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
+                controller: 'tipoHospedajeController'
+              }
             )
 
             .when(
@@ -77,10 +80,34 @@ angular.module("couchinn",
             )
 
             .when(
-              '/updateUser',
+              '/addLodgin',
               {
-                templateUrl: 'app/updateUser/src/html/updateUser.html',
-                controller: 'updateUserController'
+                templateUrl: 'app/lodgin/src/html/addLodgin.html',
+                controller: 'lodginController'
+              }
+            )
+
+            .when(
+              '/myLodgins',
+              {
+                templateUrl: 'app/lodgin/src/html/myLodgins.html',
+                controller: 'lodginController'
+              }
+            )
+
+            .when(
+              '/myDonations',
+              {
+                templateUrl: 'app/donation/src/html/myDonations.html',
+                controller: 'donationController'
+              }
+            )
+
+            .when(
+              '/donate',
+              {
+                templateUrl: 'app/donation/src/html/donate.html',
+                controller: 'donationController'
               }
             )
 

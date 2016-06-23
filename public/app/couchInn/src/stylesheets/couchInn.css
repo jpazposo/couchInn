@@ -33,3 +33,25 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.logo{
+  top: 0;
+  left: 0;
+  width: 370px;
+}
+
+.heading{
+  font-size: 200%;
+
+}
+.md-button{
+  top: 5px;
+}
+table table-striped{
+  border-style: dotted solid;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}

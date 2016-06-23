@@ -5,6 +5,7 @@ angular.module('tipoHospedaje').controller(
     '$scope',
     'couchinnService',
     '$location',
+    '$mdDialog',
     function ($scope, couchinnService, $location) {
       console.log('se cargó el controller tipoHospedajeController');
 
@@ -21,6 +22,30 @@ angular.module('tipoHospedaje').controller(
         {
           location: '/nuevoTipoHospedaje',
           name: 'Agregar Tipo de Hospedaje'
+        },
+        {
+          location: '/myDonations',
+          name: 'Mis Donaciones'
+        },
+        {
+          location: '/myLodgins',
+          name: 'Mis Publicaciones'
+        },
+        {
+          location: '/actualizar-perfil',
+          name: 'Modificar mis datos'
+        },
+        {
+          location: '/donate',
+          name: 'Donar'
+        },
+        {
+          location: '/addLodgin',
+          name: 'Agregar Publicacion'
+        },
+        {
+          location: '/logout',
+          name: 'Cerrar Sesión'
         }
       ];
 
@@ -33,7 +58,7 @@ angular.module('tipoHospedaje').controller(
           .then(function (tipoHospedaje) {
             console.log('se guardo correctamente : ----------------');
             console.log(JSON.stringify(tipoHospedaje));
-            $location.path('/');
+            $location.path('/listadoTipoHospedaje');
           })
           .catch(function (error) {
 
@@ -58,10 +83,24 @@ angular.module('tipoHospedaje').controller(
           .catch(function (error) {
 
             // code 11000 means user already exist
-            console.log(error);
-          });
-      };
 
-    }
-  ]
+                if (error.data.code == 11000) {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Error al agregar tipo ')
+                      .textContent('El nombre ya esta agregado: ')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Reintentar')
+
+                  );
+                }
+                console.log(error);
+              });
+          }
+
+
+        }
+    ]
 );
