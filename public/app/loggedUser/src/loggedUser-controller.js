@@ -1,36 +1,45 @@
 "use strict";
 angular.module('loggedUser').controller(
-    'loggedUserController',
-    [
-        '$scope',
-        'couchinnService',
-        '$location',
-        function ($scope, couchinnService, $location) {
-          console.log('se cargó el controller loggedUserController');
+  'loggedUserController',
+  [
+    '$scope',
+    'couchinnService',
+    '$location',
+    function ($scope, couchinnService, $location) {
+      console.log('se cargó el controller loggedUserController');
 
-          $scope.user = couchinnService.getUser();
+      $scope.user = couchinnService.getUser();
+
+      if (!$scope.user) $location.url('/login');
 
 
-          $scope.headerButtons = [
-            {
-              location: '/nuevoTipoHospedaje',
-              name: 'Nuevo Tipo de Hospedaje'
-            },
-            {
-              location: '/listadoTipoHospedaje',
-              name: 'Listar Tipos de Hospedaje'
-            },
-            {
-              location: '/actualizar-perfil',
-              name: 'Modificar mis datos'
-            },
-            {
-              location: '/logout',
-              name: 'Cerrar Sesión'
-            }
-
-          ];
-
+      $scope.headerButtons = [
+        {
+          location: '/nuevoTipoHospedaje',
+          name: 'Nuevo Tipo de Hospedaje',
+          rol: 'admin'
+        },
+        {
+          location: '/listadoTipoHospedaje',
+          name: 'Listar Tipos de Hospedaje',
+          rol: 'admin'
+        },
+        {
+          location: '/actualizar-perfil',
+          name: 'Modificar mis datos',
+          rol: 'user'
+        },
+        {
+          location: '/logout',
+          name: 'Cerrar Sesión',
+          rol: 'user'
         }
-    ]
+
+      ].filter(function (button) {
+        if ($scope.user.rol == 'admin') return true;
+        return button.rol == $scope.user.rol;
+      });
+
+    }
+  ]
 );
