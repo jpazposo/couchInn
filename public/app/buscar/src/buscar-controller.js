@@ -19,17 +19,18 @@ angular.module('buscar').controller(
           ];
 
           $scope.searchFilter = {};
-          $scope.resultList = [];
+          $scope.publicaciones = [];
 
           $scope.search = function () {
             buscarService.buscarPublicaciones(searchFilter)
-              .then((result)=> $scope.resultList = result)
-              .catch((err)=> console.log(err));
+              .then(function(publicaciones){
+                $scope.publicaciones = publicaciones;
+                $location.url('/resulados');
+              })
+              .catch(function (err) {
+                console.log(err);
+              });
           };
-
-
-
-
         }
     ]
 );

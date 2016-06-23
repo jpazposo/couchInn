@@ -8,9 +8,9 @@ angular.module("login", ['angular-jwt']).config(
           '/recuperar-clave',
           {
             templateUrl: 'app/login/src/html/recuperar-clave.html',
-            controller: 'couchInnController'
+            controller: 'loginController'
           }
-        )
+        );
     }
   ]
 );
