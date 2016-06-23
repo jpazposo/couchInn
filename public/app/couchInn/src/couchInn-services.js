@@ -16,7 +16,7 @@ angular.module('couchinn').service(
              * @return: user
              */
 
-            user.username = user.email; // Esto es una decision arbitriaria de la aplicación, el username es el email.
+           user.username = user.email; // Esto es una decision arbitriaria de la aplicación, el username es el email.
             return $resource(
                '/register'
             ).save(user).$promise;
@@ -76,15 +76,41 @@ angular.module('couchinn').service(
 
           };
 
-          this.buscarTipoHospedaje = function  (nombreTipoDeHospedaje, capacidadTipoDeHospedaje) {
+          this.addLodgin = function  (lodgin) {
 
             return $resource(
-              adminPath + 'buscarTipoHospedaje'
-            ).get(tipoDeHospedaje, capacidadTipoDeHospedaje).$promise.then(function (response) {
+             apiPath + 'lodgin'
+            ).save(lodgin).$promise;
+
+          };
+
+          this.getLodgins = function  (lodgin) {
+
+            return $resource(
+              apiPath + 'lodgin'
+            ).get(lodgin).$promise.then(function (response) {
               return response.data;
             });
 
           };
+
+          this.addDonation = function  (donation) {
+
+            return $resource(
+             apiPath + 'donation'
+            ).save(donation).$promise;
+
+          };
+
+          this.getDonations = function  (donation) {
+
+            return $resource(
+             apiPath + 'donation'
+             ).get(donation).$promise.then(function (response) {
+             return response.data;
+             });
+
+           };
 
 
         }

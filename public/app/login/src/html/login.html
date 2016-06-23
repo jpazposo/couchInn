@@ -1,13 +1,13 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
-
+<div class="heading">Iniciar Sesion</div>
 <form name="form">
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
-      <label>Username</label>
+      <label>Usuario</label>
       <input ng-model="username" type="email" name="username" required>
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
-      <label>Password</label>
+      <label>Contraseña</label>
       <input ng-model="password" type="password" name="password" required>
     </md-input-container>
   </div>
@@ -15,3 +15,5 @@
   <md-button ng-disabled="form.$invalid" ng-click="login()"> login </md-button>
 
 </form>
+
+<a href="/#recuperar-clave">¿Olvidaste tu clave?</a>

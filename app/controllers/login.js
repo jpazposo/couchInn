@@ -4,6 +4,8 @@ var express = require('express'),
   User = mongoose.model('User'),
   jwt = require('jsonwebtoken');
 
+mongoose.Promise = global.Promise;
+
 module.exports = function (app) {
   app.use('/', router);
 };

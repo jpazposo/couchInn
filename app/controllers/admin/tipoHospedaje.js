@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   TipoHospedaje = mongoose.model('TipoHospedaje');
 
+mongoose.Promise = global.Promise;
+
 var passport = require('passport');
 
 module.exports = function (app) {
@@ -17,7 +19,6 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
   var newTipoHospedaje = new TipoHospedaje({
     nombre: req.body.nombre,
-    capacidadMax: req.body.capacidadMax
   });
 
   newTipoHospedaje.save()
@@ -37,6 +38,7 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
 });
 // Read
+<<<<<<< HEAD
 router.get('/buscarTipoHospedaje/:nombre/:capacidadMax', function (req, res, next) {
 
   return TipoHospedaje.findOne({nombre : req.params.nombre, capacidadMax : req.params.capacidadMax})
@@ -104,6 +106,8 @@ router.get('/buscarTipoHospedajePorNombre', function (req, res, next) {
     });
 
 });
+=======
+>>>>>>> origin/develop
 // Read All
 router.get('/tiposDeHospedaje', function (req, res, next) {
 
@@ -133,7 +137,6 @@ router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
 
         tipoHospedaje.nombre = req.body.nombre || tipoHospedaje.nombre;
-        tipoHospedaje.capacidadMax =  req.body.capacidadMax || tipoHospedaje.capacidcapacidadMaxad;
 
         tipoHospedaje.save()
 

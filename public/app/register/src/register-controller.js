@@ -10,12 +10,18 @@ angular.module('register').controller(
           console.log('se cargó el controller registerController');
 
           $scope.user = {}; // modelo a completarse con el formulario.
-
+          $scope.role= [
+            'Administrador', 'Usuario'
+          ]
 
           $scope.headerButtons = [
             {
               location: '/login',
               name: 'Iniciar Sessión'
+            },
+            {
+              location: '/',
+              name: 'Acerca de'
             }
           ];
 
@@ -54,7 +60,7 @@ angular.module('register').controller(
                       .textContent('Correo Electrónico ya registrado: ')
                       .ariaLabel('Alert Dialog Demo')
                       .ok('Reintentar')
-                      
+
                   );
                 }
                 console.log(error);

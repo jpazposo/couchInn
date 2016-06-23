@@ -1,4 +1,5 @@
-
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Lista de Tipos de Hospedajes</div>
 <div class="container">
 
   <div ng-init="tiposDeHospedaje = dameTiposDeHospedaje()">
@@ -11,12 +12,15 @@
 
       <table class="table table-striped" border="1">
         <tr class="info">
+<<<<<<< HEAD
           <th>Nombre</th>
           <th>Capacidad Máxima</th>
+=======
+          <td>Nombre</td>
+>>>>>>> origin/develop
         </tr>
         <tr ng-repeat="tipoHos in tiposDeHospedaje" ng-click="">
           <td>  {{ tipoHos.nombre }}  </td>
-          <td>  {{ tipoHos.capacidadMax }}  </td>
         </tr>
       </table>
     </div>
