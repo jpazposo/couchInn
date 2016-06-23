@@ -4,6 +4,8 @@ let express = require('express'),
   User = mongoose.model('User'),
   jwt = require('jsonwebtoken');
 
+mongoose.Promise = global.Promise;
+
 var passport = require('passport');
 
 module.exports = function (app) {
