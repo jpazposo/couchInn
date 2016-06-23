@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   TipoHospedaje = mongoose.model('TipoHospedaje');
 
+mongoose.Promise = global.Promise;
+
 var passport = require('passport');
 
 module.exports = function (app) {
