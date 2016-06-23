@@ -7,7 +7,7 @@ angular.module('buscar').directive(
         restrict: 'AE',
         replace: true,
         scope: {
-          
+          data: '='
         },
         link: function () {
 

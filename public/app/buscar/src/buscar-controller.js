@@ -17,19 +17,19 @@ angular.module('buscar').controller(
               name: 'Iniciar Sesión'
             }
           ];
-          
+
           $scope.searchFilter = {};
-          $scope.resultList = []:
-          
+          $scope.resultList = [];
+
           $scope.search = function () {
             buscarService.buscarPublicaciones(searchFilter)
               .then((result)=> $scope.resultList = result)
               .catch((err)=> console.log(err));
           };
-          
-          
-          
-          
+
+
+
+
         }
     ]
 );
