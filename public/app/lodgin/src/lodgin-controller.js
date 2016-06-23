@@ -11,6 +11,7 @@ angular.module('lodgin').controller(
           console.log('se cargó el controller lodginController');
           $scope.lodgin = {}; // modelo a completarse con el formulario.
           $scope.lodgins = [];
+          $scope.tiposHospedajes = [];
           $scope.headerButtons = [
             {
               location: '/listadoTipoHospedaje',
@@ -45,6 +46,12 @@ angular.module('lodgin').controller(
               name: 'Cerrar Sesión'
             }
           ];
+
+
+          couchinnService.obtenerTiposDeHospedaje(hospedajes)
+            .then(function () {
+              $scope.tiposHospedajes = hospedajes;
+            });
 
           // guardar Lodgin
                 $scope.guardarLodgin = function () {

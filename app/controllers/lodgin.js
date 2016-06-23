@@ -23,7 +23,7 @@ router.post('/lodgin', function (req, res, next) {
        departamento: req.body.departamento,
        fechaInicio: req.body.fechaInicio,
        fechaFin: req.body.fechaFin,
-     })
+     });
 
      newLodgin.save()
     .then(function (lodgin) {

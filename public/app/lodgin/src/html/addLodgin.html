@@ -21,8 +21,10 @@
   <div layout-gt-sm="row">
   <md-input-container class="md-block" flex-gt-sm>
     <label>Tipo de lugar:</label>
-     <md-select ng-model="lodgin.tipo">
-      <md-option ng-value="tipo" ng-repeat="tipo in lodgins.tipos">{{ tipo.nombre }}</md-option>
+     <md-select ng-model="lodgin.tipo"
+                ng-options="option.nombre for option in tiposHospedajes track by option._id"
+     >
+      <!--<md-option ng-value="tipo" ng-repeat="tipo in lodgins.tipos">{{ tipo.nombre }}</md-option>-->
     </md-select>
   </md-input-container>
 
