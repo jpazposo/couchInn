@@ -1,6 +1,5 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 <div class="heading">Agregar Publicacion</div>
-<div ng-init="lodgins = obtenerPublicaciones()">
 
 <form name="lodginForm">
 
@@ -22,9 +21,8 @@
   <md-input-container class="md-block" flex-gt-sm>
     <label>Tipo de lugar:</label>
      <md-select ng-model="lodgin.tipo"
-                ng-options="option.nombre for option in tiposHospedajes track by option._id"
      >
-      <!--<md-option ng-value="tipo" ng-repeat="tipo in lodgins.tipos">{{ tipo.nombre }}</md-option>-->
+      <md-option ng-value="tipo._id" ng-repeat="tipo in tiposHospedajes">{{ tipo.nombre }}</md-option>
     </md-select>
   </md-input-container>
 

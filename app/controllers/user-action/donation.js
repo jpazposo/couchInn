@@ -4,7 +4,7 @@ var express = require('express'),
   Donation = mongoose.model('Donation');
 
 module.exports = function (app) {
-  app.use('/api/', router);
+  app.use('/user-action/', router);
 };
 /**
  * CRUD operations

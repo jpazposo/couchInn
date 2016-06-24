@@ -3,8 +3,9 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Lodgin = mongoose.model('Lodgin');
 var  TipoHospedaje = mongoose.model('TipoHospedaje');
+var User = mongoose.model('User');
 module.exports = function (app) {
-  app.use('/api/', router);
+  app.use('/user-action/', router);
 };
 /**
  * CRUD operations
@@ -12,6 +13,7 @@ module.exports = function (app) {
 // Create
 
 router.post('/lodgin', function (req, res, next) {
+  console.log(req.id);
      var newLodgin = new Lodgin({
        nombre: req.body.nombre,
        descripcion: req.body.descripcion,
@@ -23,6 +25,7 @@ router.post('/lodgin', function (req, res, next) {
        departamento: req.body.departamento,
        fechaInicio: req.body.fechaInicio,
        fechaFin: req.body.fechaFin,
+       user: req.id //req.username req.username,
      });
 
      newLodgin.save()
@@ -48,20 +51,12 @@ router.post('/lodgin', function (req, res, next) {
 router.get('/lodgin', function (req, res, next) {
 
   return Lodgin.find({})
-    // Caso de éxito
-    .then(function (lodgin) {
-        console.log(lodgin);
-        res.json(
-          {
-            data: lodgin
-          });
-      }
-      //Caso de error
-    ).catch(function (err) {
-      console.error(err);
-      res.status(500).json(err);
-    });
-
+    .populate('tipo', 'nombre')
+    .populate('user')
+    .exec(function (err, lodgins) {
+      if (err) console.log(err);
+      res.json({ data: lodgins})
+    })
 });
 
 

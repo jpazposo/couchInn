@@ -29,26 +29,9 @@ var hasPermission = function (rol, url) {
   ** @return Boolean
   */
   var userPattern = new RegExp("\/user-action\/*|^\/$");
-  var adminPattern = new RegExp("\/admin\/*|^\/$");
-  var anonymousPattern = new RegExp("^\/login$|^\/register$|^\/$");
 
-  var result = false;
+  return userPattern.test(url);
 
-  switch (rol) {
-    case 'admim':
-      result = adminPattern.test(url); // @todo review reg exp
-      break;
-    case 'user':
-      result = userPattern.test(url); // @todo review reg exp
-      break;
-    case 'anonymous':
-      result = anonymousPattern.test(url); // @todo review reg exp
-      break;
-    default:
-      result = true;
-  }
-
-  return result;
 
 };
 
@@ -81,6 +64,7 @@ module.exports = function(app, config) {
     try {
       var decoded = jwt.verify(token, 'shhhhh');
       req.role = decoded.role;
+      req.id = decoded.id;
       console.log(decoded);
     } catch (e) {
       req.role = 'anonymous'
@@ -94,7 +78,9 @@ module.exports = function(app, config) {
     console.log(req.role);
     console.log(req.url);
 
-    if (req.role == "admin"){
+    var anonymousPattern = new RegExp("^\/api\/.*");
+
+    if (req.role == "admin" || anonymousPattern.test(req.url)){
       next();
     }
     else {
