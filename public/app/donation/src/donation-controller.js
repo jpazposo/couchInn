@@ -5,7 +5,8 @@ angular.module('donation').controller(
     '$scope',
     'couchinnService',
     '$location',
-    function ($scope, couchinnService, $location) {
+    '$mdDialog',
+    function ($scope, couchinnService, $location, $mdDialog) {
       console.log('se cargó el controller donationController');
 
       $scope.donation = {}; // modelo a completarse con el formulario.
@@ -81,7 +82,15 @@ angular.module('donation').controller(
              $location.path('/accredit');
            })
            .catch(function (error) {
-
+             $mdDialog.show(
+               $mdDialog.alert()
+                 .parent(angular.element(document.querySelector('#popupContainer')))
+                 .clickOutsideToClose(true)
+                 .title('Error al enviar una donación')
+                 .textContent('Hubo un problema al interno')
+                 .ariaLabel('Alert Dialog Demo')
+                 .ok('Reintentar')
+             );
             // code 11000 means donation already exist
              console.log(error);
            });

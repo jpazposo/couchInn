@@ -6,7 +6,7 @@ angular.module('tipoHospedaje').controller(
     'couchinnService',
     '$location',
     '$mdDialog',
-    function ($scope, couchinnService, $location) {
+    function ($scope, couchinnService, $location, $mdDialog) {
       console.log('se cargó el controller tipoHospedajeController');
 
       $scope.tipoHospedaje = {}; // modelo a completarse con el formulario.
@@ -75,8 +75,15 @@ angular.module('tipoHospedaje').controller(
             $location.path('/listadoTipoHospedaje');
           })
           .catch(function (error) {
-
-            // code 11000 means user already exist
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Error al publicar')
+                .textContent('datos duplicados o incorrectos')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Reintentar')
+            );
             console.log(error);
           });
       };
@@ -96,7 +103,6 @@ angular.module('tipoHospedaje').controller(
           })
           .catch(function (error) {
 
-            // code 11000 means user already exist
 
                 if (error.data.code == 11000) {
                   $mdDialog.show(

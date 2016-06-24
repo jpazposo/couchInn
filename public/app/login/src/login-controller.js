@@ -29,12 +29,11 @@ angular.module('login').controller(
               var user = jwtHelper.decodeToken(token);
               couchinnService.setUser(user);
               $location.path('/user-logged/' + user.nombre);
+              return token;
             }).catch(function (err) {
               //alert("Usuario Inexistente, vuelve a intentar");
 
               /*alert(JSON.stringify(err));*/
-
-              if (err.status == 401){
 
                 $mdDialog.show(
                   $mdDialog.alert()
@@ -46,9 +45,9 @@ angular.module('login').controller(
                     .ok('Reintentar')
                 );
 
-                return;
+                return err;
 
-              }
+
 
               $scope.username = $scope.password = '';
             });

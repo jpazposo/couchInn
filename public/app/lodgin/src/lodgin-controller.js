@@ -82,6 +82,16 @@ angular.module('lodgin').controller(
                     })
                     .catch(function (error) {
 
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.querySelector('#popupContainer')))
+                          .clickOutsideToClose(true)
+                          .title('Error al publicar')
+                          .textContent('datos duplicados o incorrectos')
+                          .ariaLabel('Alert Dialog Demo')
+                          .ok('Reintentar')
+                      );
+
                       // code 11000 means lodgin already exist
                       console.log(error);
                     });
@@ -106,6 +116,7 @@ angular.module('lodgin').controller(
                       console.log(error);
                     });
                 };
+          
 
               }
             ]

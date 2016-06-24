@@ -48,10 +48,6 @@
 .md-button{
   top: 5px;
 }
-table table-striped{
-  border-style: dotted solid;
-}
-
 .content{
   margin: 10px;
 }
@@ -59,5 +55,10 @@ table table-striped{
 th, td {
     padding: 15px;
     text-align: left;
+}
+
+.publicacion-fila.premium{
+  background-color: yellow;
+  border-style: dashed;
 }
 

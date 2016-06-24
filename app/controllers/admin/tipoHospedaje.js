@@ -18,7 +18,7 @@ module.exports = function (app) {
 router.post('/tipoHospedaje', function (req, res, next) {
 
   var newTipoHospedaje = new TipoHospedaje({
-    nombre: req.body.nombre,
+    nombre: req.body.nombre
   });
 
   newTipoHospedaje.save()
