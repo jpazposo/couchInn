@@ -1,1 +1,19 @@
-<div ng-repeat="atributo in data">{{ atributo }}</div>
+<table class="table table-striped">
+  <tr class="info">
+    <td>Nombre</td>
+    <td>Tipo</td>
+    <td>Capacidad Máxima</td>
+    <td>FechaInicio</td>
+    <td>FechaFin</td>
+  </tr>
+  <tr
+      class="publicacion-fila"
+      ng-class="{'premium': data.user.premium}"
+  >
+    <td>  {{ data.nombre }}  </td>
+    <td> {{ data.tipo.nombre }} </td>
+    <td>  {{ data.capacidadMax }}  </td>
+    <td>  {{ data.fechaInicio }}  </td>
+    <td>  {{ data.fechaFin }}  </td>
+  </tr>
+</table>

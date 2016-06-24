@@ -54,17 +54,19 @@
 
   <div layout-gt-sm="row">
     <md-datepicker ng-model="lodgin.fechaInicio"
-                   md-placeholder="Desde" >
+                   md-placeholder="Desde"
+                   md-min-date="today">
     </md-datepicker>
     <input type="hidden" ng-model="lodgin.fechaInicio" required>
     <md-datepicker ng-model="lodgin.fechaFin"
                    md-placeholder="Hasta"
+                   md-min-date="lodgin.fechaInicio"
     >
     </md-datepicker>
     <input type="hidden" ng-model="lodgin.fechaFin" required>
   </div>
 
-  <md-button ng-click="guardarLodgin()" ng-disabled="!lodgin.nombre || !lodgin.descripcion || !lodgin.calle || !lodgin.numero
-  || !lodgin.capacidadMax || !lodgin.fechaInicio || !lodgin.fechaFin || !lodgin.tipo"--> Agregar Publicacion </md-button>
+  <md-button ng-click="guardarLodgin()" ng-disabled="(!lodgin.nombre || !lodgin.descripcion || !lodgin.calle || !lodgin.numero
+  || !lodgin.capacidadMax || !lodgin.tipo) && (lodginForm.$invalid)" --> Agregar Publicacion </md-button>
 </form>
 

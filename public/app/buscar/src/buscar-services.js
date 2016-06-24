@@ -4,6 +4,8 @@ angular.module('buscar').service(
         '$resource',
         function ($resource) {
 
+          var resultados = [];
+
           this.buscarPublicaciones = function  (searchFilter) {
             /**
              * @param searchFilter type JSON{}
@@ -11,9 +13,21 @@ angular.module('buscar').service(
              */
             return $resource(
               '/user-action/search'
-            ).get(searchFilter).$promise;
+            ).save(searchFilter).$promise.then(function (response) {
+              return response.data;
+            });
 
           };
+
+          this.setResultados = function (resultados) {
+            this.resultados = resultados;
+          };
+
+          this.getResultados = function () {
+            return this.resultados;
+          };
+
+
 
 
         }

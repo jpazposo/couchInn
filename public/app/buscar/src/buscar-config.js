@@ -14,10 +14,17 @@ angular.module("buscar",
               '/resultados',
               {
                 templateUrl: 'app/buscar/src/html/resultados.html',
-                controller: 'buscarController'
+                controller: 'resultadoController'
               }
-            );
-          
+            )
+          .when(
+            '/buscar',
+            {
+              templateUrl: 'app/buscar/src/html/buscar.html',
+              controller: 'buscarController'
+            }
+          );
+
 
         }
     ]

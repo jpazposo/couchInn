@@ -13,7 +13,8 @@ angular.module("couchinn",
         'lodgin',
         'donation',
         'ajaxInterceptor',
-        'angular-storage'
+        'angular-storage',
+        'buscar'
     ]
 
 ).config(
@@ -28,6 +29,14 @@ angular.module("couchinn",
               '/',
               {
                 templateUrl: 'app/couchInn/src/html/couchinn.html',
+                controller: 'couchInnController'
+              }
+            )
+
+            .when(
+              '/quienes-somos',
+              {
+                templateUrl: 'app/couchInn/src/html/acercade.html',
                 controller: 'couchInnController'
               }
             )
