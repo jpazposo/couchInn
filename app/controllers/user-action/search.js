@@ -18,6 +18,12 @@ router.post('/search', function (req, res) {
     filter.nombre = req.body.nombre;
   }
 
+  if (req.body.capacidadMax){
+    filter.capacidadMax = {
+      $gte: req.body.capacidadMax
+    }
+  }
+
   if (req.body.fechaInicio){
     filter.fechaInicio = {
       $gte: req.body.fechaInicio
