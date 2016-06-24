@@ -16,13 +16,20 @@ router.post('/donation', function (req, res, next) {
        medioDePago: req.body.medioDePago,
        monto: req.body.monto,
        user: req.id //req.username req.username,
-     })
+     });
 
      newDonation.save()
 
     .then(function (donation) {
 
       Donation.findOne(donation).then(function (donation) {
+        User.findOne({_id: req.id})
+        // Convertirlo en premium
+          .then(function (user) {
+              user.premium =  true;
+              user.save()
+            }
+          );
         res.status(201).json(donation);
       }).catch(function (err) {
         console.error(err);

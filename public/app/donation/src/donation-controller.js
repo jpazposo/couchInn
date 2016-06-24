@@ -67,14 +67,8 @@ angular.module('donation').controller(
           console.log('se va a modificar el premium de este usuario:-----------');
           console.log(JSON.stringify($scope.user));
 
-          couchinnService.editPremium($scope.user)
-                    .then(function (user) {
-                      console.log('successfull modification of : ----------------');
-                      console.log(JSON.stringify(user));
-                      $location.path('myDonations');
-                    })
-
-        }
+          $location.path('/myDonations');
+        };
       // guardar donation
         $scope.guardarDonaciones = function () {
           console.log('se va a guardar el la publicacion:-----------');

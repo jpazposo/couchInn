@@ -31,13 +31,6 @@ angular.module('couchinn').service(
             ).save(user).$promise;
           };
 
-          this.editPremium = function (user) {
-
-                 return $resource(
-                      adminPath + 'update/userPremium'
-                 ).save(user).$promise;
-          };
-
           this.login = function (user) {
             /**
              * @param user type JSON{ username: String, password: String }

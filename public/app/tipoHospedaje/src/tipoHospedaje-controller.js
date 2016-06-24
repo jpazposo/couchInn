@@ -25,7 +25,7 @@ angular.module('tipoHospedaje').controller(
         },
         {
           location: '/nuevoTipoHospedaje',
-          name: 'Agregar Tipo de Hospedaje'
+          name: 'Agregar Tipo de Hospedaje',
           rol: 'admin'
         },
         {
