@@ -49,8 +49,8 @@ angular.module('couchinn').service(
             return $resource(
                '/user-action/logout'
             ).get().$promise.then(function () {
-                store.set('token', undefined);
-                store.set('user', undefined);
+                store.remove('token');
+                store.remove('user');
             });
           };
 
