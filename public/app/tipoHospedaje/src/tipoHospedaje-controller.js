@@ -3,12 +3,12 @@ angular.module('tipoHospedaje').controller(
   'tipoHospedajeController',
   [
     '$scope',
-    'tipoHospedajeService',
+    'couchinnService',
     '$mdToast',
     '$location',
     '$resource',
     '$mdDialog',
-    function ($scope, tipoHospedajeService,$mdToast, $location, $resource, $mdDialog) {
+    function ($scope, couchinnService,$mdToast, $location, $resource, $mdDialog) {
 
       console.log('se cargó el controller tipoHospedajeController');
 
@@ -61,16 +61,14 @@ angular.module('tipoHospedaje').controller(
         right: true
       };
 
-      $scope.buscarTipoHospedajeParaTodos = function () {
+      $scope.buscarTipoHospedaje = function () {
 
-        tipoHospedajeService.obtenerUnTipoHospedaje(
+        couchinnService.obtenerUnTipoHospedaje(
           {
-            nombre: $scope.tipoHospedaje.nombre,
-            capacidadMax: $scope.tipoHospedaje.capacidadMax
+            nombre: $scope.tipoHospedaje.nombre
           }
           )
           .then(function (tipoHospedajeEncontrado) {
-            console.log('$scope.buscarTipoHospedajeParaTodos');
             console.log($scope.tipoHospedajeEncontrado.nombre);
             $scope.tipoHospedajeEncontrado = tipoHospedajeEncontrado;
             if (!$scope.tipoHospedajeEncontrado) {
@@ -89,48 +87,68 @@ angular.module('tipoHospedaje').controller(
         console.log('se va a guardar el tipo de hospedaje:-----------');
         console.log(JSON.stringify($scope.tipoHospedaje));
 
+        $scope.tipoHospedajeEncontrado = couchinnService.obtenerUnTipoHospedaje({
+          nombre: $scope.tipoHospedaje.nombre
+        }).then(
+          function(){
+            if (!$scope.tipoHospedajeEncontrado) {
+              couchinnService.guardarTipoHospedaje($scope.tipoHospedaje).then(
+                function (res) {
+                  if (res.statusCode = 201) {
+                    $mdDialog.show(
+                      $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Operacion exitosa!!')
+                        .textContent('se registro un nuevo tipo de hospedaje')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Cerrar'))
+                  }
+                }
+              ).catch(function (error) {
+                console.log(error);
+              });
 
-        this.buscarTipoHospedajeParaTodos();
+            }else{
 
-        if (!$scope.tipoHospedajeEncontrado) {
-          tipoHospedajeService.guardarTipoHospedaje($scope.tipoHospedaje)
-            .then(function (tipoHospedaje) {
-              //       console.log('se guardo correctamente : ----------------');
-              //      console.log(JSON.stringify(tipoHospedaje));
-              //       $mdDialog.show(
-              //         $mdDialog.confirm()
-              //           .title('Se ingreso un nuevo Tipo de Hospedaje')
-              //          .content('Desea ingresar otro? <span class="debt-be-gone">forgive</span> you your debts.')
-              //         .ariaLabel('Lucky day')
-              //        .ok('Nuevo')
-              //       .cancel('Cancelar')
-              //    );
-
-              //   return;
-
-            })
-            .catch(function (error) {
-
-              // code 11000 means user already exist
-              console.log(error);
-            });
-        } else {
-          if ($scope.tipoHospedajeEncontrado = $scope.tipoHospedaje) {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('Error en el ingreso de nuevo Tipo de Hospedaje')
-                .textContent('los datos ingresados ya existen y no pueden repetirse')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Reintentar')
-            );
-
-            return;
-          }
+              $mdDialog.show(
+                        $mdDialog.alert()
+                         .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                       .title('Error en el ingreso de nuevo Tipo de Hospedaje')
+                      .textContent('los datos ingresados ya existen y no pueden repetirse')
+                     .ariaLabel('Alert Dialog Demo')
+                    .ok('Reintentar'));
+              $scope.tipoHospedajeEncontrado = {};
+            }
+          }).catch(function (error) {
+          console.log(error);
+          console.log($scope.tipoHospedajeEncontrado);
+        });
 
 
-        }
+//        this.buscarTipoHospedaje().then(
+ //         function (res) {
+  //          if (res.status = 404) {
+   //           tipoHospedajeService.guardarTipoHosp();
+    //        } else {
+     //         $mdDialog.show(
+      //          $mdDialog.alert()
+       //           .parent(angular.element(document.querySelector('#popupContainer')))
+        //          .clickOutsideToClose(true)
+         //         .title('Error en el ingreso de nuevo Tipo de Hospedaje')
+          //        .textContent('los datos ingresados ya existen y no pueden repetirse')
+           //       .ariaLabel('Alert Dialog Demo')
+            //      .ok('Reintentar')
+//              );
+ //           }
+  //        }
+  //      ).catch(function (error) {
+
+          // code 11000 means user already exist
+    //      console.log(error);
+     //   });
+
       };
 
       //Obtener Todos los tipos de hospedaje
@@ -138,7 +156,7 @@ angular.module('tipoHospedaje').controller(
         console.log('se solicitan los tipos guardados:-----------');
         console.log(JSON.stringify($scope.tiposDeHospedaje));
 
-        tipoHospedajeService.obtenerTiposDeHospedaje()
+        couchinnService.obtenerTiposDeHospedaje()
           .then(function (tiposDeHospedaje) {
             console.log('se obtuvieron los tipos: ----------------');
             console.log(JSON.stringify(tiposDeHospedaje));

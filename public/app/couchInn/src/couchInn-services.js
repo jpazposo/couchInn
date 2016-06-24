@@ -65,10 +65,10 @@ angular.module('couchinn').service(
           this.guardarTipoHospedaje = function  (tipoHospedaje) {
 
             return $resource(
-              adminPath + 'tipoHospedaje'
+             adminPath + 'tipoHospedaje'
             ).save(tipoHospedaje).$promise;
 
-          };
+           };
 
           this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
 
@@ -79,6 +79,17 @@ angular.module('couchinn').service(
             });
 
           };
+
+          this.obtenerUnTipoHospedaje = function(tipoHospedaje) {
+
+            return $resource(
+              apiPath + 'buscarTipoHospedaje/:nombre'
+            ).get(tipoHospedaje).$promise
+              .then(function (response) {
+                return response.data;
+              });
+          }
+
 
           this.addLodgin = function  (lodgin) {
 

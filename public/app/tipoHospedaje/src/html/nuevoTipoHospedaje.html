@@ -9,30 +9,7 @@
     </md-input-container>
   </div>
 
-<<<<<<< HEAD
-  <label>Tipo que se esta ingresando</label>
-  <label>{{tipoHospedaje.nombre}}</label><label>{{tipoHospedaje.capacidadMax}}</label>
-
-
-  <button type="submit" class="btn btn-success btn-lg" ng-click="guardarTipoHosp()" ng-disabled="!tipoHospedaje.nombre  || !tipoHospedaje.capacidadMax || !tipoHospedaje.capacidadMax > 0">Guardar Tipo de Hospedaje</button>
-=======
   <button type="submit" class="btn btn-success btn-lg" ng-click="guardarTipoHosp()" ng-disabled="!tipoHospedaje.nombre">Guardar Tipo de Hospedaje</button>
->>>>>>> origin/develop
 
-  <button type="submit" class="btn btn-success btn-lg" ng-click="buscarTipoHospedajeParaTodos()" >Buscar Tipo de Hospedaje</button>
-
-
-  <label>{{tipoHospedajeEncontrado.nombre}}</label> <label>{{tipoHospedajeEncontrado.capacidadMax}}</label>
-
-  <div layout="row" layout-align="space-around">
-    <div style="width:50px"></div>
-    <md-button ng-click="showSimpleToast()">
-      Guardar Tipo de Hospedaje
-    </md-button>
-    <md-button class="md-raised" ng-click="showActionToast()">
-      Se guardara el Tipo de Hospedaje
-    </md-button>
-    <div style="width:50px"></div>
-  </div>
 
 </form>

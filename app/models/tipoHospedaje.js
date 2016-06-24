@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 
 var TipoHospedajeSchema = new Schema({
-  nombre: { type: String, required: true, index: { unique: true }},
+  nombre: { type: String, required: true, index: { unique: true } }
 });
 
 module.exports = mongoose.model('TipoHospedaje', TipoHospedajeSchema);

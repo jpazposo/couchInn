@@ -115,3 +115,20 @@ router.delete('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
 
 });
+router.get('/buscarTipoHospedaje/:nombre', function (req, res, next) {
+
+  return TipoHospedaje.findOne({nombre : req.params.nombre})
+    // Caso de éxito
+    .then(function (tipoHospedaje) {
+        if (!tipoHospedaje) res.status(412).json({"error": "Tipo de Hospedaje no Encontrado"});
+        res.json({
+          data: tipoHospedaje
+        });
+      }
+      //Caso de error
+    ).catch(function (err) {
+      console.error(err);
+      res.status(500).json(err);
+    });
+
+});
