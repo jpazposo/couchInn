@@ -15,40 +15,53 @@ angular.module('lodgin').controller(
           $scope.lodgin = {}; // modelo a completarse con el formulario.
           $scope.lodgins = [];
           $scope.tiposHospedajes = [];
+          $scope.user = couchinnService.getUser();
+          if (!$scope.user) $location.url('/login');
           $scope.headerButtons = [
             {
               location: '/listadoTipoHospedaje',
-              name: 'Listar Tipos de Hospedaje'
+              name: 'Listar Tipos de Hospedaje',
+              rol: 'admin'
             },
             {
               location: '/nuevoTipoHospedaje',
-              name: 'Agregar Tipo de Hospedaje'
+              name: 'Agregar Tipo de Hospedaje',
+              rol: 'admin'
             },
             {
               location: '/myDonations',
-              name: 'Mis Donaciones'
+              name: 'Mis Donaciones',
+              rol: 'user'
             },
             {
               location: '/donate',
-              name: 'Donar'
+              name: 'Donar',
+              rol: 'user'
             },
             {
               location: '/myLodgins',
-              name: 'Mis Publicaciones'
+              name: 'Mis Publicaciones',
+              rol: 'user'
             },
             {
               location: '/addLodgin',
-              name: 'Agregar Publicaciones'
+              name: 'Agregar Publicaciones',
+              rol: 'user'
             },
             {
               location: '/actualizar-perfil',
-              name: 'Modificar mis datos'
+              name: 'Modificar mis datos',
+              rol: 'user'
             },
             {
               location: '/logout',
-              name: 'Cerrar Sesión'
+              name: 'Cerrar Sesión',
+              rol: 'user'
             }
-          ];
+          ].filter(function (button) {
+            if ($scope.user.role == 'admin') return true;
+            return button.rol == $scope.user.role;
+          });
 
 
           couchinnService.obtenerTiposDeHospedaje()
