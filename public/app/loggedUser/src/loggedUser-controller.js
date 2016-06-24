@@ -9,8 +9,10 @@ angular.module('loggedUser').controller(
       console.log('se cargó el controller loggedUserController');
 
       $scope.user = couchinnService.getUser();
+      console.log($scope.user);
 
       if (!$scope.user) $location.url('/login');
+
 
 
       $scope.headerButtons = [
@@ -43,7 +45,7 @@ angular.module('loggedUser').controller(
           location: '/donate',
           name: 'Donar',
           rol: 'user'
-          
+
         },
         {
           location: '/myLodgins',
@@ -57,8 +59,8 @@ angular.module('loggedUser').controller(
         }
 
       ].filter(function (button) {
-        if ($scope.user.rol == 'admin') return true;
-        return button.rol == $scope.user.rol;
+        if ($scope.user.role == 'admin') return true;
+        return button.rol == $scope.user.role;
       });
 
     }

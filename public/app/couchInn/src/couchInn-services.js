@@ -3,9 +3,10 @@ angular.module('couchinn').service(
     [
         '$resource',
         'store',
-        function ($resource, store) {
+        'jwtHelper',
+        function ($resource, store, jwtHelper) {
 
-          var apiPath = "/api/";
+          var apiPath = "/user-action/";
           var adminPath = "/admin/";
 
           var user = {};
@@ -18,7 +19,7 @@ angular.module('couchinn').service(
 
            user.username = user.email; // Esto es una decision arbitriaria de la aplicación, el username es el email.
             return $resource(
-               '/register'
+               '/api/register'
             ).save(user).$promise;
 
           };
@@ -36,7 +37,7 @@ angular.module('couchinn').service(
              * @return: user
              */
             return $resource(
-              '/login'
+              '/api/login'
             ).save(user).$promise.then(function (jwt) {
               store.set('token', jwt.token);
               return jwt.token;
@@ -47,15 +48,18 @@ angular.module('couchinn').service(
           this.logout = function () {
             return $resource(
                '/user-action/logout'
-            ).get().$promise;
+            ).get().$promise.then(function () {
+                store.set('token', undefined);
+                store.set('user', undefined);
+            });
           };
 
           this.getUser = function (user) {
-            return this.user;
+            return store.get('user');
           };
 
           this.setUser = function (user) {
-            this.user = user;
+            store.set('user', user);
           };
 
           this.guardarTipoHospedaje = function  (tipoHospedaje) {
@@ -69,7 +73,7 @@ angular.module('couchinn').service(
           this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
 
             return $resource(
-              adminPath + 'tiposDeHospedaje'
+              apiPath + 'tiposDeHospedaje'
             ).get(tiposDeHospedaje).$promise.then(function (response) {
               return response.data;
             });
@@ -84,14 +88,24 @@ angular.module('couchinn').service(
 
           };
 
-          this.getLodgins = function  (lodgin) {
+          this.getLodgins = function  () {
 
             return $resource(
               apiPath + 'lodgin'
-            ).get(lodgin).$promise.then(function (response) {
+            ).get().$promise.then(function (response) {
               return response.data;
             });
 
+          };
+
+          this.getLodginsByUser = function (user){
+            return $resource(
+              apiPath + 'lodgin'
+            ).get().$promise.then(function (response) {
+              return response.data.filter(function (lodgin) {
+                  return lodgin.user.username === user.username;
+              });
+            });
           };
 
           this.addDonation = function  (donation) {

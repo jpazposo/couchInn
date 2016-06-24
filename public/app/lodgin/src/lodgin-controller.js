@@ -8,6 +8,9 @@ angular.module('lodgin').controller(
         '$mdDialog',
 
         function ($scope, couchinnService, $location, $mdDialog) {
+
+          $scope.user = couchinnService.getUser();
+          if (!$scope.user) $location.url('/login');
           console.log('se cargó el controller lodginController');
           $scope.lodgin = {}; // modelo a completarse con el formulario.
           $scope.lodgins = [];
@@ -48,8 +51,8 @@ angular.module('lodgin').controller(
           ];
 
 
-          couchinnService.obtenerTiposDeHospedaje(hospedajes)
-            .then(function () {
+          couchinnService.obtenerTiposDeHospedaje()
+            .then(function (hospedajes) {
               $scope.tiposHospedajes = hospedajes;
             });
 
@@ -76,7 +79,7 @@ angular.module('lodgin').controller(
                   console.log('se solicita las publicaciones guardadas:-----------');
                   console.log(JSON.stringify($scope.lodgins));
 
-                  couchinnService.getLodgins()
+                  couchinnService.getLodginsByUser($scope.user)
                     .then(function (lodgins) {
                       console.log('se obtuvieron las publicaciones: ----------------');
                       console.log(JSON.stringify(lodgins));

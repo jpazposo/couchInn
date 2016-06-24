@@ -7,7 +7,7 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/api', router);
 };
 
 router.post('/register', function (req, res) {

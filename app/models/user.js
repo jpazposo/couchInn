@@ -7,7 +7,7 @@ var UserSchema = new Schema({
   nombre: { type: String, required: true },
   apellido: { type: String, required: true },
   email: { type: String, required: true },
-  nacimiento: { type: Date, required: true },
+  nacimiento: { type: String, required: true },
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   address: String,
@@ -41,18 +41,18 @@ UserSchema.pre('save', function(next) {
   });
 });
 
+
 UserSchema.methods.comparePassword = function(candidatePassword) {
-  return new Promise((resolve, reject)=> {
-     bcrypt.compare(candidatePassword, this.password, function (err, result) {
-      if (err) {
+  return new Promise((resolve, reject)=>{
+      bcrypt.compare(candidatePassword, this.password, (err, result)=>{
+      if(err){
         reject(err);
         return;
       }
-      resolve(resolve);
-      return;
-    });
-
+      resolve(result);
   });
+
+});
 };
 
 module.exports = mongoose.model('User', UserSchema);
