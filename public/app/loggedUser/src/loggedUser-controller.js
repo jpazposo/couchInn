@@ -43,7 +43,7 @@ angular.module('loggedUser').controller(
           location: '/donate',
           name: 'Donar',
           rol: 'user'
-          
+
         },
         {
           location: '/myLodgins',
