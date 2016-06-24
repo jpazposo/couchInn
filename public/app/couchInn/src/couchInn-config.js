@@ -110,6 +110,13 @@ angular.module("couchinn",
                 controller: 'donationController'
               }
             )
+            .when(
+              '/accredit',
+              {
+                templateUrl: 'app/donation/src/html/accredit.html',
+                controller: 'donationController'
+              }
+             )
 
             .otherwise(
             {

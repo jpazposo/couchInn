@@ -31,6 +31,13 @@ angular.module('couchinn').service(
             ).save(user).$promise;
           };
 
+          this.editPremium = function (user) {
+
+                 return $resource(
+                      adminPath + 'update/userPremium'
+                 ).save(user).$promise;
+          };
+
           this.login = function (user) {
             /**
              * @param user type JSON{ username: String, password: String }
@@ -74,7 +81,7 @@ angular.module('couchinn').service(
 
             return $resource(
               apiPath + 'tiposDeHospedaje'
-            ).get(tiposDeHospedaje).$promise.then(function (response) {
+            ).get().$promise.then(function (response) {
               return response.data;
             });
 
@@ -116,15 +123,16 @@ angular.module('couchinn').service(
 
           };
 
-          this.getDonations = function  (donation) {
+          this.getDonations = function  (user) {
 
             return $resource(
              apiPath + 'donation'
-             ).get(donation).$promise.then(function (response) {
-             return response.data;
+             ).get().$promise.then(function (response) {
+               return response.data.filter(function (donation) {
+               return donation.user.username === user.username;
+               });
              });
-
-           };
+          };
 
 
         }

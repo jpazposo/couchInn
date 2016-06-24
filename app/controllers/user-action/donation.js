@@ -2,7 +2,7 @@ var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
   Donation = mongoose.model('Donation');
-
+var User = mongoose.model('User');
 module.exports = function (app) {
   app.use('/user-action/', router);
 };
@@ -15,7 +15,7 @@ router.post('/donation', function (req, res, next) {
     var newDonation = new Donation({
        medioDePago: req.body.medioDePago,
        monto: req.body.monto,
-
+       user: req.id //req.username req.username,
      })
 
      newDonation.save()
@@ -41,17 +41,9 @@ router.get('/donation', function (req, res, next) {
 
   return Donation.find({})
     // Caso de éxito
-    .then(function (donation) {
-        console.log(donation);
-        res.json(
-          {
-            data: donation
-          });
-      }
-      //Caso de error
-    ).catch(function (err) {
-      console.error(err);
-      res.status(500).json(err);
-    });
-
+    .populate('user')
+    .exec(function (err, donations) {
+      if (err) console.log(err);
+      res.json({ data: donations})
+    })
 });

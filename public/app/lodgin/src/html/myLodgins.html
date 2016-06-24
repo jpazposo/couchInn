@@ -16,21 +16,14 @@
           <td>FechaInicio</td>
           <td>FechaFin</td>
         </tr>
-        <tr ng-repeat="p in lodgins" ng-click="">
-          <td>  {{ p.nombre }}  </td>
-          <td> {{ p.tipo.nombre }} </td>
-          <td>  {{ p.capacidadMax }}  </td>
-          <td>  {{ p.fechaInicio }}  </td>
-          <td>  {{ p.fechaFin }}  </td>
+        <tr ng-repeat="lodgin in lodgins" ng-click="">
+          <td>  {{ lodgin.nombre }}  </td>
+          <td> {{ lodgin.tipo.nombre }} </td>
+          <td>  {{ lodgin.capacidadMax }}  </td>
+          <td>  {{ lodgin.fechaInicio }}  </td>
+          <td>  {{ lodgin.fechaFin }}  </td>
         </tr>
       </table>
-      <table class="table table-striped">
-        <tr class "info">
-        <td>Tipo</td>
-        </tr>
-        <tr ng-repeat="p in lodgins.tipos" ng-click="">
-            <td> {{ p.nombre }} </td>
-        </tr>
     </div>
   </div>
 </div>

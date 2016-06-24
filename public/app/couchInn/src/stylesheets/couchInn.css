@@ -43,7 +43,7 @@
 
 .heading{
   font-size: 200%;
-
+  font-weight: bold;
 }
 .md-button{
   top: 5px;
@@ -52,7 +52,12 @@ table table-striped{
   border-style: dotted solid;
 }
 
+.content{
+  margin: 10px;
+}
+
 th, td {
     padding: 15px;
     text-align: left;
 }
+

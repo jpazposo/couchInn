@@ -10,6 +10,7 @@ angular.module('donation').controller(
 
       $scope.donation = {}; // modelo a completarse con el formulario.
       $scope.donations = [];
+      $scope.user = couchinnService.getUser();
       $scope.medioPago = [
        'RapiPago', 'PagoFacil', 'PayPal','Tarjeta de credito'
        ]
@@ -62,7 +63,18 @@ angular.module('donation').controller(
         if ($scope.user.role == 'admin') return true;
         return button.rol == $scope.user.role;
       });
+        $scope.volver = function () {
+          console.log('se va a modificar el premium de este usuario:-----------');
+          console.log(JSON.stringify($scope.user));
 
+          couchinnService.editPremium($scope.user)
+                    .then(function (user) {
+                      console.log('successfull modification of : ----------------');
+                      console.log(JSON.stringify(user));
+                      $location.path('myDonations');
+                    })
+
+        }
       // guardar donation
         $scope.guardarDonaciones = function () {
           console.log('se va a guardar el la publicacion:-----------');
@@ -72,7 +84,7 @@ angular.module('donation').controller(
            .then(function (donation) {
              console.log('se guardo correctamente : ----------------');
              console.log(JSON.stringify(donation));
-             $location.path('/myDonations');
+             $location.path('/accredit');
            })
            .catch(function (error) {
 
@@ -86,7 +98,7 @@ angular.module('donation').controller(
            console.log('se solicita las publicaciones guardadas:-----------');
            console.log(JSON.stringify($scope.donations));
 
-           couchinnService.getDonations()
+           couchinnService.getDonations($scope.user)
             .then(function (donations) {
               console.log('se obtuvieron las publicaciones: ----------------');
               console.log(JSON.stringify(donations));

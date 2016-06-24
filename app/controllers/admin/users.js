@@ -67,10 +67,32 @@ router.post('/update/user', function (req, res, next) {
       console.error(err);
       res.status(500).json(err);
     });
+});
+
+router.post('/update/userPremium', function (req, res, next) {
 
 
+  return User.findOne({username: req.body.username})
+    // Caso de éxito
+    .then(function (user) {
+      user.premium =  true;
 
+      user.save()
 
+        .then(function (user) {
+          res.status(201).json(user);
+        })
+        .catch(function (err) {
+          console.error(err);
+          res.status(500).json(err);
+        });
+
+      }
+      //Caso de error
+    ).catch(function (err) {
+      console.error(err);
+      res.status(500).json(err);
+    });
 });
 // Delete
 router.delete('/user/:username', function (req, res, next) {
