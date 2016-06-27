@@ -1,5 +1,6 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 <div class="heading">Lista de Donaciones del Usuario</div>
+<td>{{ user2.premium }}</td>
 <div class="container">
   <div ng-init="donations = obtenerDonaciones()">
     <div class="col-sm-6 col-sm-offset-1 text-center">
@@ -9,12 +10,13 @@
           <td>MedioDePago</td>
           <td>Monto</td>
         </tr>
-        <tr ng-repeat="d in donations" ng-click="">
-          <td>  {{ d.fecha }}  </td>
-          <td> {{ d.medioDePago }} </td>
-          <td>  {{ d.monto }}  </td>
+        <tr ng-repeat="donation in donations" ng-click="">
+          <td>  {{ donation.fecha }}  </td>
+          <td> {{ donation.medioDePago }} </td>
+          <td>  {{ donation.monto }}  </td>
         </tr>
       </table>
     </div>
   </div>
 </div>
+

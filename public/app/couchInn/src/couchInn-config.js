@@ -5,32 +5,33 @@ angular.module("couchinn",
         'ngMaterial',
         'ngAria',
         'ngResource',
-        'angular-jwt',
         'header',
         'register',
         'login',
         'tipoHospedaje',
-        'loggedUser'
+        'loggedUser',
+        'lodgin',
+        'donation',
+        'ajaxInterceptor',
+        'angular-storage'
     ]
 
 ).config(
     [
         '$routeProvider',
-        function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
+        function ($routeProvider) {
 
-          /*jwtInterceptorProvider.tokenGetter = function(config) {
-              return localStorage.getItem('id_token');
-          };
-          $httpProvider.interceptors.push('jwtInterceptor');*/
+
 
           $routeProvider
             .when(
-            '/',
-            {
-              templateUrl: 'app/couchInn/src/html/couchinn.html',
-              controller: 'couchInnController'
-            }
-          )
+              '/',
+              {
+                templateUrl: 'app/couchInn/src/html/couchinn.html',
+                controller: 'couchInnController'
+              }
+            )
+
             .when(
               '/register',
               {
@@ -47,11 +48,11 @@ angular.module("couchinn",
               }
             )
             .when(
-            '/nuevoTipoHospedaje',
-            {
-              templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
-              controller: 'tipoHospedajeController'
-            }
+              '/nuevoTipoHospedaje',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
+                controller: 'tipoHospedajeController'
+              }
             )
 
             .when(
@@ -63,12 +64,60 @@ angular.module("couchinn",
             )
 
             .when(
+              '/actualizar-perfil',
+              {
+                templateUrl: 'app/register/src/html/register.html',
+                controller: 'editController'
+              }
+            )
+
+            .when(
               '/listadoTipoHospedaje',
               {
                 templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
                 controller: 'tipoHospedajeController'
               }
             )
+
+            .when(
+              '/addLodgin',
+              {
+                templateUrl: 'app/lodgin/src/html/addLodgin.html',
+                controller: 'lodginController'
+              }
+            )
+
+            .when(
+              '/myLodgins',
+              {
+                templateUrl: 'app/lodgin/src/html/myLodgins.html',
+                controller: 'lodginController'
+              }
+            )
+
+            .when(
+              '/myDonations',
+              {
+                templateUrl: 'app/donation/src/html/myDonations.html',
+                controller: 'donationController'
+              }
+            )
+
+            .when(
+              '/donate',
+              {
+                templateUrl: 'app/donation/src/html/donate.html',
+                controller: 'donationController'
+              }
+            )
+            .when(
+              '/accredit',
+              {
+                templateUrl: 'app/donation/src/html/accredit.html',
+                controller: 'donationController'
+              }
+             )
+
             .otherwise(
             {
               redirectTo: '/404'

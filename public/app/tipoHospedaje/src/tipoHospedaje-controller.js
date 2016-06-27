@@ -4,24 +4,76 @@ angular.module('tipoHospedaje').controller(
   [
     '$scope',
     'couchinnService',
-    function ($scope, couchinnService) {
+    '$location',
+    '$mdDialog',
+    function ($scope, couchinnService, $location, $mdDialog) {
       console.log('se cargó el controller tipoHospedajeController');
 
       $scope.tipoHospedaje = {}; // modelo a completarse con el formulario.
       $scope.tiposDeHospedaje = [];
-      $scope.tipoHospedajeSeleccionado = false;
+      $scope.tipoHospedajeSeleccionado = {};
+      $scope.hayTipoHospedajeSeleccionado = false;
       $scope.error1 = false;
+
+      $scope.user = couchinnService.getUser();
+      if (!$scope.user) $location.url('/login');
 
       $scope.headerButtons = [
         {
           location: '/listadoTipoHospedaje',
-          name: 'Listar Tipos de Hospedaje'
+          name: 'Listar Tipos de Hospedaje',
+          rol: 'admin'
         },
         {
           location: '/nuevoTipoHospedaje',
-          name: 'Agregar Tipo de Hospedaje'
+          name: 'Agregar Tipo de Hospedaje',
+          rol: 'admin'
+        },
+        {
+          location: '/myDonations',
+          name: 'Mis Donaciones',
+          rol: 'user'
+        },
+        {
+          location: '/myLodgins',
+          name: 'Mis Publicaciones',
+          rol: 'user'
+        },
+        {
+          location: '/actualizar-perfil',
+          name: 'Modificar mis datos',
+          rol: 'user'
+        },
+        {
+          location: '/donate',
+          name: 'Donar',
+          rol: 'user'
+        },
+        {
+          location: '/addLodgin',
+          name: 'Agregar Publicacion',
+          rol: 'user'
+        },
+        {
+          location: '/logout',
+          name: 'Cerrar Sesión',
+          rol: 'user'
         }
-      ];
+      ].filter(function (button) {
+        if ($scope.user.role == 'admin') return true;
+        return button.rol == $scope.user.role;
+      });
+
+      $scope.haySeleccionado = function (){
+        return $scope.tipoHospedajeSeleccionado;
+      };
+
+      $scope.selectTipoHospedaje = function (tipo){
+        $scope.tipoHospedajeSeleccionado = tipo;
+        $scope.hayTipoHospedajeSeleccionado = true;
+         };
+
+
 
       // guardar Tipo de Hospedaje
       $scope.guardarTipoHosp = function () {
@@ -32,10 +84,18 @@ angular.module('tipoHospedaje').controller(
           .then(function (tipoHospedaje) {
             console.log('se guardo correctamente : ----------------');
             console.log(JSON.stringify(tipoHospedaje));
+            $location.path('/listadoTipoHospedaje');
           })
           .catch(function (error) {
-
-            // code 11000 means user already exist
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Error al publicar')
+                .textContent('datos duplicados o incorrectos')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Reintentar')
+            );
             console.log(error);
           });
       };
@@ -55,11 +115,24 @@ angular.module('tipoHospedaje').controller(
           })
           .catch(function (error) {
 
-            // code 11000 means user already exist
-            console.log(error);
-          });
-      };
 
-    }
-  ]
+                if (error.data.code == 11000) {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Error al agregar tipo ')
+                      .textContent('El nombre ya esta agregado: ')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Reintentar')
+
+                  );
+                }
+                console.log(error);
+              });
+          }
+
+
+        }
+    ]
 );

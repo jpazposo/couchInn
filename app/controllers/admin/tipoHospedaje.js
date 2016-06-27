@@ -18,7 +18,7 @@ module.exports = function (app) {
 router.post('/tipoHospedaje', function (req, res, next) {
 
   var newTipoHospedaje = new TipoHospedaje({
-    nombre: req.body.nombre,
+    nombre: req.body.nombre
   });
 
   newTipoHospedaje.save()
@@ -78,6 +78,8 @@ router.get('/tiposDeHospedaje', function (req, res, next) {
 });
 // Update
 router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
+
+
   return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje})
     // Caso de éxito
     .then(function (tipoHospedaje) {
@@ -99,6 +101,7 @@ router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 });
 // Delete
 router.delete('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
+
   return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje})
     // Caso de éxito
     .then(function (tipoHospedaje) {
@@ -112,10 +115,13 @@ router.delete('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
             console.error(err);
             res.status(500).json(err);
           });
+
       }
       //Caso de error
     ).catch(function (err) {
       console.error(err);
       res.status(500).json(err);
     });
+
+
 });

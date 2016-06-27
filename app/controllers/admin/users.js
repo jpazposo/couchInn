@@ -1,4 +1,4 @@
-var express = require('express'),
+let express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
@@ -18,8 +18,8 @@ module.exports = function (app) {
 // Create
 router.post('/user', function (req, res) {
   User.create(req.body)
-      .then(function(user){ res.status(201).json(user)})
-      .catch(function(err){res.status(500).json({ err: err })});
+      .then((user) => res.status(201).json(user))
+      .catch((err) => res.status(500).json({ err: err }));
 });
 // Read
 router.get('/user/:username', function (req, res, next) {
@@ -44,19 +44,13 @@ router.post('/update/user', function (req, res, next) {
   return User.findOne({username: req.body.username})
     // Caso de éxito
     .then(function (user) {
-
-
       user.nombre = req.body.nombre || user.nombre;
       user.apellido =  req.body.apellido || user.apellido;
       user.email =  req.body.email || user.email;
       user.nacimiento =  req.body.nacimiento || user.nacimiento;
-
-      user.save()
-
-        .then(function (user) {
+      user.save().then(function (user) {
           res.status(201).json(user);
-        })
-        .catch(function (err) {
+        }).catch(function (err) {
           console.error(err);
           res.status(500).json(err);
         });
@@ -67,11 +61,8 @@ router.post('/update/user', function (req, res, next) {
       console.error(err);
       res.status(500).json(err);
     });
-
-
-
-
 });
+
 // Delete
 router.delete('/user/:username', function (req, res, next) {
 
@@ -102,24 +93,24 @@ router.delete('/user/:username', function (req, res, next) {
 
 
 router.post('/user-action/login', function (req, res) {
-  var uss;
+  let uss;
 
   User.findOne({username: req.body.username})
-      .then(function(user){
+      .then((user) => {
         if(!user){
           throw { message: "User not found" };
         }
         uss = user;
         return user.comparePassword(req.body.password);
       })
-      .then(function(result){
+      .then((result)=>{
         if(!result){
           res.status(403).json({});
           return;
         }
 
 
-        var token = jwt.sign({
+        let token = jwt.sign({
           id: uss._id,
           username: uss.username,
           role: uss.role
@@ -132,7 +123,7 @@ router.post('/user-action/login', function (req, res) {
         });
 
       })
-      .catch(function(err){
+      .catch((err) => {
         console.error(err);
         res.status(412).json({err: err});
     });

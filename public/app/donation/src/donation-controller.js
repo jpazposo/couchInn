@@ -5,50 +5,71 @@ angular.module('donation').controller(
     '$scope',
     'couchinnService',
     '$location',
-    function ($scope, couchinnService, $location) {
+    '$mdDialog',
+    function ($scope, couchinnService, $location, $mdDialog) {
       console.log('se cargó el controller donationController');
 
       $scope.donation = {}; // modelo a completarse con el formulario.
       $scope.donations = [];
+      $scope.user = couchinnService.getUser();
       $scope.medioPago = [
        'RapiPago', 'PagoFacil', 'PayPal','Tarjeta de credito'
        ]
 
+      $scope.user = couchinnService.getUser();
+      if (!$scope.user) $location.url('/login');
+
       $scope.headerButtons = [
         {
           location: '/listadoTipoHospedaje',
-          name: 'Listar Tipos de Hospedaje'
+          name: 'Listar Tipos de Hospedaje',
+          rol: 'admin'
         },
         {
           location: '/nuevoTipoHospedaje',
-          name: 'Agregar Tipo de Hospedaje'
+          name: 'Agregar Tipo de Hospedaje',
+          rol: 'admin'
         },
         {
           location: '/myDonations',
-          name: 'Mis Donaciones'
+          name: 'Mis Donaciones',
+          rol: 'user'
         },
         {
           location: '/myLodgins',
-          name: 'Mis Publicaciones'
+          name: 'Mis Publicaciones',
+          rol: 'user'
         },
         {
           location: '/actualizar-perfil',
-          name: 'Modificar mis datos'
+          name: 'Modificar mis datos',
+          rol: 'user'
         },
         {
           location: '/donate',
-          name: 'Donar'
+          name: 'Donar',
+          rol: 'user'
         },
         {
           location: '/addLodgin',
-          name: 'Agregar Publicacion'
+          name: 'Agregar Publicacion',
+          rol: 'user'
         },
         {
           location: '/logout',
-          name: 'Cerrar Sesión'
+          name: 'Cerrar Sesión',
+          rol: 'user'
         }
-      ];
+      ].filter(function (button) {
+        if ($scope.user.role == 'admin') return true;
+        return button.rol == $scope.user.role;
+      });
+        $scope.volver = function () {
+          console.log('se va a modificar el premium de este usuario:-----------');
+          console.log(JSON.stringify($scope.user));
 
+          $location.path('/myDonations');
+        };
       // guardar donation
         $scope.guardarDonaciones = function () {
           console.log('se va a guardar el la publicacion:-----------');
@@ -58,10 +79,18 @@ angular.module('donation').controller(
            .then(function (donation) {
              console.log('se guardo correctamente : ----------------');
              console.log(JSON.stringify(donation));
-             $location.path('/myDonations');
+             $location.path('/accredit');
            })
            .catch(function (error) {
-
+             $mdDialog.show(
+               $mdDialog.alert()
+                 .parent(angular.element(document.querySelector('#popupContainer')))
+                 .clickOutsideToClose(true)
+                 .title('Error al enviar una donación')
+                 .textContent('Hubo un problema al interno')
+                 .ariaLabel('Alert Dialog Demo')
+                 .ok('Reintentar')
+             );
             // code 11000 means donation already exist
              console.log(error);
            });
@@ -72,7 +101,7 @@ angular.module('donation').controller(
            console.log('se solicita las publicaciones guardadas:-----------');
            console.log(JSON.stringify($scope.donations));
 
-           couchinnService.getDonations()
+           couchinnService.getDonations($scope.user)
             .then(function (donations) {
               console.log('se obtuvieron las publicaciones: ----------------');
               console.log(JSON.stringify(donations));

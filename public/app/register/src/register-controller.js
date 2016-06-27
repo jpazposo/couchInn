@@ -5,16 +5,23 @@ angular.module('register').controller(
         '$scope',
         'couchinnService',
         '$location',
-        function ($scope, couchinnService, $location) {
+      '$mdDialog',
+        function ($scope, couchinnService, $location, $mdDialog) {
           console.log('se cargó el controller registerController');
 
           $scope.user = {}; // modelo a completarse con el formulario.
-
+          $scope.role= [
+            'admin', 'user'
+          ]
 
           $scope.headerButtons = [
             {
               location: '/login',
               name: 'Iniciar Sessión'
+            },
+            {
+              location: '/',
+              name: 'Acerca de'
             }
           ];
 
@@ -31,12 +38,29 @@ angular.module('register').controller(
               .catch(function (error) {
 
                 // code 11000 means user already exist
-                alert("hubo un error registrando al usuario: " +
-                  JSON.stringify($scope.user.nombre)
+
+
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Error de registro ')
+                    .textContent('hubo un error registrando al usuario: ' + JSON.stringify($scope.user.nombre))
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Entiendo')
                 );
+
+
                 if (error.data.code == 11000) {
-                  alert(
-                    "Correo Electrónico ya registrado"
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Error de registro ')
+                      .textContent('Correo Electrónico ya registrado: ')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Reintentar')
+
                   );
                 }
                 console.log(error);

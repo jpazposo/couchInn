@@ -1,5 +1,5 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
-
+<div class="heading">Registrar Usuario</div>
 <form name="form" id="form">
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
@@ -13,6 +13,7 @@
     <md-datepicker ng-model="user.nacimiento"
                    md-placeholder="Nacimiento" >
     </md-datepicker>
+    <input type="hidden" ng-model="user.nacimiento" required>
   </div>
 
   <div layout-gt-sm="row">
@@ -44,21 +45,18 @@
   <div layout-gt-sm="row">
 
     <md-input-container>
-      <label>Perfil</label>
-      <md-select ng-model="user.profile" placeholder="Definir un perfil" name="profile">
-        <md-option ng-value="anfitrion" >Anfitrión</md-option>
-        <md-option ng-value="huesped" >Huésped</md-option>
+      <label>Rol</label>
+      <md-select ng-model="user.role" placeholder="Elegir un rol" name="rol" ng-required="true">
+        <md-option ng-value="rol" ng-repeat="rol in role">{{ rol }}</md-option>
       </md-select>
     </md-input-container>
 
-    <div layout-gt-sm="row">
-
-        <label>Recibir publicidad</label>
-        <md-checkbox ng-model="user.adds" aria-label="recibe publicaciones?" name="adds">
-        </md-checkbox>
+    <label>Recibir publicidad</label>
+    <md-checkbox ng-model="user.adds" aria-label="recibe publicaciones?" name="adds">
+    </md-checkbox>
 
     </div>
-  </div>
+
 
   <md-button ng-disabled="form.$invalid" ng-click="register()"> Register user </md-button>
 
