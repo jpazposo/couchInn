@@ -7,6 +7,7 @@ angular.module('couchinn').service(
         function ($resource, store, jwtHelper) {
 
           var apiPath = "/user-action/";
+          var pathAnonimo = "/api/";
           var adminPath = "/admin/";
 
           var user = {};
@@ -73,7 +74,7 @@ angular.module('couchinn').service(
           this.obtenerTiposDeHospedaje = function  (tiposDeHospedaje) {
 
             return $resource(
-              apiPath + 'tiposDeHospedaje'
+              pathAnonimo + 'tiposDeHospedaje'
             ).get().$promise.then(function (response) {
               return response.data;
             });

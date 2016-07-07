@@ -10,8 +10,8 @@ var LodginSchema = new Schema({
   numero: { type: Number, required: true },
   piso: Number,
   departamento: String,
-  fechaInicio:{ type: String, required: true },
-  fechaFin: { type: String, required: true },
+  fechaInicio:{ type: Date, required: true },
+  fechaFin: { type: Date, required: true },
   user: { type: Schema.ObjectId, ref: "User"}
 
 

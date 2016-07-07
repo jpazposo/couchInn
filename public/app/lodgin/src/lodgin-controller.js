@@ -12,7 +12,11 @@ angular.module('lodgin').controller(
           $scope.user = couchinnService.getUser();
           if (!$scope.user) $location.url('/login');
           console.log('se cargó el controller lodginController');
-          $scope.lodgin = {}; // modelo a completarse con el formulario.
+          $scope.lodgin = {
+            fechaInicio: new Date(),
+            fechaFin: new Date()
+          }; // modelo a completarse con el formulario.
+          $scope.today = new Date();
           $scope.lodgins = [];
           $scope.tiposHospedajes = [];
           $scope.user = couchinnService.getUser();
@@ -97,25 +101,23 @@ angular.module('lodgin').controller(
                     });
                 };
 
-                //Obtener Todos las publicaciones
-                $scope.obtenerPublicaciones = function () {
-                  console.log('se solicita las publicaciones guardadas:-----------');
-                  console.log(JSON.stringify($scope.lodgins));
 
-                  couchinnService.getLodginsByUser($scope.user)
-                    .then(function (lodgins) {
-                      console.log('se obtuvieron las publicaciones: ----------------');
-                      console.log(JSON.stringify(lodgins));
-                      $scope.lodgins = lodgins;
-                      console.log($scope.lodgins);
 
-                    })
-                    .catch(function (error) {
+          couchinnService.getLodginsByUser($scope.user)
+            .then(function (lodgins) {
+              console.log('se obtuvieron las publicaciones: ----------------');
+              console.log(JSON.stringify(lodgins));
+              $scope.lodgins = lodgins;
+              console.log($scope.lodgins);
 
-                      // code 11000 means lodgin already exist
-                      console.log(error);
-                    });
-                };
+            })
+            .catch(function (error) {
+
+              // code 11000 means lodgin already exist
+              console.log(error);
+            });
+
+
 
 
               }
