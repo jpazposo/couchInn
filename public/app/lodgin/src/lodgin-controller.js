@@ -20,6 +20,8 @@ angular.module('lodgin').controller(
           $scope.lodgins = [];
           $scope.tiposHospedajes = [];
           $scope.user = couchinnService.getUser();
+          $scope.selectedLodgin = {};
+          $scope.selected = false;
           if (!$scope.user) $location.url('/login');
           $scope.headerButtons = [
             {
@@ -66,6 +68,16 @@ angular.module('lodgin').controller(
             if ($scope.user.role == 'admin') return true;
             return button.rol == $scope.user.role;
           });
+
+          $scope.selectLodgin = function(lodgin){
+            if ($scope.selectedLodgin == lodgin){
+              $scope.selectedLodgin = {};
+              $scope.selected = false;
+            } else {
+              $scope.selectedLodgin = lodgin;
+              $scope.selected = true;
+            }
+          };
 
 
           couchinnService.obtenerTiposDeHospedaje()

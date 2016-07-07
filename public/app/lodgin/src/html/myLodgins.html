@@ -11,8 +11,10 @@
           <td>FechaFin</td>
         </tr>
         <tr ng-repeat="lodgin in lodgins"
+            ng-click="selectLodgin(lodgin)"
             class="publicacion-fila"
             ng-class="{'premium': lodgin.user.premium}"
+
         >
           <td>  {{ lodgin.nombre }}  </td>
           <td> {{ lodgin.tipo.nombre }} </td>
@@ -21,6 +23,7 @@
           <td>  {{ lodgin.fechaFin }}  </td>
         </tr>
       </table>
+      <button type="submit" class="btn btn-success btn-lg" ng-click="anularPublicacion(newPersona)" ng-hide="!selected">Anular Publicacion</button>
     </div>
   </div>
 </div>
