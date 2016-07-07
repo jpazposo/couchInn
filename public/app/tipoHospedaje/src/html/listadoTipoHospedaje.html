@@ -14,6 +14,6 @@
       </table>
     </div>
   </div>
-  <button type="submit" class="btn btn-success btn-lg" ng-click="borrarTipoHosp()" ng-disabled="tipoHospedajeSeleccionado">Borrar Tipo de Hospedaje</button>
+  <button type="submit" class="btn btn-success btn-lg" ng-click="borrarTipoHosp()" ng-disabled="!haySeleccionado()">Borrar</button>
   <label>{{tipoHospedajeSeleccionado.nombre}}</label>
 </div>
