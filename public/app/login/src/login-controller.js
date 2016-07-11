@@ -16,7 +16,7 @@ angular.module('login').controller(
               name: 'Registrarse'
             },
             {
-              location: '/',
+              location: '/quienes-somos',
               name: 'Acerca de'
             }
           ];

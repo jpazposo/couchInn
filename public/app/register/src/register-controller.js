@@ -11,7 +11,7 @@ angular.module('register').controller(
 
           $scope.user = {}; // modelo a completarse con el formulario.
           $scope.role= [
-            'admin', 'user'
+             'user'
           ]
 
           $scope.headerButtons = [
@@ -20,7 +20,7 @@ angular.module('register').controller(
               name: 'Iniciar Sessión'
             },
             {
-              location: '/',
+              location: '/quienes-somos',
               name: 'Acerca de'
             }
           ];
