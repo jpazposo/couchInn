@@ -67,6 +67,23 @@ angular.module('lodgin').controller(
             return button.rol == $scope.user.role;
           });
 
+      $scope.modificar = function (idx) {
+        var lodgin_to_modified = $scope.lodgins[idx];
+        console.log('se va a setear la publicacion a modificar:-----------');
+        console.log(JSON.stringify(lodgin_to_modified));
+        couchinnService.setLodgin(lodgin_to_modified)
+        $location.path('/actualizar-publicacion');
+
+      };
+
+      $scope.detalle = function (idx) {
+        var lodgin_to_show = $scope.lodgins[idx];
+        console.log('se va a setear la publicacion que se va a mostrat:-----------');
+        console.log(JSON.stringify(lodgin_to_show));
+        couchinnService.setLodgin(lodgin_to_show)
+        $location.path('/detallar-publicacion');
+
+      };
 
           couchinnService.obtenerTiposDeHospedaje()
             .then(function (hospedajes) {
@@ -86,15 +103,34 @@ angular.module('lodgin').controller(
                     })
                     .catch(function (error) {
 
+
+                if (error.data.code == 11000) {
+
                       $mdDialog.show(
                         $mdDialog.alert()
                           .parent(angular.element(document.querySelector('#popupContainer')))
                           .clickOutsideToClose(true)
                           .title('Error al publicar')
-                          .textContent('datos duplicados o incorrectos')
+                          .textContent('El nombre de la publicacion ya existe')
                           .ariaLabel('Alert Dialog Demo')
                           .ok('Reintentar')
                       );
+              }
+              else{
+
+              $mdDialog.show(
+                                $mdDialog.alert()
+                                  .parent(angular.element(document.querySelector('#popupContainer')))
+                                  .clickOutsideToClose(true)
+                                  .title('Error de registro ')
+                                  .textContent('hubo un error registrando la publicacion: ' + JSON.stringify($scope.lodgin.nombre))
+                                  .ariaLabel('Alert Dialog Demo')
+                                  .ok('Entiendo')
+                              );
+
+
+
+              };
 
                       // code 11000 means lodgin already exist
                       console.log(error);

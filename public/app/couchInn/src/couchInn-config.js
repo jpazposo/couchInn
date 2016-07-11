@@ -89,6 +89,29 @@ angular.module("couchinn",
             )
 
             .when(
+              '/actualizar-tipo',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
+                controller: 'editTipoController'
+              }
+            )
+
+            .when(
+              '/actualizar-publicacion',
+              {
+                templateUrl: 'app/lodgin/src/html/addLodgin.html',
+                controller: 'editLodginController'
+              }
+            )
+            .when(
+              '/detallar-publicacion',
+              {
+                templateUrl: 'app/lodgin/src/html/lodginDetails.html',
+                controller: 'editLodginController'
+              }
+            )
+
+            .when(
               '/addLodgin',
               {
                 templateUrl: 'app/lodgin/src/html/addLodgin.html',

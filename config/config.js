@@ -9,7 +9,7 @@ var config = {
       name: 'couchinn'
     },
     port: 3000,
-    db: 'mongodb://localhost/couchinn-development-5'
+    db: 'mongodb://localhost/couchinn-development-11'
   },
 
   test: {

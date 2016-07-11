@@ -11,7 +11,8 @@ angular.module('couchinn').service(
           var adminPath = "/admin/";
 
           var user = {};
-
+          var tipoHospedaje = {};
+          var lodgin = {};
           this.registerUser = function  (user) {
             /**
              * @param user type JSON{ nombre: String, Apellido: String, email:String, nacimiento: String, password: String }
@@ -63,6 +64,29 @@ angular.module('couchinn').service(
             store.set('user', user);
           };
 
+
+          this.getTipo = function (tipoHospedaje) {
+            return store.get('tipoHospedaje');
+          };
+
+          this.setTipo = function (tipoHospedaje) {
+            store.set('tipoHospedaje', tipoHospedaje);
+          };
+
+          this.getLodgin = function (lodgin) {
+            return store.get('lodgin');
+          };
+
+          this.setLodgin = function (lodgin) {
+            store.set('lodgin', lodgin);
+          };
+
+          this.editLodgin = function (lodgin) {
+            return $resource(
+              apiPath + 'update/lodgin'
+             ).save(lodgin).$promise;
+          };
+
           this.guardarTipoHospedaje = function  (tipoHospedaje) {
 
             return $resource(
@@ -80,6 +104,27 @@ angular.module('couchinn').service(
             });
 
           };
+
+
+          this.editTipoHospedaje = function (tipoHospedaje) {
+            return $resource(
+              adminPath + 'update/tipoHospedaje'
+             ).save(tipoHospedaje).$promise;
+          };
+
+          this.deleteTipoHospedaje = function (tipoHospedaje) {
+            return $resource(
+              adminPath + 'delete/tipoHospedaje'
+             ).save(tipoHospedaje).$promise;
+          };
+
+          this.recoverTipoHospedaje = function (tipoHospedaje) {
+            return $resource(
+              adminPath + 'recover/tipoHospedaje'
+             ).save(tipoHospedaje).$promise;
+          };
+
+
 
           this.addLodgin = function  (lodgin) {
 
