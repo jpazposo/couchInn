@@ -33,6 +33,10 @@ angular.module('lodgin').controller(
               rol: 'admin'
             },
             {
+              location: '/',
+              name: 'Buscar'
+            },
+            {
               location: '/myDonations',
               name: 'Mis Donaciones',
               rol: 'user'

@@ -29,6 +29,10 @@ angular.module('tipoHospedaje').controller(
           rol: 'admin'
         },
         {
+          location: '/',
+          name: 'Buscar'
+        },
+        {
           location: '/myDonations',
           name: 'Mis Donaciones',
           rol: 'user'

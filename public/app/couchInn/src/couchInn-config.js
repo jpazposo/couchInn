@@ -28,8 +28,8 @@ angular.module("couchinn",
             .when(
               '/',
               {
-                templateUrl: 'app/couchInn/src/html/couchinn.html',
-                controller: 'couchInnController'
+                templateUrl: 'app/buscar/src/html/couchinn.html',
+                controller: 'buscarController'
               }
             )
 

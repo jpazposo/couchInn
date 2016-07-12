@@ -38,6 +38,11 @@ angular.module('lodgin').controller(
               rol: 'user'
             },
             {
+              location: '/',
+              name: 'Buscar',
+              rol: 'user'
+            },
+            {
               location: '/donate',
               name: 'Donar',
               rol: 'user'

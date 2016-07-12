@@ -28,6 +28,10 @@ angular.module('lodgin').controller(
               {
                 location: '/quienes-somos',
                 name: 'Acerca de'
+              },
+              {
+                location: '/login',
+                name: 'Iniciar Sesión'
               }
             ];
 
