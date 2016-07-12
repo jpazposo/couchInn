@@ -1,27 +1,31 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 <div class="heading">Deatalles de la publicacion</div>
 <div class="container">
-  <p>Nombre</p>
-    {{ lodgin.nombre }}
-  <p>Descripcion</p>
-    {{ lodgin.descripcion }}
-  <p>Capacidad Maxima</p>
-    {{ lodgin.capacidadMax }}
-  <p>Tipo de Hospedaje</p>
-    {{ lodgin.tipo.nombre }}
-  <p>Direccion</p>
-  <p>Calle</p>
-    {{ lodgin.calle }}
-  <p>Numero</p>
-   {{ lodgin.numero }}
-  <p>Piso</p>
-    {{ lodgin.piso }}
-  <p>Departamento</p>
-    {{ lodgin.departamento }}
-  <p>Fecha Inicio</p>
-    {{ lodgin.fechaInicio | date : shortDate }}
-  <p>Fecha Fin</p>
-    {{ lodgin.fechaFin | date : shortDate }}
-  <p>Dueño</p>
-    {{ lodgin.user.email }}
+  <div class wrap style="padding-left:70px;padding-right:70px;">
+    <ul style="list-style-type:none">
+    <b>Nombre</b>
+    <li>{{ lodgin.nombre }}</li>
+    <b>Descripcion</b>
+    <li>{{ lodgin.descripcion }}</li>
+    <b>Capacidad Maxima</b><br>
+    <li>{{ lodgin.capacidadMax }}</li>
+    <b>Tipo de Hospedaje</b>
+    <li>{{ lodgin.tipo.nombre }}</li>
+    <b>Direccion</b>
+    <b>Calle</b>
+    <li>{{ lodgin.calle }}</li>
+    <b>Numero</b>
+    <li>{{ lodgin.numero }}</li>
+    <b>Piso</b>
+    <li>{{ lodgin.piso }}</li>
+    <b>Departamento</b>
+    <li>{{ lodgin.departamento }}</li>
+    <b>Fecha Inicio</b>
+    <li>{{ lodgin.fechaInicio | date : shortDate }}</li>
+    <b>Fecha Fin</b>
+    <li>{{ lodgin.fechaFin | date : shortDate }}</li>
+    <b>Dueño</b>
+    <li>{{ lodgin.user.email }}</li>
+    </ul>
+  </div>>
 </div>

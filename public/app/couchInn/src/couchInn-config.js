@@ -107,7 +107,7 @@ angular.module("couchinn",
               '/detallar-publicacion',
               {
                 templateUrl: 'app/lodgin/src/html/lodginDetails.html',
-                controller: 'editLodginController'
+                controller: 'detailLodginController'
               }
             )
 

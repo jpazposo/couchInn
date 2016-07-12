@@ -131,25 +131,3 @@ router.post('/delete/tipoHospedaje', function (req, res, next) {
     )
 });
 
-// Recover
-router.post('/recover/tipoHospedaje', function (req, res, next) {
-
-  return TipoHospedaje.findOne({nombre: req.body.nombre})
-    // Caso de éxito
-    .then(function (tipoHospedaje) {
-
-       tipoHospedaje.isDeleted = false;
-       tipoHospedaje.save()
-
-        .then(function (tipoHospedaje) {
-          res.status(201).json(tipoHospedaje);
-        })
-        .catch(function (err) {
-          console.error(err);
-          res.status(500).json(err);
-        });
-
-      }
-      //Caso de error
-    )
-});

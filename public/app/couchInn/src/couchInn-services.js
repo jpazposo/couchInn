@@ -118,13 +118,6 @@ angular.module('couchinn').service(
              ).save(tipoHospedaje).$promise;
           };
 
-          this.recoverTipoHospedaje = function (tipoHospedaje) {
-            return $resource(
-              adminPath + 'recover/tipoHospedaje'
-             ).save(tipoHospedaje).$promise;
-          };
-
-
 
           this.addLodgin = function  (lodgin) {
 

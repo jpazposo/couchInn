@@ -21,6 +21,10 @@ angular.module('register').controller(
               name: 'Iniciar Sessión'
             },
             {
+              location: '/',
+              name: 'Buscar'
+            },
+            {
               location: '/quienes-somos',
               name: 'Acerca de'
             }

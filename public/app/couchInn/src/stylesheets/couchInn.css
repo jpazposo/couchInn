@@ -62,3 +62,11 @@ th, td {
   border-style: dashed;
 }
 
+ul {
+    list-style-type: none;
+    margin: 10px;
+}
+
+li {
+    margin: 10px;
+}
