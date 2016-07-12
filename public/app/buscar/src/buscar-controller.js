@@ -82,8 +82,11 @@ angular.module('buscar').controller(
           return button.rol == $scope.user.role;
         });
       }
+      
+      
+
       $scope.publicaciones = buscarService.getResultados();
 
     }
   ]
-)
+);

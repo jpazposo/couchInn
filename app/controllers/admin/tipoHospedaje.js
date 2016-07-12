@@ -24,18 +24,45 @@ router.post('/tipoHospedaje', function (req, res, next) {
 
   newTipoHospedaje.save()
     .then(function (tipoHospedaje) {
-         TipoHospedaje.findOne(tipoHospedaje).then(function (tipoHospedaje) {
+         TipoHospedaje.findOne(tipoHospedaje)
+           .then(function (tipoHospedaje) {
            res.status(201).json(tipoHospedaje);
-         }).catch(function (err) {
-           console.error(err);
-           res.status(500).json(err);
          });
 
-       }).catch(function (err) {
-         console.error(err);
-         res.status(500).json(err);
-       });
+    })
+    .catch(function (err, param) {
+
+
+
+      console.log(err);
+    if (err.code == 11000) {
+
+
+        TipoHospedaje.findOne({nombre: req.body.nombre})
+          .then(function (tipoHospedaje) {
+            console.log(tipoHospedaje);
+            if (tipoHospedaje.isDeleted){
+              //le sacamos la baja logica
+              tipoHospedaje.isDeleted = false;
+              tipoHospedaje.save()
+              res.status(201).json(tipoHospedaje);
+            }
+            else {
+              console.error(err);
+              res.status(500).json(err);
+            }
+
+          });
+
+
+    }
+      else {
+      console.error(err);
+      res.status(500).json(err);
+    }
+
     });
+});
 
 // Read
 // Read All

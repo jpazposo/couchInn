@@ -67,7 +67,6 @@ angular.module('tipoHospedaje').controller(
       $scope.guardarTipoHosp = function () {
         console.log('se va a guardar el tipo de hospedaje:-----------');
         console.log(JSON.stringify($scope.tipoHospedaje));
-        couchinnService.recoverTipoHospedaje($scope.tipoHospedaje)
         couchinnService.guardarTipoHospedaje($scope.tipoHospedaje)
           .then(function (tipoHospedaje) {
             console.log('se guardo correctamente : ----------------');
@@ -102,7 +101,24 @@ angular.module('tipoHospedaje').controller(
         console.log('se va a borrar el tipo de hospedaje:-----------');
         console.log(JSON.stringify(tipo_to_delete));
         couchinnService.deleteTipoHospedaje(tipo_to_delete)
-        $location.path('/listadoTipoHospedaje');
+          .then(function (tipoHospedaje) {
+            console.log('se elimino correctamente : ----------------');
+            console.log(JSON.stringify(tipoHospedaje));
+            $location.path('/listadoTipoHospedaje');
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Elimino tipo')
+                .textContent('Se elimino correctamente')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Volver')
+            );
+          });
+        couchinnService.obtenerTiposDeHospedaje()
+          .then(function(tiposDeHospedaje){
+            $scope.tiposDeHospedaje = tiposDeHospedaje;
+          });
 
       };
 

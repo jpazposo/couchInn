@@ -2,15 +2,26 @@
 angular.module('buscar').directive(
   'publicacion',
   [
-    function () {
+    'couchinnService',
+    '$location',
+    function (couchinnService, $location) {
       return {
         restrict: 'AE',
         replace: true,
         scope: {
-          data: '='
+          data: '=',
+          indice: '=',
+          publicaciones: '='
         },
-        link: function () {
+        link: function ($scope) {
+          $scope.detalle = function (idx) {
+            var lodgin_to_show = $scope.publicaciones[idx];
+            console.log('se va a setear la publicacion que se va a mostrat:-----------');
+            console.log(JSON.stringify(lodgin_to_show));
+            couchinnService.setLodgin(lodgin_to_show)
+            $location.path('/detallar-publicacion');
 
+          };
         },
         transclude: false,
         templateUrl: 'app/buscar/src/html/publicacion.html'

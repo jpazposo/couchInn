@@ -13,6 +13,8 @@ angular.module('lodgin').controller(
           if (!$scope.user) $location.url('/login');
           console.log('se cargó el controller editLodginController');
           $scope.lodgin = couchinnService.getLodgin();
+          $scope.lodgin.fechaInicio = new Date($scope.lodgin.fechaInicio);
+          $scope.lodgin.fechaFin = new Date($scope.lodgin.fechaFin);
           console.log(JSON.stringify($scope.lodgin));
           $scope.today = new Date();
           $scope.lodgins = [];

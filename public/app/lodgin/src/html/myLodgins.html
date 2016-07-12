@@ -17,8 +17,8 @@
           <td> <md-button ng-click="detalle($index)">{{ lodgin.nombre }} </md-button> </td>
           <td> {{ lodgin.tipo.nombre }} </td>
           <td>  {{ lodgin.capacidadMax }}  </td>
-          <td>  {{ lodgin.fechaInicio }}  </td>
-          <td>  {{ lodgin.fechaFin }}  </td>
+          <td>  {{ lodgin.fechaInicio | date : shortDate}}  </td>
+          <td>  {{ lodgin.fechaFin | date : shortDate }}  </td>
           <td><md-button ng-click="modificar($index)"> Modificar </md-button></td>
           <td><md-button ng-click="eliminar($index)"> Eliminar </md-button></td>
         </tr>

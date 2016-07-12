@@ -3,9 +3,9 @@
       class="publicacion-fila"
       ng-class="{'premium': data.user.premium}"
   >
-    <td>  {{ data.nombre }}  </td>
+    <td>  <md-button ng-click="detalle(indice)">{{ data.nombre }} </md-button> </td>
     <td> {{ data.tipo.nombre }} </td>
     <td>  {{ data.capacidadMax }}  </td>
-    <td>  {{ data.fechaInicio }}  </td>
-    <td>  {{ data.fechaFin }}  </td>
+    <td>  {{ data.fechaInicio | date : shortDate}}  </td>
+    <td>  {{ data.fechaFin | date : shortDate}}  </td>
   </tr>

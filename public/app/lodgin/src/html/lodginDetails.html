@@ -19,9 +19,9 @@
   <p>Departamento</p>
     {{ lodgin.departamento }}
   <p>Fecha Inicio</p>
-    {{ lodgin.fechaInicio }}
+    {{ lodgin.fechaInicio | date : shortDate }}
   <p>Fecha Fin</p>
-    {{ lodgin.fechaFin }}
+    {{ lodgin.fechaFin | date : shortDate }}
   <p>Dueño</p>
     {{ lodgin.user.email }}
 </div>
