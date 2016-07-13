@@ -83,6 +83,58 @@ angular.module('lodgin').controller(
                 if ($scope.user.role == 'admin') return true;
                 return button.rol == $scope.user.role;
               });
+
+              $scope.solicitar = function (nombre){
+
+                if (!validateDates()) {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Fecha No disponible ')
+                      .textContent('Revise las fechas que tiene disponible')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Continuar')
+                  );
+                  return;
+                }
+
+                $scope.application.nombre = nombre;
+
+
+                couchinnService.solicitar($scope.application)
+                  .then()
+                  .catch();
+
+              };
+
+
+              function validateDates(){
+
+                var result = false;
+
+                var selectedIni = new Date($scope.application.fechaInicio);
+                var selectedFin = new Date($scope.application.fechaFin);
+
+                var slectedRange = moment.range(selectedIni, selectedFin);
+
+                $scope.lodgin.fechasReservadas
+                .forEach(function(fechas){
+                  var start = new Date(fechas.fechaInicio);
+                  var end = new Date(fechas.fechaFin);
+
+                  var unavailableRange = moment.range(start, end);
+
+                  result = slectedRange.overlaps(unavailableRange);
+
+                });
+
+
+
+
+              };
+
+
           }
         }
     ]
