@@ -38,6 +38,15 @@ angular.module('register').controller(
               .then(function (user) {
                 console.log('successfull registration of : ----------------');
                 console.log(JSON.stringify(user));
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Registración exitosa ')
+                    .textContent('Se registró correctamente al usuario: ' + $scope.user.nombre + '. ' + 'Cuando inicie sesión, se le pedirá el nombre de usuario: ' + $scope.user.email)
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Continuar')
+                );
                 $location.url('/login');
               })
               .catch(function (error) {
