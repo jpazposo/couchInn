@@ -11,9 +11,14 @@ angular.module('header').directive(
         link: function ($scope) {
 
           $scope.logout = function () {
-            couchinnService.logout().then(function () {
+            couchinnService.logout()
+            .then(function () {
               $location.path('/');
-            });
+            })
+            .catch(function(){
+              $location.path('/login');
+            })
+            ;
           };
 
           $scope.go = function ( path ) {

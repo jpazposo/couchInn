@@ -59,6 +59,38 @@ router.get('/lodgin', function (req, res, next) {
     })
 });
 
+// Update
+router.post('/update/lodgin', function (req, res, next) {
+
+  return Lodgin.findOne({_id: req.body._id})
+    // Caso de éxito
+    .then(function (lodgin) {
+
+       lodgin.nombre = req.body.nombre || lodgin.nombre;
+       lodgin.descripcion = req.body.descripcion || lodgin.descripcion;
+       lodgin.capacidadMax = req.body.capacidadMax || lodgin.capacidadMax;
+       lodgin.tipo = req.body.tipo || lodgin.tipo;
+       lodgin.calle = req.body.calle || lodgin.calle;
+       lodgin.numero = req.body.numero || lodgin.numero;
+       lodgin.piso = req.body.piso || lodgin.piso;
+       lodgin.departamento = req.body.departamento || lodgin.departamento;
+       lodgin.fechaInicio = req.body.fechaInicio || lodgin.fechaInicio;
+       lodgin.fechaFin = req.body.fechaFin || lodgin.fechaFin;
+       lodgin.save()
+
+        .then(function (lodgin) {
+          res.status(201).json(lodgin);
+        })
+        .catch(function (err) {
+          console.error(err);
+          res.status(500).json(err);
+        });
+
+      }
+      //Caso de error
+    )
+});
+
 
 
 

@@ -1,6 +1,6 @@
 "use strict";
 angular.module('lodgin').controller(
-    'lodginController',
+    'editLodginController',
     [
         '$scope',
         'couchinnService',
@@ -11,11 +11,11 @@ angular.module('lodgin').controller(
 
           $scope.user = couchinnService.getUser();
           if (!$scope.user) $location.url('/login');
-          console.log('se cargó el controller lodginController');
-          $scope.lodgin = {
-            fechaInicio: new Date(),
-            fechaFin: new Date()
-          }; // modelo a completarse con el formulario.
+          console.log('se cargó el controller editLodginController');
+          $scope.lodgin = couchinnService.getLodgin();
+          $scope.lodgin.fechaInicio = new Date($scope.lodgin.fechaInicio);
+          $scope.lodgin.fechaFin = new Date($scope.lodgin.fechaFin);
+          console.log(JSON.stringify($scope.lodgin));
           $scope.today = new Date();
           $scope.lodgins = [];
           $scope.tiposHospedajes = [];
@@ -33,13 +33,12 @@ angular.module('lodgin').controller(
               rol: 'admin'
             },
             {
-              location: '/myDonations',
-              name: 'Mis Donaciones',
-              rol: 'user'
+              location: '/',
+              name: 'Buscar'
             },
             {
-              location: '/',
-              name: 'Buscar',
+              location: '/myDonations',
+              name: 'Mis Donaciones',
               rol: 'user'
             },
             {
@@ -72,23 +71,6 @@ angular.module('lodgin').controller(
             return button.rol == $scope.user.role;
           });
 
-      $scope.modificar = function (idx) {
-        var lodgin_to_modified = $scope.lodgins[idx];
-        console.log('se va a setear la publicacion a modificar:-----------');
-        console.log(JSON.stringify(lodgin_to_modified));
-        couchinnService.setLodgin(lodgin_to_modified)
-        $location.path('/actualizar-publicacion');
-
-      };
-
-      $scope.detalle = function (idx) {
-        var lodgin_to_show = $scope.lodgins[idx];
-        console.log('se va a setear la publicacion que se va a mostrat:-----------');
-        console.log(JSON.stringify(lodgin_to_show));
-        couchinnService.setLodgin(lodgin_to_show)
-        $location.path('/detallar-publicacion');
-
-      };
 
           couchinnService.obtenerTiposDeHospedaje()
             .then(function (hospedajes) {
@@ -100,9 +82,9 @@ angular.module('lodgin').controller(
                   console.log('se va a guardar el la publicacion:-----------');
                   console.log(JSON.stringify($scope.lodgin));
 
-                  couchinnService.addLodgin($scope.lodgin)
+                  couchinnService.editLodgin($scope.lodgin)
                     .then(function (lodgin) {
-                      console.log('se guardo correctamente : ----------------');
+                      console.log('se modigico correctamente : ----------------');
                       console.log(JSON.stringify(lodgin));
                       $location.path('/myLodgins');
                     })
@@ -141,25 +123,6 @@ angular.module('lodgin').controller(
                       console.log(error);
                     });
                 };
-
-
-
-          couchinnService.getLodginsByUser($scope.user)
-            .then(function (lodgins) {
-              console.log('se obtuvieron las publicaciones: ----------------');
-              console.log(JSON.stringify(lodgins));
-              $scope.lodgins = lodgins;
-              console.log($scope.lodgins);
-
-            })
-            .catch(function (error) {
-
-              // code 11000 means lodgin already exist
-              console.log(error);
-            });
-
-
-
 
               }
             ]

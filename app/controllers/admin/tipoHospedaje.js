@@ -17,31 +17,58 @@ module.exports = function (app) {
 // Create
 router.post('/tipoHospedaje', function (req, res, next) {
 
+
   var newTipoHospedaje = new TipoHospedaje({
-    nombre: req.body.nombre
+    nombre: req.body.nombre,
   });
 
   newTipoHospedaje.save()
     .then(function (tipoHospedaje) {
+         TipoHospedaje.findOne(tipoHospedaje)
+           .then(function (tipoHospedaje) {
+           res.status(201).json(tipoHospedaje);
+         });
 
-      TipoHospedaje.findOne(tipoHospedaje).then(function (tipoHospedaje) {
-        res.status(201).json(tipoHospedaje);
-      }).catch(function (err) {
-        console.error(err);
-        res.status(500).json(err);
-      });
+    })
+    .catch(function (err, param) {
 
-    }).catch(function (err) {
+
+
+      console.log(err);
+    if (err.code == 11000) {
+
+
+        TipoHospedaje.findOne({nombre: req.body.nombre})
+          .then(function (tipoHospedaje) {
+            console.log(tipoHospedaje);
+            if (tipoHospedaje.isDeleted){
+              //le sacamos la baja logica
+              tipoHospedaje.isDeleted = false;
+              tipoHospedaje.save()
+              res.status(201).json(tipoHospedaje);
+            }
+            else {
+              console.error(err);
+              res.status(500).json(err);
+            }
+
+          });
+
+
+    }
+      else {
       console.error(err);
       res.status(500).json(err);
-    });
+    }
 
+    });
 });
+
 // Read
 // Read All
 router.get('/tiposDeHospedaje', function (req, res, next) {
 
-  return TipoHospedaje.find({})
+  return TipoHospedaje.find({isDeleted: false})
     // Caso de éxito
     .then(function (tiposDeHospedajes) {
         console.log(tiposDeHospedajes);
@@ -58,17 +85,14 @@ router.get('/tiposDeHospedaje', function (req, res, next) {
 
 });
 // Update
-router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
+router.post('/update/tipoHospedaje', function (req, res, next) {
 
-
-  return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje})
+  return TipoHospedaje.findOne({_id: req.body._id})
     // Caso de éxito
     .then(function (tipoHospedaje) {
 
-
-        tipoHospedaje.nombre = req.body.nombre || tipoHospedaje.nombre;
-
-        tipoHospedaje.save()
+       tipoHospedaje.nombre = req.body.nombre || tipoHospedaje.nombre;
+       tipoHospedaje.save()
 
         .then(function (tipoHospedaje) {
           res.status(201).json(tipoHospedaje);
@@ -80,38 +104,30 @@ router.put('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
       }
       //Caso de error
-    ).catch(function (err) {
-      console.error(err);
-      res.status(500).json(err);
-    });
-
-
-
-
+    )
 });
-// Delete
-router.delete('/tipoHospedaje/:nombreTipoHospedaje', function (req, res, next) {
 
-  return TipoHospedaje.findOne({nombre: req.params.nombreTipoHospedaje})
+
+// Delete
+router.post('/delete/tipoHospedaje', function (req, res, next) {
+
+  return TipoHospedaje.findOne({_id: req.body._id})
     // Caso de éxito
     .then(function (tipoHospedaje) {
 
-        tipoHospedaje.remove()
+       tipoHospedaje.isDeleted = true;
+       tipoHospedaje.save()
 
-          .then(function () {
-            res.status(204).end();
-          })
-          .catch(function (err) {
-            console.error(err);
-            res.status(500).json(err);
-          });
+        .then(function (tipoHospedaje) {
+          res.status(201).json(tipoHospedaje);
+        })
+        .catch(function (err) {
+          console.error(err);
+          res.status(500).json(err);
+        });
 
       }
       //Caso de error
-    ).catch(function (err) {
-      console.error(err);
-      res.status(500).json(err);
-    });
-
-
+    )
 });
+

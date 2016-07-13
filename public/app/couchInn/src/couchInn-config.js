@@ -28,8 +28,8 @@ angular.module("couchinn",
             .when(
               '/',
               {
-                templateUrl: 'app/couchInn/src/html/couchinn.html',
-                controller: 'couchInnController'
+                templateUrl: 'app/buscar/src/html/couchinn.html',
+                controller: 'buscarController'
               }
             )
 
@@ -85,6 +85,29 @@ angular.module("couchinn",
               {
                 templateUrl: 'app/tipoHospedaje/src/html/listadoTipoHospedaje.html',
                 controller: 'tipoHospedajeController'
+              }
+            )
+
+            .when(
+              '/actualizar-tipo',
+              {
+                templateUrl: 'app/tipoHospedaje/src/html/nuevoTipoHospedaje.html',
+                controller: 'editTipoController'
+              }
+            )
+
+            .when(
+              '/actualizar-publicacion',
+              {
+                templateUrl: 'app/lodgin/src/html/addLodgin.html',
+                controller: 'editLodginController'
+              }
+            )
+            .when(
+              '/detallar-publicacion',
+              {
+                templateUrl: 'app/lodgin/src/html/lodginDetails.html',
+                controller: 'detailLodginController'
               }
             )
 
