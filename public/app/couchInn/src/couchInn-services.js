@@ -166,6 +166,16 @@ angular.module('couchinn').service(
              });
           };
 
+          this.solicitar = function () {
+            return $resource(
+             apiPath + 'donation'
+             ).get().$promise.then(function (response) {
+               return response.data.filter(function (donation) {
+               return donation.user.username === user.username;
+               });
+             });
+          }
+
 
         }
     ]

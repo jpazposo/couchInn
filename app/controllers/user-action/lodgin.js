@@ -90,10 +90,3 @@ router.post('/update/lodgin', function (req, res, next) {
       //Caso de error
     )
 });
-
-
-
-
-
-
-
