@@ -12,8 +12,8 @@ var LodginSchema = new Schema({
   departamento: String,
   fechaInicio:{ type: Date, required: true },
   fechaFin: { type: Date, required: true },
-  user: { type: Schema.ObjectId, ref: "User"}
-
+  user: { type: Schema.ObjectId, ref: "User"},
+  activa: Boolean
 
 });
 
