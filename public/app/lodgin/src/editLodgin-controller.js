@@ -84,8 +84,17 @@ angular.module('lodgin').controller(
 
                   couchinnService.editLodgin($scope.lodgin)
                     .then(function (lodgin) {
-                      console.log('se modigico correctamente : ----------------');
+                      console.log('successfull modified lodgin : ----------------');
                       console.log(JSON.stringify(lodgin));
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.querySelector('#popupContainer')))
+                          .clickOutsideToClose(true)
+                          .title('Modificacion de publicacion exitosa ')
+                          .textContent('Se modifico correctamente la publicacion: ' + $scope.lodgin.nombre)
+                          .ariaLabel('Alert Dialog Demo')
+                          .ok('Continuar')
+                      );
                       $location.path('/myLodgins');
                     })
                     .catch(function (error) {
