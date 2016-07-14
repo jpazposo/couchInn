@@ -53,6 +53,7 @@ router.get('/lodgin', function (req, res, next) {
   return Lodgin.find({})
     .populate('tipo', 'nombre')
     .populate('user')
+    .populate('applicants')
     .exec(function (err, lodgins) {
       if (err) console.log(err);
       res.json({ data: lodgins})

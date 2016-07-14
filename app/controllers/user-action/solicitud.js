@@ -4,6 +4,7 @@ var express = require('express'),
   Lodgin = mongoose.model('Lodgin');
 var  TipoHospedaje = mongoose.model('TipoHospedaje');
 var User = mongoose.model('User');
+var Application = mongoose.model('Application')
 module.exports = function (app) {
   app.use('/user-action/', router);
 };
@@ -11,15 +12,28 @@ module.exports = function (app) {
 
 router.post('/solicitar/lodgin/:nombre', function(req, res, next){
   /**
-  * @param reserva: {fechaInicio: Date, fechaFin: Date }
+  * @param application: {fechaInicio: Date, fechaFin: Date }
   */
 
   Lodgin.findOne({ nombre: req.params.nombre })
       .then((lodgin)=>{
-          lodgin.fechasReservadas.push(req.body.reserva);
-          lodgin.save()
-            .then((lodgin)=>res.json(lodgin))
-            .catch((err)=>res.status(500).json(err));
+          User.findOne({username: req.id})
+            .then(function (user) {
+              lodgin.fechasReservadas.push(req.body);
+              lodgin.applicants.push(user);
+              Application.create({
+                owner: user,
+                lodgin: lodgin,
+                fechaInicio: req.body.fechaInicio,
+                fechaFin: req.body.fechaFin
+              }).then(function (application) {
+                  lodgin.save()
+                    .then((lodgin)=>res.json(lodgin))
+                    .catch((err)=>res.status(500).json(err));
+                });
+
+            });
+
       })
       .catch((err)=>res.status(404).json(err));
 });

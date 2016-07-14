@@ -14,6 +14,7 @@ angular.module('buscar').directive(
           publicaciones: '='
         },
         link: function ($scope) {
+          $scope.user = couchinnService.getUser();
           $scope.detalle = function (idx) {
             var lodgin_to_show = $scope.publicaciones[idx];
             console.log('se va a setear la publicacion que se va a mostrat:-----------');
@@ -21,6 +22,22 @@ angular.module('buscar').directive(
             couchinnService.setLodgin(lodgin_to_show)
             $location.path('/detallar-publicacion');
 
+          };
+
+          $scope.isUserAnApplicant = function (nombre) {
+            var searchPublicacion =
+            $scope.publicaciones
+              .filter(function (publicacion) {
+                return publicacion.nombre === nombre;
+            });
+
+            var searchApplicant =
+            searchPublicacion[0].applicants
+              .filter(function (applicant) {
+                return applicant.username === $scope.user.username;
+            });
+
+            return searchApplicant.length > 0;
           };
         },
         transclude: false,

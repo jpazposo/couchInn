@@ -29,3 +29,41 @@
     </ul>
   </div>
 </div>
+
+
+<h1>Solicitar Couch</h1>
+
+<div>
+  <md-content>
+    <md-datepicker
+      ng-model="application.fechaInicio"
+      md-placeholder="fecha inicial"
+      md-min-date="lodgin.fechaInicio"
+      md-max-date="lodgin.fechaFin">
+    </md-datepicker>
+  </md-content>
+
+  <md-content>
+    <md-datepicker
+      ng-model="application.fechaFin"
+      md-placeholder="fecha final"
+      md-min-date="application.fechaInicio"
+      md-max-date="lodgin.fechaFin">
+    </md-datepicker>
+  </md-content>
+</div>
+
+<div ng-show="lodgin.fechasReservadas.length > 0">
+  <h2>Fechas Ya reservadas</h2>
+  <md-list>
+    <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
+
+      <div class="md-list-item-text">
+        <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
+
+
+<md-button ng-click="solicitar(lodgin.nombre)"> Solicitar Ahora</md-button>

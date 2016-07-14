@@ -5,8 +5,8 @@ angular.module('lodgin').controller(
         '$scope',
         'couchinnService',
         '$location',
-
-        function ($scope, couchinnService, $location) {
+        '$mdDialog',
+        function ($scope, couchinnService, $location, $mdDialog) {
 
           console.log('se cargó el controller detailLodginController');
           $scope.lodgin = couchinnService.getLodgin();
@@ -84,6 +84,11 @@ angular.module('lodgin').controller(
                 return button.rol == $scope.user.role;
               });
 
+            $scope.application = {
+              fechaFin: new Date($scope.lodgin.fechaFin),
+              fechaInicio: new Date($scope.lodgin.fechaInicio)
+            };
+
               $scope.solicitar = function (nombre){
 
                 if (!validateDates()) {
@@ -103,20 +108,40 @@ angular.module('lodgin').controller(
 
 
                 couchinnService.solicitar($scope.application)
-                  .then()
-                  .catch();
+                  .then((lodgin)=>{
+                    $mdDialog.show(
+                      $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Felicitaciones, acabas de reservar este couch')
+                        .textContent('Un email será enviado a ' + $scope.user.username + ' detallando todos los datos de la reserva')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Seguir buscando otros couch')
+                    );
+                    $location.path('/user-logged/' + $scope.user.nombre);
+                  })
+                  .catch((err)=>{
+                    $mdDialog.show(
+                      $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Felicitaciones, acabas de reservar este couch')
+                        .textContent('Un email será enviado a ' + $scope.user.username + ' detallando todos los datos de la reserva')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Seguir buscando otros couch')
+                    );
+                  });
 
               };
 
 
-              function validateDates(){
+              var validateDates = function (){
+                /*
+                * @return Boolean
+                */
+                var result = true;
 
-                var result = false;
-
-                var selectedIni = new Date($scope.application.fechaInicio);
-                var selectedFin = new Date($scope.application.fechaFin);
-
-                var slectedRange = moment.range(selectedIni, selectedFin);
+                var slectedRange = moment.range($scope.application.fechaInicio, $scope.application.fechaFin);
 
                 $scope.lodgin.fechasReservadas
                 .forEach(function(fechas){
@@ -125,10 +150,13 @@ angular.module('lodgin').controller(
 
                   var unavailableRange = moment.range(start, end);
 
-                  result = slectedRange.overlaps(unavailableRange);
+                  if(slectedRange.overlaps(unavailableRange)){
+                    result = false;
+                  }
 
                 });
 
+                return result;
 
 
 

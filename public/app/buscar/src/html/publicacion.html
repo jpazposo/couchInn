@@ -3,7 +3,20 @@
       class="publicacion-fila"
       ng-class="{'premium': data.user.premium}"
   >
-    <td>  <md-button ng-click="detalle(indice)">{{ data.nombre }} </md-button> </td>
+
+    <td>  <md-button
+            ng-click="detalle(indice)">
+
+          <md-tooltip
+            md-direction="top"
+            ng-if="isUserAnApplicant(data.nombre)">
+            ¡Usted Aplicó para este couch!
+          </md-tooltip>
+
+          {{ data.nombre }}
+
+          </md-button>
+    </td>
     <td> {{ data.tipo.nombre }} </td>
     <td>  {{ data.capacidadMax }}  </td>
     <td>  {{ data.fechaInicio | date : shortDate}}  </td>

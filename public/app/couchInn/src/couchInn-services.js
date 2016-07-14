@@ -77,9 +77,12 @@ angular.module('couchinn').service(
             return store.get('lodgin');
           };
 
-          this.setLodgin = function (lodgin) {
+          var setLodgin = function (lodgin) {
+            store.remove('lodgin');
             store.set('lodgin', lodgin);
           };
+
+          this.setLodgin = setLodgin;
 
           this.editLodgin = function (lodgin) {
             return $resource(
@@ -166,16 +169,15 @@ angular.module('couchinn').service(
              });
           };
 
-          this.solicitar = function () {
+          
+          this.solicitar = function (application) {
             return $resource(
-             apiPath + 'donation'
-             ).get().$promise.then(function (response) {
-               return response.data.filter(function (donation) {
-               return donation.user.username === user.username;
-               });
-             });
-          }
-
+             apiPath + 'solicitar/lodgin/:nombre', {nombre: application.nombre}
+             ).save(application).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+              });
+          };
 
         }
     ]
