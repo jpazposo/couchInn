@@ -25,6 +25,9 @@ angular.module('buscar').directive(
           };
 
           $scope.isUserAnApplicant = function (nombre) {
+
+            if (!$scope.user) return false;
+
             var searchPublicacion =
             $scope.publicaciones
               .filter(function (publicacion) {
