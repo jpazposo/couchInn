@@ -1,0 +1,27 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Donar</div>
+
+<form name="donationForm">
+  <div class="row" style="padding-left:70px;padding-right:70px;">
+    <h3>Ayudanos a Mantener CouchInn</h3>
+    <p>CouchInn se mantiene exclusivamente por las donaciones voluntarias de los usuarios que deseen colaborar, ya que no se cobra una couta a sus usuarios, ni comisiones por las publicaciones o solicitudes </p>
+    <p>Las donaciones recibidas se usaran exclusivamente para el mantenimiento, mejora y actualizacion del sitio, ya que se trata de proyecto sin fines de lucro. </p>
+    <p>Al donar, se le otorgara el estado de premium, lo que hara que todas sus publicaciones sean destacadas y puedan llegar a muchas mas personas. Este estado sera permanente, independientemente de cuanto sea el monto donado.</p><br />
+  </div>
+
+  <md-input-container>
+    <label>Medio de pago</label>
+    <md-select ng-model="donation.medioDePago" placeholder="Elegir un medio de pago" name="medioDePago" ng-required="true">
+      <md-option ng-value="medio" ng-repeat="medio in medioPago">{{ medio }}</md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Monto</label>
+    <input ng-model="donation.monto" requerid>
+  </md-input-container>
+
+  <md-button ng-click="guardarDonaciones()" ng-disabled="!donation.monto || !donation.medioDePago"> Agregar Donacion </md-button>
+</form>
+
+

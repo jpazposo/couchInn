@@ -1,0 +1,47 @@
+<form name="form" id="form" >
+  <div layout-gt-sm="row">
+    <md-input-container>
+      <md-select
+        ng-model="searchFilter.tipo"
+        placeholder="Seleccionar tipo de hospedaje">
+        <md-option
+          ng-value="type._id"
+          ng-repeat="type in tiposHospedajes ">{{ type.nombre }}</md-option>
+      </md-select>
+    </md-input-container>
+
+    <md-input-container>
+      <label>Cantidad Máxima de ocupantes</label>
+      <input type="number" ng-model="searchFilter.capacidadMax" required >
+    </md-input-container>
+
+
+    <md-input-container>
+      <label>Lugar</label>
+      <input type="text" ng-model="searchFilter.nombre" required md-maxlength="50">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-content>
+      <md-datepicker
+        ng-model="searchFilter.fechaInicio"
+        md-placeholder="fecha inicial"
+        md-min-date="minDate"
+        md-max-date="maxDate">
+      </md-datepicker>
+    </md-content>
+
+    <md-content>
+      <md-datepicker
+        ng-model="searchFilter.fechaFin"
+        md-placeholder="fecha final"
+        md-min-date="minDate"
+        md-max-date="maxDate">
+      </md-datepicker>
+    </md-content>
+  </div>
+
+  <md-button ng-click="search()"> Buscar</md-button>
+
+</form>

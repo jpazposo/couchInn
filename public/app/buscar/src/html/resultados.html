@@ -1,0 +1,29 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+
+
+<table class="table table-striped">
+  <tr class="info">
+    <td>Nombre</td>
+    <td>Tipo</td>
+    <td>Capacidad Máxima</td>
+    <td>FechaInicio</td>
+    <td>FechaFin</td>
+  </tr>
+
+  <div layout="column">
+    <div flex ng-repeat="publicacion in publicaciones" class="publicacion">
+      <publicacion
+        data="publicacion"
+      >
+      </publicacion>
+    </div>
+  </div>
+
+</table>
+
+
+
+<h1 ng-if="publicaciones.length == 0" >
+  Lamentablemente no se encontraron coincidencias, vuelva a intentar con otros parámetros de búsqueda
+</h1>
+<a href="#/">Volver</a>
