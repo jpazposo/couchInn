@@ -1,16 +1,14 @@
-<form name="userForm">
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Nuevo Tipo de Hospedaje</div>
+<form name="tiposForm">
   <div ng-show="error1">Error!! El tipo de Hospedaje ya Existe</div>
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Nombre</label>
       <input ng-model="tipoHospedaje.nombre" requerid>
     </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-      <label>Capacidad Máxima</label>
-      <input type="number" ng-model="tipoHospedaje.capacidadMax" ng-min="1" ng-max="100">
-    </md-input-container>
   </div>
 
-  <button type="submit" class="btn btn-success btn-lg" ng-click="guardarTipoHosp()" ng-disabled="!tipoHospedaje.nombre  || !tipoHospedaje.capacidadMax || !tipoHospedaje.capacidadMax > 0">Guardar Tipo de Hospedaje</button>
+  <button type="submit" class="btn btn-success btn-lg" ng-click="guardarTipoHosp()" ng-disabled="!tipoHospedaje.nombre">Guardar Tipo de Hospedaje</button>
 
 </form>

@@ -26,6 +26,10 @@ angular.module('donation').controller(
           rol: 'admin'
         },
         {
+          location: '/',
+          name: 'Buscar'
+        },
+        {
           location: '/nuevoTipoHospedaje',
           name: 'Agregar Tipo de Hospedaje',
           rol: 'admin'

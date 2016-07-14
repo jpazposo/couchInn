@@ -26,6 +26,10 @@
     "angular-material": "^1.0.7",
     "angular-aria": "^1.5.5",
     "material-design-icons": "^2.2.3",
-    "angular-jwt": "^0.0.9"
+    "ngstorage": "^0.3.10",
+    "a0-angular-storage": "^0.0.15",
+    "angular-jwt": "^0.0.9",
+    "moment": "^2.14.1",
+    "moment-range": "^2.2.0"
   }
 }

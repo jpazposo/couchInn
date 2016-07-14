@@ -39,6 +39,7 @@ router.post('/search', function (req, res) {
   return Lodgin.find(filter)
     .populate('tipo', 'nombre')
     .populate('user')
+    .populate('applicants')
     .exec(function (err, lodgins) {
       if (err) console.log(err);
       res.json({ data: lodgins})

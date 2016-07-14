@@ -1,0 +1,69 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Deatalles de la publicacion</div>
+<div class="container">
+  <div class wrap style="padding-left:70px;padding-right:70px;">
+    <ul style="list-style-type:none">
+    <b>Nombre</b>
+    <li>{{ lodgin.nombre }}</li>
+    <b>Descripcion</b>
+    <li>{{ lodgin.descripcion }}</li>
+    <b>Capacidad Maxima</b><br>
+    <li>{{ lodgin.capacidadMax }}</li>
+    <b>Tipo de Hospedaje</b>
+    <li>{{ lodgin.tipo.nombre }}</li>
+    <b>Direccion</b>
+    <b>Calle</b>
+    <li>{{ lodgin.calle }}</li>
+    <b>Numero</b>
+    <li>{{ lodgin.numero }}</li>
+    <b>Piso</b>
+    <li>{{ lodgin.piso }}</li>
+    <b>Departamento</b>
+    <li>{{ lodgin.departamento }}</li>
+    <b>Fecha Inicio</b>
+    <li>{{ lodgin.fechaInicio | date : shortDate }}</li>
+    <b>Fecha Fin</b>
+    <li>{{ lodgin.fechaFin | date : shortDate }}</li>
+    <b>Dueño</b>
+    <li>{{ lodgin.user.email }}</li>
+    </ul>
+  </div>
+</div>
+
+
+<h1>Solicitar Couch</h1>
+
+<div>
+  <md-content>
+    <md-datepicker
+      ng-model="application.fechaInicio"
+      md-placeholder="fecha inicial"
+      md-min-date="lodgin.fechaInicio"
+      md-max-date="lodgin.fechaFin">
+    </md-datepicker>
+  </md-content>
+
+  <md-content>
+    <md-datepicker
+      ng-model="application.fechaFin"
+      md-placeholder="fecha final"
+      md-min-date="application.fechaInicio"
+      md-max-date="lodgin.fechaFin">
+    </md-datepicker>
+  </md-content>
+</div>
+
+<div ng-show="lodgin.fechasReservadas.length > 0">
+  <h2>Fechas Ya reservadas</h2>
+  <md-list>
+    <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
+
+      <div class="md-list-item-text">
+        <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
+
+
+<md-button ng-click="solicitar(lodgin.nombre)"> Solicitar Ahora</md-button>

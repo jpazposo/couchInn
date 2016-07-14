@@ -33,3 +33,40 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.logo{
+  top: 0;
+  left: 0;
+  width: 370px;
+  position: absolute;
+}
+
+.heading{
+  font-size: 200%;
+  font-weight: bold;
+}
+.md-button{
+  top: 5px;
+}
+.content{
+  margin: 10px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+.publicacion-fila.premium{
+  background-color: yellow;
+  border-style: dashed;
+}
+
+ul {
+    list-style-type: none;
+    margin: 10px;
+}
+
+li {
+    margin: 10px;
+}

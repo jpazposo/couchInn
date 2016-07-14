@@ -25,14 +25,7 @@
 
 
 
- <md-content layout="column" flex>
-   <div flex layout="column">
-     <div ng-if="" style="background-color:SteelBlue;color:white;"></div>
-   </div>
-   <footer flex="none" style="background-color:orange;color:white;">
-     <div>footer item</div>
-   </footer>
- </md-content>
+
 
     <!--angular sources-->
     <script type="application/javascript" src="components/angular/angular.min.js"></script>
@@ -43,13 +36,18 @@
     <script type="application/javascript" src="components/angular-sanitize/angular-sanitize.min.js"></script>
     <script type="application/javascript" src="components/angular-touch/angular-touch.min.js"></script>
     <script type="application/javascript" src="components/angular-resource/angular-resource.min.js"></script>
-    <script type="application/javascript" src="components/angular-jwt/dist/angular-jwt.js"></script>
+    <script type="application/javascript" src="components/a0-angular-storage/dist/angular-storage.js"></script>
     <!--End angular sources-->
 
 
     <!-- Angular Material Dependencies -->
     <script type="application/javascript" src="components/angular-aria/angular-aria.min.js"></script>
     <script type="application/javascript" src="components/angular-material/angular-material.min.js"></script>
+
+    <!-- Helper libs -->
+    <script type="text/javascript" src="components/angular-jwt/dist/angular-jwt.js"></script>
+    <script type="text/javascript" src="components/moment/moment.js"></script>
+    <script type="text/javascript" src="components/moment-range/dist/moment-range.js"></script>
 
 
     <!--modules sources-->
@@ -65,15 +63,37 @@
       <!--register-->
       <script type="application/javascript" src="app/register/src/register-config.js"></script>
       <script type="application/javascript" src="app/register/src/register-controller.js"></script>
+      <script type="application/javascript" src="app/register/src/edit-controller.js"></script>
       <!--login-->
       <script type="application/javascript" src="app/login/src/login-config.js"></script>
       <script type="application/javascript" src="app/login/src/login-controller.js"></script>
       <!--tipoHospedaje-->
       <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-config.js"></script>
       <script type="application/javascript" src="app/tipoHospedaje/src/tipoHospedaje-controller.js"></script>
+      <script type="application/javascript" src="app/tipoHospedaje/src/editTipo-controller.js"></script>
+
       <!--logged user-->
       <script type="application/javascript" src="app/loggedUser/src/loggedUser-config.js"></script>
       <script type="application/javascript" src="app/loggedUser/src/loggedUser-controller.js"></script>
+
+      <script type="application/javascript" src="app/ajax-interceptor/src/ajax-interceptor.js"></script>
+
+      <!--buscar-->
+      <script type="application/javascript" src="app/buscar/src/buscar-config.js"></script>
+      <script type="application/javascript" src="app/buscar/src/buscar-controller.js"></script>
+      <script type="application/javascript" src="app/buscar/src/buscar-directives.js"></script>
+      <script type="application/javascript" src="app/buscar/src/buscar-services.js"></script>
+
+      <!--lodgin-->
+      <script type="application/javascript" src="app/lodgin/src/lodgin-config.js"></script>
+      <script type="application/javascript" src="app/lodgin/src/lodgin-controller.js"></script>
+      <script type="application/javascript" src="app/lodgin/src/editLodgin-controller.js"></script>
+      <script type="application/javascript" src="app/lodgin/src/detailLodgin-controller.js"></script>
+
+      <!--donation-->
+      <script type="application/javascript" src="app/donation/src/donation-config.js"></script>
+      <script type="application/javascript" src="app/donation/src/donation-controller.js"></script>
+
     <!--modules sources-->
 
   </body>
