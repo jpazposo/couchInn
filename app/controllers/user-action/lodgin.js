@@ -26,7 +26,6 @@ router.post('/lodgin', function (req, res, next) {
        fechaInicio: req.body.fechaInicio,
        fechaFin: req.body.fechaFin,
        user: req.id, //req.username req.username,
-       activa: true
      });
 
      newLodgin.save()

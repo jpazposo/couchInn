@@ -11,8 +11,9 @@ angular.module('register').controller(
 
           $scope.user = {}; // modelo a completarse con el formulario.
           $scope.role= [
-            'admin', 'user'
-          ]
+             'user',
+              'admin'
+          ];
 
           $scope.headerButtons = [
             {
@@ -21,6 +22,10 @@ angular.module('register').controller(
             },
             {
               location: '/',
+              name: 'Buscar'
+            },
+            {
+              location: '/quienes-somos',
               name: 'Acerca de'
             }
           ];

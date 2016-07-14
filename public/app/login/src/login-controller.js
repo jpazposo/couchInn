@@ -17,6 +17,10 @@ angular.module('login').controller(
             },
             {
               location: '/',
+              name: 'Buscar'
+            },
+            {
+              location: '/quienes-somos',
               name: 'Acerca de'
             }
           ];

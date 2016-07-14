@@ -12,6 +12,14 @@ angular.module('couchinn').controller(
               name: 'Registrate'
             },
             {
+              location: '/',
+              name: 'Buscar'
+            },
+            {
+              location: '/quienes-somos',
+              name: 'Acerca de'
+            },
+            {
               location: '/login',
               name: 'Iniciar Sesión'
             }

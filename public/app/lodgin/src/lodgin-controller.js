@@ -21,7 +21,8 @@ angular.module('lodgin').controller(
           $scope.tiposHospedajes = [];
           $scope.user = couchinnService.getUser();
           $scope.selectedLodgin = {};
-          $scope.selected = false;
+          $scope.selectedAnular = false;
+          $scope.selectedHabilitar = false;
           if (!$scope.user) $location.url('/login');
           $scope.headerButtons = [
             {
@@ -70,12 +71,37 @@ angular.module('lodgin').controller(
           });
 
           $scope.selectLodgin = function(lodgin){
+
             if ($scope.selectedLodgin == lodgin){
               $scope.selectedLodgin = {};
-              $scope.selected = false;
+              $scope.selectedAnular = false;
+              $scope.selectedHabilitar = false;
             } else {
               $scope.selectedLodgin = lodgin;
-              $scope.selected = true;
+              if (lodgin.activa == "SI"){
+                $scope.selectedAnular = true;}
+              else {
+                $scope.selectedHabilitar = true;
+              }
+            }
+          };
+
+          $scope.anularPublicacion = function(){
+            //anulamos la publicacion y mostramos mensaje
+            $scope.selectedLodgin.activa = "NO";
+            $scope.selectedAnular = false;
+            $location.path('/anulacionLodgin');
+            if ($scope.selectedLodgin.applicants > 0){
+              // hay por lo menos 1 solicitante, debemos informar mediante mail
+            }
+          };
+
+          $scope.habilitarPublicacion = function(){
+            //anulamos la publicacion y mostramos mensaje
+            $scope.selectedLodgin.activa = "SI";
+            $scope.selectedHabilitar = false;
+            if ($scope.selectedLodgin.applicants > 0){
+              // hay por lo menos 1 solicitante, debemos informar mediante mail
             }
           };
 

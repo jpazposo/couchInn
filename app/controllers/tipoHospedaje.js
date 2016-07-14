@@ -14,7 +14,7 @@ module.exports = function (app) {
 // Read All
 router.get('/tiposDeHospedaje', function (req, res, next) {
 
-  return TipoHospedaje.find({})
+  return TipoHospedaje.find({isDeleted: false})
     // Caso de éxito
     .then(function (tiposDeHospedajes) {
         console.log(tiposDeHospedajes);

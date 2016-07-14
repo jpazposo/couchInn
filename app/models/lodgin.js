@@ -13,7 +13,8 @@ var LodginSchema = new Schema({
   fechaInicio:{ type: Date, required: true },
   fechaFin: { type: Date, required: true },
   user: { type: Schema.ObjectId, ref: "User"},
-  activa: Boolean
+  activa:{ type: String, default: "SI"},
+  applicants:{ type: Schema.ObjectId, ref: "User" }
 
 });
 
