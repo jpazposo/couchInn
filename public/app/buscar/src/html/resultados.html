@@ -9,17 +9,22 @@
     <td>FechaInicio</td>
     <td>FechaFin</td>
   </tr>
-
+</table>
+<table>
   <div layout="column">
     <div flex ng-repeat="publicacion in publicaciones" class="publicacion">
       <publicacion
         data="publicacion"
+        indice="$index"
+        publicaciones="publicaciones"
       >
       </publicacion>
     </div>
   </div>
 
+
 </table>
+
 
 
 

@@ -41,7 +41,7 @@ router.post('/tipoHospedaje', function (req, res, next) {
 // Read All
 router.get('/tiposDeHospedaje', function (req, res, next) {
 
-  return TipoHospedaje.find({})
+  return TipoHospedaje.find({isDeleted: false})
     // Caso de éxito
     .then(function (tiposDeHospedajes) {
         console.log(tiposDeHospedajes);

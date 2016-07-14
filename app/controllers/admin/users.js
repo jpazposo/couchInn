@@ -44,13 +44,19 @@ router.post('/update/user', function (req, res, next) {
   return User.findOne({username: req.body.username})
     // Caso de éxito
     .then(function (user) {
+
+
       user.nombre = req.body.nombre || user.nombre;
       user.apellido =  req.body.apellido || user.apellido;
       user.email =  req.body.email || user.email;
       user.nacimiento =  req.body.nacimiento || user.nacimiento;
-      user.save().then(function (user) {
+
+      user.save()
+
+        .then(function (user) {
           res.status(201).json(user);
-        }).catch(function (err) {
+        })
+        .catch(function (err) {
           console.error(err);
           res.status(500).json(err);
         });
