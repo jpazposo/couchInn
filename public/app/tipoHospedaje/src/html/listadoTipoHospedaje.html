@@ -10,6 +10,8 @@
         </tr>
         <tr ng-repeat="tipoHos in tiposDeHospedaje" ng-click="selectTipoHospedaje(tipoHos)">
           <td>  {{ tipoHos.nombre }}  </td>
+          <td><md-button ng-click="modificar($index)"> Modificar </md-button></td>
+          <td><md-button ng-click="eliminar($index)"> Eliminar </md-button></td>
         </tr>
       </table>
     </div>

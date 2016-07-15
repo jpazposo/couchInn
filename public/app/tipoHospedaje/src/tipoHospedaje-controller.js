@@ -30,6 +30,10 @@ angular.module('tipoHospedaje').controller(
           rol: 'admin'
         },
         {
+          location: '/',
+          name: 'Buscar'
+        },
+        {
           location: '/myDonations',
           name: 'Mis Donaciones',
           rol: 'user'
@@ -79,7 +83,6 @@ angular.module('tipoHospedaje').controller(
       $scope.guardarTipoHosp = function () {
         console.log('se va a guardar el tipo de hospedaje:-----------');
         console.log(JSON.stringify($scope.tipoHospedaje));
-
         couchinnService.guardarTipoHospedaje($scope.tipoHospedaje)
           .then(function (tipoHospedaje) {
             console.log('se guardo correctamente : ----------------');
@@ -98,6 +101,41 @@ angular.module('tipoHospedaje').controller(
             );
             console.log(error);
           });
+      };
+
+      $scope.modificar = function (idx) {
+        var tipo_to_modified = $scope.tiposDeHospedaje[idx];
+        console.log('se va a setear el tipo a modificar:-----------');
+        console.log(JSON.stringify(tipo_to_modified));
+        couchinnService.setTipo(tipo_to_modified)
+        $location.path('/actualizar-tipo');
+
+      };
+
+      $scope.eliminar = function (idx) {
+        var tipo_to_delete = $scope.tiposDeHospedaje[idx];
+        console.log('se va a borrar el tipo de hospedaje:-----------');
+        console.log(JSON.stringify(tipo_to_delete));
+        couchinnService.deleteTipoHospedaje(tipo_to_delete)
+          .then(function (tipoHospedaje) {
+            console.log('se elimino correctamente : ----------------');
+            console.log(JSON.stringify(tipoHospedaje));
+            $location.path('/listadoTipoHospedaje');
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Elimino tipo')
+                .textContent('Se elimino correctamente')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Volver')
+            );
+          });
+        couchinnService.obtenerTiposDeHospedaje()
+          .then(function(tiposDeHospedaje){
+            $scope.tiposDeHospedaje = tiposDeHospedaje;
+          });
+
       };
 
       //Obtener Todos los tipos de hospedaje

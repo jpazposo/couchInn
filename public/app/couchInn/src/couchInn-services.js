@@ -77,9 +77,12 @@ angular.module('couchinn').service(
             return store.get('lodgin');
           };
 
-          this.setLodgin = function (lodgin) {
+          var setLodgin = function (lodgin) {
+            store.remove('lodgin');
             store.set('lodgin', lodgin);
           };
+
+          this.setLodgin = setLodgin;
 
           this.editLodgin = function (lodgin) {
             return $resource(
@@ -166,6 +169,15 @@ angular.module('couchinn').service(
              });
           };
 
+
+          this.solicitar = function (application) {
+            return $resource(
+             apiPath + 'solicitar/lodgin/:nombre', {nombre: application.nombre}
+             ).save(application).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+              });
+          };
 
         }
     ]
