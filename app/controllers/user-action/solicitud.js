@@ -27,6 +27,7 @@ router.post('/solicitar/lodgin/:nombre', function(req, res, next){
                 fechaInicio: req.body.fechaInicio,
                 fechaFin: req.body.fechaFin
               }).then(function (application) {
+                  lodgin.applications.push(application);
                   lodgin.save()
                     .then((lodgin)=>res.json(lodgin))
                     .catch((err)=>res.status(500).json(err));
@@ -36,6 +37,27 @@ router.post('/solicitar/lodgin/:nombre', function(req, res, next){
 
       })
       .catch((err)=>res.status(404).json(err));
+});
+
+router.post('/solicitudes/rechazar', function (req, res, next) {
+  Application.findOne(req.body)
+    .populate('lodgin')
+    .then(function (application) {
+      application.status = 'rechazada';
+      application.save();
+      Lodgin.findOne(application.lodgin)
+        .populate('tipo', 'nombre')
+        .populate('user')
+        .populate('applicants')
+        .populate('applications')
+        .populate('owner')
+        .then(function (lodgin) {
+          res.json(application.lodgin);
+        });
+    })
+    .catch(function (err) {
+      res.status(500).json(err);
+    })
 });
 
 router.get('/solicitudes/:user', function (req, res, next) {

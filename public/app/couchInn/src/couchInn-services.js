@@ -135,6 +135,12 @@ angular.module('couchinn').service(
             return $resource(
               apiPath + 'lodgin'
             ).get().$promise.then(function (response) {
+              response.data.forEach(function (lodgin) {
+                lodgin.validApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status != 'rechazada' && moment().isAfter(application.fechaInicio));
+                  });
+              });
               return response.data;
             });
 
@@ -147,6 +153,15 @@ angular.module('couchinn').service(
               return response.data.filter(function (lodgin) {
                   return lodgin.user.username === user.username;
               });
+            }).then(function (response) {
+              if (!response) return response;
+              response.forEach(function (lodgin) {
+                lodgin.validApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status != 'rechazada' && moment().isAfter(application.fechaInicio));
+                  });
+              });
+              return response;
             });
           };
 
@@ -176,6 +191,7 @@ angular.module('couchinn').service(
              ).save(application).$promise
               .then(function (lodgin) {
                 setLodgin(lodgin);
+                return lodgin;
               });
           };
 
@@ -184,6 +200,15 @@ angular.module('couchinn').service(
               apiPath + 'solicitudes/:user', {user: user.username}
             ).get().$promise.then(function (response) {
               return response.data;
+            });
+          };
+
+          this.rechazarSolicitud = function (application) {
+            return $resource(
+              apiPath + 'solicitudes/rechazar'
+            ).save(application).$promise.then(function (lodgin) {
+              setLodgin(lodgin);
+              return lodgin;
             });
           };
 
