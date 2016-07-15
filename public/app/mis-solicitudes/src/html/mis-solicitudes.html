@@ -1,0 +1,12 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+
+<md-list>
+  <md-list-item class="md-2-line" ng-repeat="application in applications">
+    <div class="md-list-item-text">
+      <h3>{{application.lodgin.nombre}}</h3>
+      <p>{{application.lodgin.descripcion}}</p>
+      <p>{{application.fechaInicio | date : shortDate}}</p>
+      <p>{{application.fechaFin | date : shortDate}}</p>
+    </div>
+  </md-list-item>
+</md-list>

@@ -80,6 +80,8 @@ module.exports = function(app, config) {
 
     var anonymousPattern = new RegExp("^\/api\/.*");
 
+    
+
     if (req.role == "admin" || anonymousPattern.test(req.url)){
       next();
     }

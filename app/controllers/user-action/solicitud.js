@@ -37,3 +37,13 @@ router.post('/solicitar/lodgin/:nombre', function(req, res, next){
       })
       .catch((err)=>res.status(404).json(err));
 });
+
+router.get('/solicitudes/:user', function (req, res, next) {
+  return Application.find({ owner: req.id})
+    .populate('owner')
+    .populate('lodgin')
+    .exec(function (err, applications) {
+      if (err) res.status(500).json(err);
+      res.json({ data: applications})
+    })
+});

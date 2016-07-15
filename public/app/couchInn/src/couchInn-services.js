@@ -179,6 +179,12 @@ angular.module('couchinn').service(
               });
           };
 
+          this.getApplications = function (user) {
+            return $resource(
+              apiPath + 'solicitudes/:user', {user: user.username}
+            ).get().$promise;
+          };
+
         }
     ]
 );
