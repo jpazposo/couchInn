@@ -3,7 +3,7 @@
 <div class="container">
   <div ng-init = "lodgin.puntuacion = calcularPromedio(lodgin.puntuacion)"></div>
   <div ng-init = "lodgin.user.puntuacionHospedador = calcularPromedio(lodgin.user.puntuacionHospedador)"></div>
-  <div ng-init="preguntas = damePreguntas()"></div>
+  <!--<div ng-init="preguntas = damePreguntas()"></div>-->
   <div class wrap style="padding-left:70px;padding-right:70px;">
     <ul style="list-style-type:none">
       <div layout-gt-sm="row">
@@ -36,9 +36,14 @@
             <li><b> Pregunta de :  {{ pregunta.owner }} </b></li>
             <li>{{ pregunta.pregunta }}</li>
           <div ng-if="((user.username==lodgin.user.username) && (!pregunta.respuesta))">
-            <md-button ng-click=set($index)> Seleccionar</md-button>
+
+            <md-input-container>
+              <label>Respuesta</label>
+              <input type="text" required md-maxlength="100" ng-model="respuestas[$index]">
+            </md-input-container>
+            <md-button ng-click=mandarRespuesta(pregunta,$index)> Responder ahora</md-button>
           </div>
-          <div ng-if="(preguntas.respuestas)">
+          <div ng-if="(pregunta.respuesta)">
             <li><b>Respuesta  </b></li>
             <li>{{ pregunta.respuesta }}</li>
           </div>
@@ -53,13 +58,13 @@
       <md-button ng-click="preguntar($index)" ng-disabled="!lodgin.preguntas"> Preguntar</md-button>
     </div>
 
-    <div ng-if="((user.username==lodgin.user.username) && (!pregunta.respuesta))">
+ <!--   <div ng-if="((user.username==lodgin.user.username) && (!pregunta.respuesta))">
       <md-input-container class="md-block" flex-gt-sm>
         <label>Responder</label>
         <input ng-model="preguntas.respuesta">
       </md-input-container>
       <md-button ng-click="responder(preguntas.respuesta)" ng-disabled="!preguntas.respuesta"> Responder</md-button>
-    </div>
+    </div>-->
 
 
 

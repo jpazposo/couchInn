@@ -14,6 +14,14 @@ angular.module('lodgin').controller(
           $scope.lodgin.fechaFin = new Date($scope.lodgin.fechaFin);
           console.log(JSON.stringify($scope.lodgin));
           $scope.pregunta = {};
+          $scope.respuestas = [
+            '', '', '' , '', '', '' , '' , '' , '' , '' , '' , '', '', '' , '' , '' , '' , '' , '' , ''
+          ];
+
+          couchinnService.getPreguntas($scope.lodgin)
+            .then(function (preguntas) {
+              $scope.preguntas = preguntas;
+            });
 
 
           $scope.user = couchinnService.getUser();
@@ -104,6 +112,10 @@ angular.module('lodgin').controller(
                .then(function (pregunta) {
                  console.log('se pregunto correctamente : ----------------');
                  console.log(JSON.stringify(pregunta));
+                 couchinnService.getPreguntas($scope.lodgin)
+                   .then(function (preguntas) {
+                     $scope.preguntas = preguntas;
+                   });
                  $location.path('/detallar-publicacion');
                  $mdDialog.show(
                    $mdDialog.alert()
@@ -161,6 +173,39 @@ angular.module('lodgin').controller(
                  );
                });
            };
+
+            $scope.mandarRespuesta = function (pregunta, $index) {
+              pregunta.respuesta = $scope.respuestas[$index];
+              couchinnService.responder(pregunta)
+                .then(function () {
+                  console.log('se respondio correctamente : ----------------');
+                  console.log(JSON.stringify(pregunta));
+                  $location.path('/detallar-publicacion');
+                  couchinnService.getPreguntas($scope.lodgin)
+                    .then(function (preguntas) {
+                      $scope.preguntas = preguntas;
+                    });
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Preguntar sobre publicacion')
+                      .textContent('La pregunta se realizo correctamente')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Ok')
+                  );
+                }).catch(function () {
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Error al mandar respuesta')
+                    .textContent('Error al mandar respuesta')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Reintentar')
+                );
+              })
+            };
 
 
 

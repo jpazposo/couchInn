@@ -39,12 +39,12 @@ router.post('/preguntar/:nombre/:username', function(req, res, next){
 // Update
 router.post('/responder', function (req, res, next) {
 
-  return Lodgin.findOne({_id: req.body._id})
+  return Preguntas.findOne({_id: req.body._id})
     // Caso de éxito
     .then(function (pregunta) {
 
-       pregunta = req.body.respuesta
-       lodgin.save()
+       pregunta.respuesta = req.body.respuesta;
+       pregunta.save()
 
         .then(function (pregunta) {
           res.status(201).json(pregunta);
