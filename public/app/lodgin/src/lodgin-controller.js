@@ -90,6 +90,55 @@ angular.module('lodgin').controller(
 
       };
 
+      $scope.anularPublicacion = function(idx){
+        if ( $scope.lodgins[idx].fechasReservadas.length > 0) {
+          var lista = "";
+          var ind;
+          var confirm = $mdDialog.confirm()
+            .title('Existen Solicitudes realizadas sobre la Publicacion!!')
+            .textContent('Si confirma la misma ya no admitira reservas')
+            .ariaLabel('Lucky day')
+            .ok('Confirmar')
+            .cancel('Cancelar');
+          $mdDialog.show(confirm).then(function() {
+            $scope.lodgins[idx].activa = "NO";
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Publicacion Anuada!!')
+                .textContent('Se ha enviado notificacion por mail a los solicitantes')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Continuar')
+            );
+            for (ind = 0; ind < $scope.lodgins[idx].fechasReservadas.length; ind++) {
+              lista = lista + $scope.lodgins[idx].fechasReservadas[ind].username;
+            }
+            console.log(lista);
+            console.log($scope.lodgins[idx].applicants.length);
+            console.log(ind);
+
+          });
+        }else {
+          var confirm = $mdDialog.confirm()
+            .title('Esta por Anular una Publicacion!!')
+            .textContent('Si confirma la misma ya no admitira reservas')
+            .ariaLabel('Lucky day')
+            .ok('Confirmar')
+            .cancel('Cancelar');
+          $mdDialog.show(confirm).then(function() {
+            $scope.lodgins[idx].activa = "NO";
+          });
+        }};
+
+
+
+
+      $scope.activarPublicacion = function(idx){
+        $scope.lodgins[idx].activa = "SI";
+      };
+
+
           couchinnService.obtenerTiposDeHospedaje()
             .then(function (hospedajes) {
               $scope.tiposHospedajes = hospedajes;

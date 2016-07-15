@@ -91,6 +91,19 @@ angular.module('lodgin').controller(
 
               $scope.solicitar = function (nombre){
 
+                if ($scope.lodgin.activa == "NO") {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('La Publicacion se encuentra anulada!!')
+                      .textContent('Para poder efectuar una reserva, la misma debe estar Activa   ')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Continuar')
+                  );
+                  return;
+                }
+
                 if (!validateDates()) {
                   $mdDialog.show(
                     $mdDialog.alert()
@@ -118,6 +131,7 @@ angular.module('lodgin').controller(
                         .ariaLabel('Alert Dialog Demo')
                         .ok('Seguir buscando otros couch')
                     );
+
                     $location.path('/user-logged/' + $scope.user.nombre);
                   })
                   .catch((err)=>{
