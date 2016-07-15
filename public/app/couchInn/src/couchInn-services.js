@@ -169,7 +169,7 @@ angular.module('couchinn').service(
              });
           };
 
-          
+
           this.solicitar = function (application) {
             return $resource(
              apiPath + 'solicitar/lodgin/:nombre', {nombre: application.nombre}
@@ -182,7 +182,9 @@ angular.module('couchinn').service(
           this.getApplications = function (user) {
             return $resource(
               apiPath + 'solicitudes/:user', {user: user.username}
-            ).get().$promise;
+            ).get().$promise.then(function (response) {
+              return response.data;
+            });
           };
 
         }

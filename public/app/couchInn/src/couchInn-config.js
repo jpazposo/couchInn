@@ -149,13 +149,7 @@ angular.module("couchinn",
                 templateUrl: 'app/donation/src/html/accredit.html',
                 controller: 'donationController'
               }
-             ).when(
-            '/mis-solicitudes',
-              {
-                templateUrl: 'app/buscar/src/html/mis-solicitudes.html',
-                controller: 'misSolicitudesController'
-              }
-            )
+             )
             .otherwise(
             {
               redirectTo: '/404'
