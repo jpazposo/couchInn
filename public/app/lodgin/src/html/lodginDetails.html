@@ -1,32 +1,68 @@
 <couchinn-header buttons="headerButtons"></couchinn-header>
 <div class="heading">Deatalles de la publicacion</div>
 <div class="container">
+  <div ng-init = "lodgin.puntuacion = calcularPromedio(lodgin.puntuacion)"></div>
+  <div ng-init = "lodgin.user.puntuacionHospedador = calcularPromedio(lodgin.user.puntuacionHospedador)"></div>
+  <div ng-init="preguntas = damePreguntas()"></div>
   <div class wrap style="padding-left:70px;padding-right:70px;">
     <ul style="list-style-type:none">
-    <b>Nombre</b>
-    <li>{{ lodgin.nombre }}</li>
-    <b>Descripcion</b>
-    <li>{{ lodgin.descripcion }}</li>
-    <b>Capacidad Maxima</b><br>
-    <li>{{ lodgin.capacidadMax }}</li>
-    <b>Tipo de Hospedaje</b>
-    <li>{{ lodgin.tipo.nombre }}</li>
-    <b>Direccion</b>
-    <b>Calle</b>
-    <li>{{ lodgin.calle }}</li>
-    <b>Numero</b>
-    <li>{{ lodgin.numero }}</li>
-    <b>Piso</b>
-    <li>{{ lodgin.piso }}</li>
-    <b>Departamento</b>
-    <li>{{ lodgin.departamento }}</li>
-    <b>Fecha Inicio</b>
-    <li>{{ lodgin.fechaInicio | date : shortDate }}</li>
-    <b>Fecha Fin</b>
-    <li>{{ lodgin.fechaFin | date : shortDate }}</li>
-    <b>Dueño</b>
-    <li>{{ lodgin.user.email }}</li>
+      <div layout-gt-sm="row">
+        <li><b>Nombre : </b> {{ lodgin.nombre }}</li>
+        <li><b>Puntuacion publicacion : </b> {{ lodgin.puntuacion }} </li>
+      </div>
+      <li><b>Descripcion : </b> {{ lodgin.descripcion }}</li>
+      <div layout-gt-sm="row">
+        <li><b>Capacidad Maxima : </b>{{ lodgin.capacidadMax }}</li>
+        <li><b>Tipo de Hospedaje : </b>{{ lodgin.tipo.nombre }}</li>
+      </div>
+      <b>Direccion</b>
+      <div layout-gt-sm="row">
+        <li><b>Calle : </b>{{ lodgin.calle }}</li>
+        <li><b>Numero : </b> {{ lodgin.numero }}</li>
+        <li><b>Piso : </b>{{ lodgin.piso }}</li>
+        <li><b>Departamento : </b>{{ lodgin.departamento }}</li>
+      </div>
+      <div layout-gt-sm="row">
+        <li><b>Fecha Inicio : </b>{{ lodgin.fechaInicio | date : shortDate }}</li>
+        <li><b>Fecha Fin : </b>{{ lodgin.fechaFin | date : shortDate }}</li>
+      </div>
+      <div layout-gt-sm="row">
+        <li><b>Dueño : </b>{{ lodgin.user.email }}</li>
+        <li><b>Puntuacion hospedador : </b>{{ lodgin.user.puntuacionHospedador }}</li>
+      </div>
     </ul>
+    <li ng-repeat="pregunta in preguntas">
+        <ul style="list-style-type:none">
+            <li><b> Pregunta de :  {{ pregunta.owner }} </b></li>
+            <li>{{ pregunta.pregunta }}</li>
+          <div ng-if="((user.username==lodgin.user.username) && (!pregunta.respuesta))">
+            <md-button ng-click=set($index)> Seleccionar</md-button>
+          </div>
+          <div ng-if="(preguntas.respuestas)">
+            <li><b>Respuesta  </b></li>
+            <li>{{ pregunta.respuesta }}</li>
+          </div>
+        </ul>
+    </li>
+
+    <div ng-if="(user.username!=lodgin.user.username)">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Pregunta</label>
+        <input ng-model="pregunta.pregunta">
+      </md-input-container>
+      <md-button ng-click="preguntar($index)" ng-disabled="!lodgin.preguntas"> Preguntar</md-button>
+    </div>
+
+    <div ng-if="((user.username==lodgin.user.username) && (!pregunta.respuesta))">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Responder</label>
+        <input ng-model="preguntas.respuesta">
+      </md-input-container>
+      <md-button ng-click="responder(preguntas.respuesta)" ng-disabled="!preguntas.respuesta"> Responder</md-button>
+    </div>
+
+
+
   </div>
 </div>
 

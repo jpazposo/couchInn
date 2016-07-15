@@ -13,6 +13,8 @@ angular.module('lodgin').controller(
           $scope.lodgin.fechaInicio = new Date($scope.lodgin.fechaInicio);
           $scope.lodgin.fechaFin = new Date($scope.lodgin.fechaFin);
           console.log(JSON.stringify($scope.lodgin));
+          $scope.pregunta = {};
+
 
           $scope.user = couchinnService.getUser();
           if (!$scope.user) {
@@ -83,6 +85,118 @@ angular.module('lodgin').controller(
                 if ($scope.user.role == 'admin') return true;
                 return button.rol == $scope.user.role;
               });
+
+            $scope.calcularPromedio = function (lista) {
+             var resultado = 0;
+             for (i in lista){
+              resultado = resultado + i;
+             }
+             return resultado/lista.length;
+            };
+
+
+           $scope.preguntar = function (idx) {
+             console.log('se va a realizar una pregunta:-----------');
+             $scope.pregunta.nombre = $scope.lodgin.nombre;
+             $scope.pregunta.username = $scope.user.username;
+             console.log(JSON.stringify($scope.pregunta));
+             couchinnService.preguntar($scope.pregunta)
+               .then(function (pregunta) {
+                 console.log('se pregunto correctamente : ----------------');
+                 console.log(JSON.stringify(pregunta));
+                 $location.path('/detallar-publicacion');
+                 $mdDialog.show(
+                   $mdDialog.alert()
+                     .parent(angular.element(document.querySelector('#popupContainer')))
+                     .clickOutsideToClose(true)
+                     .title('Preguntar sobre publicacion')
+                     .textContent('La pregunta se realizo correctamente')
+                     .ariaLabel('Alert Dialog Demo')
+                     .ok('Ok')
+                 );
+               });
+           };
+
+           $scope.setPregunta = function (idx) {
+              var preguntaContestar = $scope.preguntas[idx];
+                  console.log('se va a setear la publicacion a modificar:-----------');
+        console.log(JSON.stringify(preguntaContestar));
+        couchinnService.setPregunta(preguntaContestar)
+        .then(function (pregunta) {
+                         console.log('se respondio correctamente : ----------------');
+                         console.log(JSON.stringify(pregunta));
+                         $location.path('/detallar-publicacion');
+                         $mdDialog.show(
+                           $mdDialog.alert()
+                             .parent(angular.element(document.querySelector('#popupContainer')))
+                             .clickOutsideToClose(true)
+                             .title('Preguntar sobre publicacion')
+                             .textContent('La pregunta se realizo correctamente')
+                             .ariaLabel('Alert Dialog Demo')
+                             .ok('Ok')
+                         );
+                       });
+                   };
+
+
+
+           $scope.responder = function (respuesta) {
+             console.log('se va a responder una pregunta:-----------');
+             $scope.pregunta = $scope.getPregunta;
+             $scope.pregunta.respuesta = respuesta;
+             console.log(JSON.stringify($scope.pregunta1));
+             couchinnService.responder($scope.pregunta1)
+               .then(function (pregunta) {
+                 console.log('se respondio correctamente : ----------------');
+                 console.log(JSON.stringify(pregunta));
+                 $location.path('/detallar-publicacion');
+                 $mdDialog.show(
+                   $mdDialog.alert()
+                     .parent(angular.element(document.querySelector('#popupContainer')))
+                     .clickOutsideToClose(true)
+                     .title('Preguntar sobre publicacion')
+                     .textContent('La pregunta se realizo correctamente')
+                     .ariaLabel('Alert Dialog Demo')
+                     .ok('Ok')
+                 );
+               });
+           };
+
+
+
+
+      $scope.damePreguntas= function () {
+        console.log('se solicitan los tipos guardados:-----------');
+        console.log(JSON.stringify($scope.preguntas));
+
+        couchinnService.getPreguntas($scope.lodgin)
+          .then(function (preguntas) {
+            console.log('se obtuvieron los tipos: ----------------');
+            console.log(JSON.stringify(preguntas));
+            $scope.preguntas = preguntas;
+            console.log($scope.preguntas);
+
+          })
+          .catch(function (error) {
+
+
+                if (error.data.code == 11000) {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Error al agregar tipo ')
+                      .textContent('El nombre ya esta agregado: ')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Reintentar')
+
+                  );
+                }
+                console.log(error);
+              });
+          }
+
+
 
             $scope.application = {
               fechaFin: new Date($scope.lodgin.fechaFin),

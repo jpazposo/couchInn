@@ -16,7 +16,7 @@ var LodginSchema = new Schema({
   user: { type: Schema.ObjectId, ref: "User"},
   applicants: [{type: Schema.ObjectId, ref: "User"}],
   puntuacion: [Number],
-  preguntas:[{pregunta:String , respuesta:String}],
+  preguntas:[{type: Schema.ObjectId, ref: "Preguntas"}],
 
 
 });
