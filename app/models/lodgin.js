@@ -17,9 +17,8 @@ var LodginSchema = new Schema({
   applicants: [{type: Schema.ObjectId, ref: "User"}],
   applications: [{type: Schema.ObjectId, ref: "Application"}],
   puntuacion: [Number],
-  preguntas:[{pregunta:String , respuesta:String}],
   reservada: {type: Boolean, default: false}
-
+  
 
 });
 
