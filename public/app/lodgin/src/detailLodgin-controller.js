@@ -176,6 +176,36 @@ angular.module('lodgin').controller(
 
             };
 
+            $scope.aceptar = function (application) {
+
+              couchinnService.aceptarSolicitud(application)
+                .then(function () {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Acabas de Aceptar una solicitud')
+                      .textContent('Un email será enviado a ' + $scope.user.username + ' detallando el procedimiento')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('Continuar')
+                  );
+                  $location.path('/user-logged/' + $scope.user.nombre);
+                })
+                .catch(function () {
+                  $mdDialog.show(
+                    $mdDialog.alert()
+                      .parent(angular.element(document.querySelector('#popupContainer')))
+                      .clickOutsideToClose(true)
+                      .title('Hubo un error intentando aceptar esta solicitud')
+                      .textContent('Un email será enviado a ' + $scope.user.username + ' detallando el error')
+                      .ariaLabel('Alert Dialog Demo')
+                      .ok('reintentar')
+                  );
+                });
+
+            };
+            
+
 
               var validateDates = function (){
                 /*

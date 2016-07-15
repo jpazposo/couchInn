@@ -40,6 +40,7 @@ router.post('/search', function (req, res) {
     .populate('tipo', 'nombre')
     .populate('user')
     .populate('applicants')
+    .populate('applications')
     .exec(function (err, lodgins) {
       if (err) console.log(err);
       res.json({ data: lodgins})

@@ -77,14 +77,18 @@
   </div>
   <div ng-show="lodgin.validApplications.length > 0">
     <md-list>
-      <md-list-item class="md-2-line" ng-repeat="item in lodgin.validApplications">
+      <md-list-item class="md-2-line application" ng-repeat="item in lodgin.validApplications">
 
         <div class="md-list-item-text">
           <label>Solicitante</label>
           <p>{{item.owner.nombre}}</p>
           <label>fechas solicitadas</label>
           <p> desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
-          <md-button ng-click="rechazar(item)">Rechazar</md-button>
+          <md-button ng-hide="item.status == 'aceptada'" ng-click="rechazar(item)">Rechazar</md-button>
+          <md-button ng-hide="item.status == 'aceptada'" ng-click="aceptar(item)">Aceptar</md-button>
+          <p ng-show="item.status == 'aceptada'">
+            Solicitud ya Aceptada
+          </p>
         </div>
 
       </md-list-item>

@@ -139,7 +139,7 @@ angular.module('couchinn').service(
               response.data.forEach(function (lodgin) {
                 lodgin.validApplications =
                   lodgin.applications.filter(function (application) {
-                    return (application.status != 'rechazada' && moment().isAfter(application.fechaInicio));
+                    return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
                   });
               });
               return response.data;
@@ -159,7 +159,7 @@ angular.module('couchinn').service(
               response.forEach(function (lodgin) {
                 lodgin.validApplications =
                   lodgin.applications.filter(function (application) {
-                    return (application.status != 'rechazada' && moment().isAfter(application.fechaInicio));
+                    return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
                   });
               });
               return response;
@@ -212,6 +212,17 @@ angular.module('couchinn').service(
               return lodgin;
             });
           };
+
+          this.aceptarSolicitud = function (application) {
+            return $resource(
+              apiPath + 'solicitudes/aceptar'
+            ).save(application).$promise.then(function (lodgin) {
+              setLodgin(lodgin);
+              return lodgin;
+            });
+          };
+
+
 
         }
     ]
