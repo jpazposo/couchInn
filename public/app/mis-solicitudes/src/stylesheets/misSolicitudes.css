@@ -1,0 +1,7 @@
+.solicitud {
+  border: dashed;
+  margin: 1rem;
+}
+.solicitud label{
+  font-style: italic;
+}

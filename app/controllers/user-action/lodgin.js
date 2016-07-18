@@ -54,6 +54,8 @@ router.get('/lodgin', function (req, res, next) {
     .populate('tipo', 'nombre')
     .populate('user')
     .populate('applicants')
+    .populate('applications')
+    .populate('owner')
     .exec(function (err, lodgins) {
       if (err) console.log(err);
       res.json({ data: lodgins})
