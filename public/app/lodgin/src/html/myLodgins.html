@@ -9,6 +9,7 @@
           <td>Capacidad Máxima</td>
           <td>FechaInicio</td>
           <td>FechaFin</td>
+          <td>Activa</td>
         </tr>
         <tr ng-repeat="lodgin in lodgins"
             class="publicacion-fila"
@@ -19,8 +20,10 @@
           <td>  {{ lodgin.capacidadMax }}  </td>
           <td>  {{ lodgin.fechaInicio | date : shortDate}}  </td>
           <td>  {{ lodgin.fechaFin | date : shortDate }}  </td>
+          <td>  {{ lodgin.activa }}  </td>
           <td><md-button ng-click="modificar($index)"> Modificar </md-button></td>
-          <td><md-button ng-click="eliminar($index)"> Eliminar </md-button></td>
+          <td><md-button ng-click="anularPublicacion($index)" ng-hide="!(lodgin.activa=='SI')"> Anular </md-button></td>
+          <td><md-button ng-click="activarPublicacion($index)" ng-hide="!(lodgin.activa=='NO')"> Activar </md-button></td>
         </tr>
       </table>
     </div>
