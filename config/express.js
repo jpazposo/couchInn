@@ -80,7 +80,11 @@ module.exports = function(app, config) {
 
     var anonymousPattern = new RegExp("^\/api\/.*");
 
-    if (req.role == "admin" || anonymousPattern.test(req.url)){
+    var assetPattern = new RegExp(".(?:js|css|html)$");
+
+
+
+    if (req.role == "admin" || anonymousPattern.test(req.url) || assetPattern.test(req.url)){
       next();
     }
     else {

@@ -8,7 +8,8 @@ var AplicationSchema = new Schema({
   owner: { type: Schema.ObjectId, ref: "User"},
   lodgin: {type: Schema.ObjectId, ref: "Lodgin"},
   fechaInicio:{ type: Date, required: true },
-  fechaFin: { type: Date, required: true }
+  fechaFin: { type: Date, required: true },
+  status: {type: String, default: "pendiente"}
 });
 
 module.exports = mongoose.model('Application', AplicationSchema);

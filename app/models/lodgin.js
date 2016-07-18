@@ -14,7 +14,11 @@ var LodginSchema = new Schema({
   fechaFin: { type: Date, required: true },
   fechasReservadas: [{fechaInicio: { type: Date } , fechaFin: { type: Date } }],
   user: { type: Schema.ObjectId, ref: "User"},
-  applicants: [{type: Schema.ObjectId, ref: "User"}]
+  applicants: [{type: Schema.ObjectId, ref: "User"}],
+  applications: [{type: Schema.ObjectId, ref: "Application"}],
+  puntuacion: [Number],
+  preguntas:[{pregunta:String , respuesta:String}],
+  reservada: {type: Boolean, default: false}
 
 
 });
