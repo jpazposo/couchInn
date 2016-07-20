@@ -56,6 +56,11 @@ angular.module('loggedUser').controller(
           location: '/addLodgin',
           name: 'Crear Publicacion',
           rol: 'user'
+        },
+        {
+          location: '/mis-solicitudes',
+          name: 'ver mis solicitudes',
+          rol: 'user'
         }
 
       ].filter(function (button) {

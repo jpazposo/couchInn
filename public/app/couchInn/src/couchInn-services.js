@@ -51,6 +51,7 @@ angular.module('couchinn').service(
             return $resource(
                '/user-action/logout'
             ).get().$promise.then(function () {
+                store.remove('lodgin');
                 store.remove('token');
                 store.remove('user');
             });
@@ -135,6 +136,12 @@ angular.module('couchinn').service(
             return $resource(
               apiPath + 'lodgin'
             ).get().$promise.then(function (response) {
+              response.data.forEach(function (lodgin) {
+                lodgin.validApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
+                  });
+              });
               return response.data;
             });
 
@@ -147,6 +154,15 @@ angular.module('couchinn').service(
               return response.data.filter(function (lodgin) {
                   return lodgin.user.username === user.username;
               });
+            }).then(function (response) {
+              if (!response) return response;
+              response.forEach(function (lodgin) {
+                lodgin.validApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
+                  });
+              });
+              return response;
             });
           };
 
@@ -176,8 +192,37 @@ angular.module('couchinn').service(
              ).save(application).$promise
               .then(function (lodgin) {
                 setLodgin(lodgin);
+                return lodgin;
               });
           };
+
+          this.getApplications = function (user) {
+            return $resource(
+              apiPath + 'solicitudes/:user', {user: user.username}
+            ).get().$promise.then(function (response) {
+              return response.data;
+            });
+          };
+
+          this.rechazarSolicitud = function (application) {
+            return $resource(
+              apiPath + 'solicitudes/rechazar'
+            ).save(application).$promise.then(function (lodgin) {
+              setLodgin(lodgin);
+              return lodgin;
+            });
+          };
+
+          this.aceptarSolicitud = function (application) {
+            return $resource(
+              apiPath + 'solicitudes/aceptar'
+            ).save(application).$promise.then(function (lodgin) {
+              setLodgin(lodgin);
+              return lodgin;
+            });
+          };
+
+
 
         }
     ]

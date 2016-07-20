@@ -14,7 +14,8 @@ angular.module("couchinn",
         'donation',
         'ajaxInterceptor',
         'angular-storage',
-        'buscar'
+        'buscar',
+        'misSolicitudes'
     ]
 
 ).config(
@@ -149,7 +150,6 @@ angular.module("couchinn",
                 controller: 'donationController'
               }
              )
-
             .otherwise(
             {
               redirectTo: '/404'
