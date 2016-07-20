@@ -79,7 +79,6 @@ router.post('/update/lodgin', function (req, res, next) {
        lodgin.departamento = req.body.departamento || lodgin.departamento;
        lodgin.fechaInicio = req.body.fechaInicio || lodgin.fechaInicio;
        lodgin.fechaFin = req.body.fechaFin || lodgin.fechaFin;
-       lodgin.activa = req.body.activa || lodgin.activa;
        lodgin.save()
 
         .then(function (lodgin) {

@@ -74,7 +74,7 @@ angular.module('lodgin').controller(
 
       $scope.modificar = function (idx) {
         var lodgin_to_modified = $scope.lodgins[idx];
-        console.log('se va a setear la publicación a modificar:-----------');
+        console.log('se va a setear la publicacion a modificar:-----------');
         console.log(JSON.stringify(lodgin_to_modified));
         couchinnService.setLodgin(lodgin_to_modified)
         $location.path('/actualizar-publicacion');
@@ -91,74 +91,43 @@ angular.module('lodgin').controller(
       };
 
       $scope.anularPublicacion = function(idx){
-        if ( $scope.lodgins[idx].applicants.length > 0) {
+        if ( $scope.lodgins[idx].fechasReservadas.length > 0) {
           var lista = "";
           var ind;
           var confirm = $mdDialog.confirm()
-            .title('Existen Solicitudes realizadas sobre la Publicación!!')
+            .title('Existen Solicitudes realizadas sobre la Publicacion!!')
             .textContent('Si confirma la misma ya no admitira reservas')
             .ariaLabel('Lucky day')
             .ok('Confirmar')
             .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
             $scope.lodgins[idx].activa = "NO";
-            couchinnService.editLodgin($scope.lodgins[idx])
-              .then(function (lodgin) {
-                $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('La Publicación ha sido Anulada')
-                    .textContent('la misma ya no aceptara solicitudes ')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Continuar')
-                );
-              })
-              .catch(function (error) {
-                $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('Upppss')
-                    .textContent('Algo salio mal :( ')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Continuar')
-                );
-              });
-          })
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Publicacion Anuada!!')
+                .textContent('Se ha enviado notificacion por mail a los solicitantes')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Continuar')
+            );
+            for (ind = 0; ind < $scope.lodgins[idx].fechasReservadas.length; ind++) {
+              lista = lista + $scope.lodgins[idx].fechasReservadas[ind].username;
+            }
+            console.log(lista);
+            console.log($scope.lodgins[idx].applicants.length);
+            console.log(ind);
+
+          });
         }else {
           var confirm = $mdDialog.confirm()
-            .title('Esta por Anular una Publicación!!')
+            .title('Esta por Anular una Publicacion!!')
             .textContent('Si confirma la misma ya no admitira reservas')
             .ariaLabel('Lucky day')
             .ok('Confirmar')
             .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
             $scope.lodgins[idx].activa = "NO";
-            couchinnService.editLodgin($scope.lodgins[idx])
-              .then(function (lodgin) {
-                $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('La Publicación ha sido Anulada')
-                    .textContent('la misma ya no aceptara solicitudes ')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Continuar')
-                );
-              })
-              .catch(function (error) {
-                $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('Upppss')
-                    .textContent('Algo salio mal :( ')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Continuar')
-                );
-              });
-
           });
         }};
 
@@ -167,39 +136,16 @@ angular.module('lodgin').controller(
 
       $scope.activarPublicacion = function(idx){
         $scope.lodgins[idx].activa = "SI";
-        couchinnService.editLodgin($scope.lodgins[idx])
-          .then(function (lodgin) {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('La Publicación ha sido Activada')
-                .textContent('la misma ahora podra aceptar solicitudes ')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Continuar')
-            );
-            // $location.path('/myLodgins');
-          })
-          .catch(function (error) {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('Upppss')
-                .textContent('Algo salio mal :( ')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Continuar')
-            );
-          });
       };
 
-      couchinnService.obtenerTiposDeHospedaje()
+
+          couchinnService.obtenerTiposDeHospedaje()
             .then(function (hospedajes) {
               $scope.tiposHospedajes = hospedajes;
             });
 
-      // guardar Lodgin
-        $scope.guardarLodgin = function () {
+          // guardar Lodgin
+                $scope.guardarLodgin = function () {
                   console.log('se va a guardar el la publicacion:-----------');
                   console.log(JSON.stringify($scope.lodgin));
 
@@ -211,7 +157,7 @@ angular.module('lodgin').controller(
                         $mdDialog.alert()
                           .parent(angular.element(document.querySelector('#popupContainer')))
                           .clickOutsideToClose(true)
-                          .title('Creacion de publicación exitosa ')
+                          .title('Creacion de publicacion exitosa ')
                           .textContent('Se creo correctamente la publicacion: ' + $scope.lodgin.nombre)
                           .ariaLabel('Alert Dialog Demo')
                           .ok('Continuar')
@@ -228,7 +174,7 @@ angular.module('lodgin').controller(
                           .parent(angular.element(document.querySelector('#popupContainer')))
                           .clickOutsideToClose(true)
                           .title('Error al publicar')
-                          .textContent('El nombre de la publicación ya existe')
+                          .textContent('El nombre de la publicacion ya existe')
                           .ariaLabel('Alert Dialog Demo')
                           .ok('Reintentar')
                       );
