@@ -32,40 +32,68 @@
   </div>
 </div>
 
+<div ng-if="notMyCouch">
+  <h1>Solicitar Couch</h1>
 
-<h1>Solicitar Couch</h1>
+  <div>
+    <md-content>
+      <md-datepicker
+        ng-model="application.fechaInicio"
+        md-placeholder="fecha inicial"
+        md-min-date="lodgin.fechaInicio"
+        md-max-date="lodgin.fechaFin">
+      </md-datepicker>
+    </md-content>
 
-<div>
-  <md-content>
-    <md-datepicker
-      ng-model="application.fechaInicio"
-      md-placeholder="fecha inicial"
-      md-min-date="lodgin.fechaInicio"
-      md-max-date="lodgin.fechaFin">
-    </md-datepicker>
-  </md-content>
+    <md-content>
+      <md-datepicker
+        ng-model="application.fechaFin"
+        md-placeholder="fecha final"
+        md-min-date="application.fechaInicio"
+        md-max-date="lodgin.fechaFin">
+      </md-datepicker>
+    </md-content>
+  </div>
 
-  <md-content>
-    <md-datepicker
-      ng-model="application.fechaFin"
-      md-placeholder="fecha final"
-      md-min-date="application.fechaInicio"
-      md-max-date="lodgin.fechaFin">
-    </md-datepicker>
-  </md-content>
+  <div ng-show="lodgin.fechasReservadas.length > 0">
+    <h2>Fechas Ya reservadas</h2>
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
+
+        <div class="md-list-item-text">
+          <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+
+
+  <md-button ng-click="solicitar(lodgin.nombre)"> Solicitar Ahora</md-button>
+
 </div>
 
-<div ng-show="lodgin.fechasReservadas.length > 0">
-  <h2>Fechas Ya reservadas</h2>
-  <md-list>
-    <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
+<div ng-if="!notMyCouch">
+  <h1>Solicitudes</h1>
+  <div ng-show="lodgin.validApplications.length == 0">
+    Este Couch no tiene solicitudes Válidas
+  </div>
+  <div ng-show="lodgin.validApplications.length > 0">
+    <md-list>
+      <md-list-item class="md-2-line application" ng-repeat="item in lodgin.validApplications">
 
-      <div class="md-list-item-text">
-        <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
-      </div>
-    </md-list-item>
-  </md-list>
+        <div class="md-list-item-text">
+          <label>Solicitante</label>
+          <p>{{item.owner.nombre}}</p>
+          <label>fechas solicitadas</label>
+          <p> desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
+          <md-button ng-hide="item.status == 'aceptada'" ng-click="rechazar(item)">Rechazar</md-button>
+          <md-button ng-hide="item.status == 'aceptada'" ng-click="aceptar(item)">Aceptar</md-button>
+          <p ng-show="item.status == 'aceptada'">
+            Solicitud ya Aceptada
+          </p>
+        </div>
+
+      </md-list-item>
+    </md-list>
+  </div>
 </div>
-
-
-<md-button ng-click="solicitar(lodgin.nombre)"> Solicitar Ahora</md-button>

@@ -12,7 +12,7 @@
 </table>
 <table>
   <div layout="column">
-    <div flex ng-repeat="publicacion in publicaciones" class="publicacion">
+    <div flex ng-repeat="publicacion in publicaciones | orderBy: '-nombre'"  class="publicacion">
       <publicacion
         data="publicacion"
         indice="$index"

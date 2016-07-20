@@ -73,8 +73,17 @@ angular.module('tipoHospedaje').controller(
 
           couchinnService.editTipoHospedaje ($scope.tipoHospedaje)
           .then(function (tipoHospedaje) {
-            console.log('se modifico correctamente : ----------------');
-            console.log(JSON.stringify(tipoHospedaje));
+                console.log('successfull modified tipoHospedaje : ----------------');
+                console.log(JSON.stringify(tipoHospedaje));
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Modificacion de tipo de hospedaje exitosa ')
+                    .textContent('Se modifico correctamente al tipo de hospedaje: ' + $scope.tipoHospedaje.nombre)
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Continuar')
+                );
             $location.path('/listadoTipoHospedaje');
           })
           .catch(function (error) {
