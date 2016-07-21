@@ -104,6 +104,19 @@ angular.module('lodgin').controller(
                 return;
               }
 
+              if ($scope.lodgin.activa == "NO") {
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Publicacion Anulada!! ')
+                    .textContent('Para poder realizar una Solicitud la Publicacion debe estar activa')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Continuar')
+                );
+                return;
+              }
+
               if (!validateDates()) {
                 $mdDialog.show(
                   $mdDialog.alert()

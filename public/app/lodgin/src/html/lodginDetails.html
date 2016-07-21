@@ -84,10 +84,12 @@
         <div class="md-list-item-text">
           <label>Solicitante</label>
           <p>{{item.owner.nombre}}</p>
+          <label>Estado</label>
+          <p>{{item.status}}</p>
           <label>fechas solicitadas</label>
           <p> desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
-          <md-button ng-hide="item.status == 'aceptada'" ng-click="rechazar(item)">Rechazar</md-button>
-          <md-button ng-hide="item.status == 'aceptada'" ng-click="aceptar(item)">Aceptar</md-button>
+          <md-button ng-hide="item.status == 'aceptada' || item.status == 'anulada' " ng-click="rechazar(item)">Rechazar</md-button>
+          <md-button ng-hide="item.status == 'aceptada' || item.status == 'anulada' " ng-click="aceptar(item)">Aceptar</md-button>
           <p ng-show="item.status == 'aceptada'">
             Solicitud ya Aceptada
           </p>
