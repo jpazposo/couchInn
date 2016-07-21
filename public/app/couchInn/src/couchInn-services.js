@@ -204,6 +204,15 @@ angular.module('couchinn').service(
             });
           };
 
+          this.anularSolicitud = function (application) {
+            return $resource(
+              apiPath + 'solicitudes/anular'
+            ).save(application).$promise.then(function (lodgin) {
+              setLodgin(lodgin);
+              return lodgin;
+            });
+          };
+
           this.rechazarSolicitud = function (application) {
             return $resource(
               apiPath + 'solicitudes/rechazar'

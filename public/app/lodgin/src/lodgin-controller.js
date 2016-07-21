@@ -91,53 +91,92 @@ angular.module('lodgin').controller(
       };
 
       $scope.anularPublicacion = function(idx){
-        if ( $scope.lodgins[idx].fechasReservadas.length > 0) {
-          var lista = "";
-          var ind;
+        if ( $scope.lodgins[idx].applications.length > 0) {
+          var cantAceptadas = 0;
+          var cantRechazadas = 0;
+          var cantPendientes = 0;
+          var listaDeMails = " ";
+
+          $scope.lodgins[idx].applications.forEach(function (appli){
+          if (appli.status == "aceptada" ){
+            cantAceptadas = cantAceptadas + 1;
+          }else if (appli.status == "rechazada"){
+            cantRechazadas = cantRechazadas + 1;
+          }else if (appli.status == "pendiente"){
+            cantPendientes = cantPendientes + 1;
+          };
+          //  listaDeMails = listaDeMails + appli.owner.email +" ";
+          });
           var confirm = $mdDialog.confirm()
-            .title('Existen Solicitudes realizadas sobre la Publicacion!!')
-            .textContent('Si confirma la misma ya no admitira reservas')
+            .title('Existen Solicitudes realizadas sobre esta Publicacion!!')
+            .textContent('la misma contiene ' +
+              $scope.lodgins[idx].applications.length + ' Solicitudes: '+
+              cantAceptadas + ' aceptada/s, '+ cantRechazadas + ' rechazada/s y '+cantPendientes+' pendiente/s.' +
+          ' Si confirma todos las solicitudes seran anuladas y la Publicacion ya no aceptara solicitudes.')
             .ariaLabel('Lucky day')
             .ok('Confirmar')
             .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
             $scope.lodgins[idx].activa = "NO";
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('Publicacion Anuada!!')
-                .textContent('Se ha enviado notificacion por mail a los solicitantes')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Continuar')
-            );
-            for (ind = 0; ind < $scope.lodgins[idx].fechasReservadas.length; ind++) {
-              lista = lista + $scope.lodgins[idx].fechasReservadas[ind].username;
-            }
-            console.log(lista);
-            console.log($scope.lodgins[idx].applicants.length);
-            console.log(ind);
 
+            $scope.lodgins[idx].applications.forEach(function (appli){
+              couchinnService.anularSolicitud(appli);
+            });
+
+            couchinnService.editLodgin($scope.lodgins[idx]).then(function () {
+              $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('La Publicacion ha sido Anulada!!')
+                  .textContent('Se ha enviado notificacion por mail a los solicitantes: '+listaDeMails)
+                  .ariaLabel('Alert Dialog Demo')
+                  .ok('Continuar')
+              );
+            });
           });
         }else {
           var confirm = $mdDialog.confirm()
             .title('Esta por Anular una Publicacion!!')
-            .textContent('Si confirma la misma ya no admitira reservas')
+            .textContent('Si confirma la misma ya no admitira solicitudes')
             .ariaLabel('Lucky day')
             .ok('Confirmar')
             .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
             $scope.lodgins[idx].activa = "NO";
+            couchinnService.editLodgin($scope.lodgins[idx]).then(function () {
+              $mdDialog.show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.querySelector('#popupContainer')))
+                  .clickOutsideToClose(true)
+                  .title('La Publicacion ha sido Anulada!!')
+                  .textContent('Ya NO puede realizarse solicitudes sobre la misma ')
+                  .ariaLabel('Alert Dialog Demo')
+                  .ok('Continuar')
+              );
+            });
           });
         }};
 
-
-
-
-      $scope.activarPublicacion = function(idx){
+      $scope.activarPublicacion = function(idx) {
         $scope.lodgins[idx].activa = "SI";
-      };
 
+        $scope.lodgins[idx].fechasReservadas.cleanElement();
+        $scope.lodgins[idx].reservada = false;
+
+
+        couchinnService.editLodgin($scope.lodgins[idx]).then(function () {
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('La Publicacion ha sido Activada!!')
+              .textContent('Ya pueden realizarse solicitudes sobre la misma ')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Continuar')
+          );
+        });
+      };
 
           couchinnService.obtenerTiposDeHospedaje()
             .then(function (hospedajes) {
