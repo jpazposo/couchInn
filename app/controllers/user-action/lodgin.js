@@ -4,6 +4,7 @@ var express = require('express'),
   Lodgin = mongoose.model('Lodgin');
 var  TipoHospedaje = mongoose.model('TipoHospedaje');
 var User = mongoose.model('User');
+var Preguntas = mongoose.model('Preguntas');
 module.exports = function (app) {
   app.use('/user-action/', router);
 };
@@ -25,7 +26,7 @@ router.post('/lodgin', function (req, res, next) {
        departamento: req.body.departamento,
        fechaInicio: req.body.fechaInicio,
        fechaFin: req.body.fechaFin,
-       user: req.id //req.username req.username,
+       user: req.id, //req.username req.username,
      });
 
      newLodgin.save()

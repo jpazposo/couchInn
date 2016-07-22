@@ -7,14 +7,14 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Nombre Publicacion</label>
-      <input ng-model="lodgin.nombre" requerid>
+      <input ng-model="lodgin.nombre" ng-required="true">
     </md-input-container>
   </div>
 
 
   <md-input-container class="md-block" flex-gt-sm>
     <label>Descripcion Publicacion</label>
-    <input ng-model="lodgin.descripcion" requerid>
+    <input ng-model="lodgin.descripcion" ng-required="true">
   </md-input-container>
 
   <div layout-gt-sm="row">
@@ -36,11 +36,11 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Calle</label>
-      <input ng-model="lodgin.calle" requerid>
+      <input ng-model="lodgin.calle" ng-required="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Numero</label>
-      <input ng-model="lodgin.numero" requerid>
+      <input ng-model="lodgin.numero" ng-required="true">
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Departamento</label>
@@ -69,4 +69,3 @@
   <md-button ng-click="guardarLodgin()" ng-disabled="(!lodgin.nombre || !lodgin.descripcion || !lodgin.calle || !lodgin.numero
   || !lodgin.capacidadMax || !lodgin.tipo) && (lodginForm.$invalid)" --> Agregar Publicacion </md-button>
 </form>
-

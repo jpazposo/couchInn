@@ -1,0 +1,31 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+<div class="heading">Lista de Publicaciones del Usuario</div>
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-1 text-center">
+    <table class="table table-striped">
+      <tr class="info">
+        <td>Nombre</td>
+        <td>Tipo</td>
+        <td>Capacidad Máxima</td>
+        <td>FechaInicio</td>
+        <td>FechaFin</td>
+        <td>Activa</td>
+      </tr>
+      <tr ng-repeat="lodgin in lodgins"
+          class="publicacion-fila"
+          ng-class="{'premium': lodgin.user.premium}"
+      >
+        <td> <md-button ng-click="detalle($index)">{{ lodgin.nombre }} </md-button> </td>
+        <td> {{ lodgin.tipo.nombre }} </td>
+        <td>  {{ lodgin.capacidadMax }}  </td>
+        <td>  {{ lodgin.fechaInicio | date : shortDate}}  </td>
+        <td>  {{ lodgin.fechaFin | date : shortDate }}  </td>
+        <td>  {{ lodgin.activa }}  </td>
+        <td><md-button ng-click="modificar($index)"> Modificar </md-button></td>
+        <td><md-button ng-click="anularPublicacion($index)" ng-hide="!(lodgin.activa=='SI')"> Anular </md-button></td>
+        <td><md-button ng-click="activarPublicacion($index)" ng-hide="!(lodgin.activa=='NO')"> Activar </md-button></td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>

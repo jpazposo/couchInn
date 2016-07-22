@@ -23,6 +23,7 @@ router.post('/solicitar/lodgin/:nombre', function(req, res, next){
             .then(function (user) {
               /*lodgin.fechasReservadas.push(req.body);*/
               lodgin.applicants.push(user);
+              lodgin.save()
               Application.create({
                 owner: user,
                 lodgin: lodgin,
@@ -110,7 +111,7 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
           });
 
 
-          if (lodginRange.toArray('days').length < cant){
+          if (lodginRange.toArray('days').length <= cant){
             lodgin.reservada = true;
             console.log('se reservó con exito');
           }

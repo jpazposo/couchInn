@@ -150,6 +150,13 @@ angular.module("couchinn",
                 controller: 'donationController'
               }
              )
+            .when(
+              '/mis-hospedajes',
+              {
+                templateUrl: 'app/lodgin/src/html/misHospedajes.html',
+                controller: 'misHospedajesController'
+              }
+            )
             .otherwise(
             {
               redirectTo: '/404'

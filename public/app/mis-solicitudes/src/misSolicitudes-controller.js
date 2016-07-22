@@ -13,7 +13,13 @@ angular.module('misSolicitudes').controller(
 
       if (!$scope.user) $location.url('/login');
 
+      couchinnService.getApplications($scope.user)
+        .then((applications)=>{
+          $scope.applications = applications;
+        })
+        .catch((err)=>{
 
+        });
 
       $scope.headerButtons = [
         {
@@ -69,14 +75,8 @@ angular.module('misSolicitudes').controller(
       });
 
 
-      couchinnService.getApplications($scope.user)
-        .then((applications)=>{
-          $scope.applications = applications;
-        })
-        .catch((err)=>{
-          
-        });
-      
+
+
 
     }
   ]

@@ -13,6 +13,8 @@ angular.module('couchinn').service(
           var user = {};
           var tipoHospedaje = {};
           var lodgin = {};
+          var pregunta = {};
+
           this.registerUser = function  (user) {
             /**
              * @param user type JSON{ nombre: String, Apellido: String, email:String, nacimiento: String, password: String }
@@ -72,6 +74,14 @@ angular.module('couchinn').service(
 
           this.setTipo = function (tipoHospedaje) {
             store.set('tipoHospedaje', tipoHospedaje);
+          };
+
+          this.getPregunta = function (pregunta) {
+            return store.get('pregunta');
+          };
+
+          this.setPregunta = function (pregunta) {
+            store.set('pregunta', pregunta);
           };
 
           this.getLodgin = function (lodgin) {
@@ -185,6 +195,27 @@ angular.module('couchinn').service(
              });
           };
 
+          this.preguntar = function (pregunta) {
+            return $resource(
+              apiPath + 'preguntar/:nombre/:username', {nombre: pregunta.nombre , username: pregunta.username}
+             ).save(pregunta).$promise
+          };
+
+          this.responder = function (pregunta) {
+            return $resource(
+              apiPath + 'responder'
+             ).save(pregunta).$promise
+          };
+
+          this.getPreguntas = function  (lodgin) {
+            return $resource(
+              pathAnonimo + 'preguntas/:nombre', {nombre: lodgin.nombre}
+            ).get().$promise.then(function (response) {
+              return response.data;
+            });
+
+          };
+
 
           this.solicitar = function (application) {
             return $resource(
@@ -219,6 +250,30 @@ angular.module('couchinn').service(
             ).save(application).$promise.then(function (lodgin) {
               setLodgin(lodgin);
               return lodgin;
+            });
+          };
+
+          this.getMisHospedajes = function (user) {
+            return $resource(
+              apiPath + 'lodgin'
+            ).get().$promise.then(function (response) {
+              return response.data.filter(function (lodgin) {
+                return lodgin.user.username === user.username;
+              });
+            }).then(function (response) {
+              if (!response) return response;
+              response.forEach(function (lodgin) {
+                lodgin.validApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
+                  });
+              });
+              return response;
+            }).then(function (response) {
+              return response.filter(function (lodgin) {
+                //@todo hacerlo con la fecha de la application
+                return moment().isAfter(lodgin.fechaFin);
+              })
             });
           };
 

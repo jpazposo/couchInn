@@ -19,8 +19,8 @@ angular.module('lodgin').controller(
           $scope.today = new Date();
           $scope.lodgins = [];
           $scope.tiposHospedajes = [];
-          $scope.user = couchinnService.getUser();
-          if (!$scope.user) $location.url('/login');
+
+          
           $scope.headerButtons = [
             {
               location: '/listadoTipoHospedaje',
