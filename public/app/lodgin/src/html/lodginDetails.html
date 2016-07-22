@@ -53,7 +53,7 @@
       </ul>
     </li>
 
-    <div ng-if="(user.username!=lodgin.user.username)">
+    <div ng-if="(user.username!=lodgin.user.username && user)">
       <md-input-container class="md-block" flex-gt-sm>
         <label>Pregunta</label>
         <input ng-model="pregunta.pregunta">

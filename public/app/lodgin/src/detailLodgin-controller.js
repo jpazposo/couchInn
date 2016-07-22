@@ -96,6 +96,11 @@ angular.module('lodgin').controller(
                 location: '/logout',
                 name: 'Cerrar Sesión',
                 rol: 'user'
+              },
+              {
+                location: '/mis-solicitudes',
+                name: 'ver mis solicitudes',
+                rol: 'user'
               }
               ].filter(function (button) {
                 if ($scope.user.role == 'admin') return true;
@@ -151,7 +156,7 @@ angular.module('lodgin').controller(
                              .parent(angular.element(document.querySelector('#popupContainer')))
                              .clickOutsideToClose(true)
                              .title('Preguntar sobre publicacion')
-                             .textContent('La pregunta se realizo correctamente')
+                             .textContent('La pregunta se realizo correctamenta')
                              .ariaLabel('Alert Dialog Demo')
                              .ok('Ok')
                          );
@@ -388,7 +393,7 @@ angular.module('lodgin').controller(
                 });
 
             };
-            
+
 
 
               var validateDates = function (){

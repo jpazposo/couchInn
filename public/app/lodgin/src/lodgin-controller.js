@@ -71,7 +71,12 @@ angular.module('lodgin').controller(
               location: '/logout',
               name: 'Cerrar Sesión',
               rol: 'user'
-            }
+            },
+            {
+              location: '/mis-solicitudes',
+              name: 'ver mis solicitudes',
+              rol: 'user'
+            }            
           ].filter(function (button) {
             if ($scope.user.role == 'admin') return true;
             return button.rol == $scope.user.role;
