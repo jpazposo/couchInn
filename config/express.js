@@ -82,9 +82,11 @@ module.exports = function(app, config) {
 
     var assetPattern = new RegExp(".(?:js|css|html)$");
 
+    var iconsPattern = new RegExp(".*ico");
 
 
-    if (req.role == "admin" || anonymousPattern.test(req.url) || assetPattern.test(req.url)){
+
+    if (req.role == "admin" || anonymousPattern.test(req.url) || assetPattern.test(req.url) || iconsPattern.test(req.url)){
       next();
     }
     else {

@@ -3,6 +3,7 @@ angular.module("couchinn",
     [
         'ngRoute',
         'ngMaterial',
+        'ngMessages',
         'ngAria',
         'ngResource',
         'header',

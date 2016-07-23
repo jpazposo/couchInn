@@ -1,27 +1,20 @@
-<md-toolbar class="md-medium-tall" >
-  <div class="md-toolbar-tools">
-    <span flex></span>
-    <!-- logo -->
+<div ng-cloak>
+  <md-toolbar class="md-medium-tall" >
     <div layout="row">
-        <img class="logo" src="/images/Couchinn.png" ></img>
+      <img class="logo" src="/images/Couchinn.png" ></img>
     </div>
+  </md-toolbar>
+  <md-nav-bar
+  aria-label="barra de navegacion"
+  >
 
-
-    <md-button
+    <md-nav-item
       ng-repeat="button in buttons"
-      class="md-raised"
-      ng-click="go(button.location)"
+      md-nav-href="#{{button.location}}"
+      name="button.name"
     >
-      {{ button.name }}
-    </md-button>
+      {{button.name}}
+    </md-nav-item>
 
-<!--
-    <md-button class="md-raised" ng-click="go('/register')">Registrate</md-button>
-    <md-button class="md-raised" ng-click="go('/login')">Iniciar Sesión</md-button>
-    <md-button class="md-raised" ng-click="go('/nuevoTipoHospedaje')">Nuevo Tipo de Hospedaje</md-button>
-    <md-button class="md-raised" ng-click="logout()">Cerrar Sesión</md-button>
-    <md-button class="md-raised" ng-click="go('/tipoHospedaje')">Tipo de Hospedaje</md-button>-->
-
-
-  </div>
-</md-toolbar>
+  </md-nav-bar>
+</div>

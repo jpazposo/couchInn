@@ -21,7 +21,7 @@ angular.module('header').directive(
             ;
           };
 
-          $scope.go = function ( path ) {
+          $scope.goto = function ( path ) {
             if (path === '/logout'){
               $scope.logout();
               return;
