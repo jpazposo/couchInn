@@ -4,7 +4,8 @@ angular.module('header').directive(
   [
     '$location',
     'couchinnService',
-    function ($location,couchinnService) {
+    'headerService',
+    function ($location,couchinnService,headerService) {
       return {
         restrict: 'E',
         replace: true,
@@ -28,6 +29,9 @@ angular.module('header').directive(
             }
             $location.path( path );
           };
+
+
+          if (!$scope.buttons) $scope.buttons = headerService.getButtons();
 
         },
         transclude: false,

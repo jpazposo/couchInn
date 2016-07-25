@@ -10,20 +10,7 @@ angular.module('login').controller(
         function ($scope, couchinnService, $location, jwtHelper, $mdDialog) {
           console.log('se cargó el controller loginController');
 
-          $scope.headerButtons = [
-            {
-              location: '/register',
-              name: 'Registrarse'
-            },
-            {
-              location: '/',
-              name: 'Buscar'
-            },
-            {
-              location: '/quienes-somos',
-              name: 'Acerca de'
-            }
-          ];
+
 
           $scope.login = function () {
             couchinnService.login({
@@ -50,8 +37,6 @@ angular.module('login').controller(
                 );
 
                 return err;
-
-
 
               $scope.username = $scope.password = '';
             });

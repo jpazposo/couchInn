@@ -21,66 +21,7 @@ angular.module('lodgin').controller(
           $scope.tiposHospedajes = [];
           $scope.user = couchinnService.getUser();
           if (!$scope.user) $location.url('/login');
-          $scope.headerButtons = [
-            {
-              location: '/listadoTipoHospedaje',
-              name: 'Listar Tipos de Hospedaje',
-              rol: 'admin'
-            },
-            {
-              location: '/nuevoTipoHospedaje',
-              name: 'Agregar Tipo de Hospedaje',
-              rol: 'admin'
-            },
-            {
-              location: '/myDonations',
-              name: 'Mis Donaciones',
-              rol: 'user'
-            },
-            {
-              location: '/',
-              name: 'Buscar',
-              rol: 'user'
-            },
-            {
-              location: '/donate',
-              name: 'Donar',
-              rol: 'user'
-            },
-            {
-              location: '/myLodgins',
-              name: 'Mis Publicaciones',
-              rol: 'user'
-            },
-            {
-              location: '/addLodgin',
-              name: 'Agregar Publicaciones',
-              rol: 'user'
-            },
-            {
-              location: '/actualizar-perfil',
-              name: 'Modificar mis datos',
-              rol: 'user'
-            },
-            {
-              location: '/mis-hospedajes',
-              name: 'mis hospedajes',
-              rol: 'user'
-            },
-            {
-              location: '/logout',
-              name: 'Cerrar Sesión',
-              rol: 'user'
-            },
-            {
-              location: '/mis-solicitudes',
-              name: 'ver mis solicitudes',
-              rol: 'user'
-            }            
-          ].filter(function (button) {
-            if ($scope.user.role == 'admin') return true;
-            return button.rol == $scope.user.role;
-          });
+
 
       $scope.modificar = function (idx) {
         var lodgin_to_modified = $scope.lodgins[idx];
