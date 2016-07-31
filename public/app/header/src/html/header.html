@@ -10,7 +10,8 @@
 
     <md-nav-item
       ng-repeat="button in buttons"
-      md-nav-href="#{{button.location}}"
+      md-nav-click="goto(button.location)"
+      
       name="button.name"
     >
       {{button.name}}
