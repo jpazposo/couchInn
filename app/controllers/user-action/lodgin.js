@@ -110,6 +110,13 @@ router.post('/update/lodgin', function (req, res, next) {
        lodgin.save()
 
         .then(function (lodgin) {
+          Application.findOne({ lodgin: lodgin._id , status: { $in: ['pendiente', 'aceptada'] }})
+          .then(function (application) {
+            if (application.fechaInicio<lodgin.fechaInicio || application.fechaFin>lodgin.fechaFin ){
+              application.status = 'rechazada';
+              application.save();
+            };
+          });
           res.status(201).json(lodgin);
         })
         .catch(function (err) {
