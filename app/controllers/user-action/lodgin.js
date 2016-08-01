@@ -70,26 +70,20 @@ router.get('/lodgin', function (req, res, next) {
 router.get('/misHospedajes/:user', function (req, res, next) {
   Application.find({owner : req.params.user , status : 'aceptada'})
     .then(function (application) {
-      if (!application.length){
-        res.json({ data: application})
-      }
-      else{
-        Lodgin.find({id : application.lodgin})
-        .populate('tipo', 'nombre')
-        .populate('user')
-        .populate('applicants')
-        .populate({
-          path: 'applications',
-          populate: { path: 'owner' }
-        })
-        .exec(function (err, lodgins) {
-          if (err) console.log(err);
-          res.json({ data: lodgins})
-        })
-    };
-    })
-      .catch(function (err) {
-        console.error(err);
+       Lodgin.find({applications: { $in: application }})
+       .populate('tipo', 'nombre')
+       .populate('user')
+       .populate('applicants')
+       .populate({
+         path: 'applications',
+         populate: { path: 'owner' }
+       })
+       .exec(function (err, lodgins) {
+         if (err) console.log(err);
+         res.json({ data: lodgins})
+       })
+    }).catch(function (err) {
+       console.error(err);
        res.status(500).json(err);
       });
 });
@@ -133,7 +127,8 @@ router.post('/update/lodgin', function (req, res, next) {
 router.post('/calificarPublicacion', function (req, res, next) {
   Application.findOne({_id: req.body.solicitudCalificar})
    .then(function (application) {
-     application.calificoPulicacion = true;
+     console.log(application);
+     application.calificoPublicacion = true;
      application.save()
      .then(function (application) {
       return Lodgin.findOne({_id: req.body._id})
@@ -168,11 +163,13 @@ router.post('/calificarHospedador', function (req, res, next) {
 
     User.findOne({_id: req.body.user})
     .then(function (user) {
+       console.log('user :'+ user);
        user.puntuacionHospedador.push(req.body.puntuacionHospedador);
        user.save()
        .then(function (user) {
           Application.findOne({_id: req.body.solicitudCalificar})
           .then(function (application) {
+            console.log('application :'+ application);
             application.calificoHospedador = true;
             application.save()
             .then(function (application) {

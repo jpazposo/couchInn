@@ -59,23 +59,27 @@
     </div>
 
 
-    <div ng-if="(user.username!=lodgin.user.username && user && today>lodgin.fechaFin && item.calificoHospedador && item.calificoPublicacion)">
-      <div ng-if="(item.calificoPublicacion)">
+    <div ng-repeat="item in lodgin.calificarApplications">
+      <div ng-if="(user.username!=lodgin.user.username && user && today>lodgin.fechaFin && item.owner.username==user.username)">
         <!-- PUNTUAR PPUBLICACION -->
-        <md-input-container>
-          <label>Puntuacion Publicacion</label>
-          <input type="number" ng-model="lodgin.puntuacionPublicacion" ng-min="1" ng-max="5" ng-required="true" name="puntuacionPublicacion" >
-        </md-input-container>
-        <md-button ng-click=calificarPublicacion($index) ng-disabled=!lodgin.puntuacionPublicacion> Calificar hospedaje</md-button>
-      </div>
+        <div ng-if="(!item.calificoPublicacion)">
+          <p>Califica la publicacion</p>
+          <md-input-container>
+            <label>Puntuacion Publicacion</label>
+            <input type="number" ng-model="lodgin.puntuacionPublicacion" ng-min="1" ng-max="5" ng-required="true" name="puntuacionPublicacion" >
+          </md-input-container>
+          <md-button ng-click=calificarPublicacion($index) ng-disabled=!lodgin.puntuacionPublicacion> Calificar hospedaje</md-button>
+        </div>
 
-      <!--PUNTUAR HOSPEDADOR -->
-      <div ng-if="(item.calificoHospedador)">
-        <md-input-container>
-          <label>Puntuacion hospedador</label>
-          <input type="number" ng-model="lodgin.puntuacionHospedador" ng-min="1" ng-max="5" ng-required="true" name="puntuacionHospedador" >
-        </md-input-container>
-        <md-button ng-click=calificarHospedador($index) ng-disabled=!lodgin.puntuacionHospedador> Calificar hospedador</md-button>
+        <!--PUNTUAR HOSPEDADOR -->
+        <div ng-if="(!item.calificoHospedador)">
+          <p>Califica al hospedador</p>
+          <md-input-container>
+            <label>Puntuacion hospedador</label>
+            <input type="number" ng-model="lodgin.puntuacionHospedador" ng-min="1" ng-max="5" ng-required="true" name="puntuacionHospedador" >
+          </md-input-container>
+          <md-button ng-click=calificarHospedador($index) ng-disabled=!lodgin.puntuacionHospedador> Calificar hospedador</md-button>
+        </div>
       </div>
     </div>
 
@@ -91,14 +95,13 @@
           </div>
 
           <!--PUNTUAR HUESPED -->
-          <div ng-if="(user.username==lodgin.user.username && user && today>lodgin.fechaFin && !item.calificoHuesped)">
-            <div>
+          <div ng-if="(!item.calificoHuesped)">
+            <p>Califica al huesped</p>
               <md-input-container>
                 <label>Puntuacion huesped</label>
                 <input type="number" ng-model="lodgin.puntuacionHuesped" ng-min="1" ng-max="5" ng-required="true" name="puntuacionHospedador" >
               </md-input-container>
               <md-button ng-click=calificarHuesped($index) ng-disabled=!lodgin.puntuacionHuesped> Calificar huesped</md-button>
-            </div>
           </div>
 
         </md-list-item>
