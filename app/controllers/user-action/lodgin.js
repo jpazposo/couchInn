@@ -6,6 +6,7 @@ var  TipoHospedaje = mongoose.model('TipoHospedaje');
 var User = mongoose.model('User');
 var Application = mongoose.model('Application');
 var Preguntas = mongoose.model('Preguntas');
+var moment = require('moment');
 module.exports = function (app) {
   app.use('/user-action/', router);
 };
@@ -69,8 +70,17 @@ router.get('/lodgin', function (req, res, next) {
 // Read All hospedajes
 router.get('/misHospedajes/:user', function (req, res, next) {
   Application.find({owner : req.params.user , status : 'aceptada'})
-    .then(function (application) {
-       Lodgin.find({applications: { $in: application }})
+    .then(function (applications) {
+
+      var solicitudesPasadas = applications.filter(function (application) {
+        console.log('fecha fin de la solicitud');
+        console.log(application.fechaFin);
+        return moment().isAfter(application.fechaFin);
+      });
+      console.log('solicitudes pasadas------------------');
+      console.log(solicitudesPasadas);
+
+       Lodgin.find({applications: { $in: solicitudesPasadas}})
        .populate('tipo', 'nombre')
        .populate('user')
        .populate('applicants')

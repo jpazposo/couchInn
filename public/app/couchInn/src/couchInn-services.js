@@ -169,6 +169,7 @@ angular.module('couchinn').service(
               response.forEach(function (lodgin) {
                 lodgin.validApplications =
                   lodgin.applications.filter(function (application) {
+                    //return true;
                     return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
                   });
                 lodgin.calificarApplications =
@@ -277,11 +278,6 @@ angular.module('couchinn').service(
                   });
               });
               return response;
-            }).then(function (response) {
-              return response.filter(function (lodgin) {
-                //@todo hacerlo con la fecha de la application
-                return moment().isAfter(lodgin.fechaFin);
-              })
             });
           };
 
