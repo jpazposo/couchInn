@@ -50,7 +50,7 @@
       </ul>
     </li>
 
-    <div ng-if="(user.username!=lodgin.user.username && user)">
+    <div ng-if="(user.username!=lodgin.user.username && user && today<lodgin.fechaFin)">
       <md-input-container class="md-block" flex-gt-sm>
         <label>Pregunta</label>
         <input ng-model="pregunta.pregunta">
@@ -109,7 +109,7 @@
     </div>
   </div>
 
-<div ng-if="notMyCouch">
+<div ng-if="notMyCouch && today<lodgin.fechaFin">
   <h1>Solicitar Couch</h1>
 
   <div>
@@ -149,7 +149,7 @@
 
 </div>
 
-<div ng-if="!notMyCouch">
+<div ng-if="!notMyCouch && today<lodgin.fechaFin">
   <h1>Solicitudes</h1>
   <div ng-show="lodgin.validApplications.length == 0">
     Este Couch no tiene solicitudes Válidas
