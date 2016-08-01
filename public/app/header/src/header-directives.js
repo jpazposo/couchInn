@@ -11,6 +11,8 @@ angular.module('header').directive(
         replace: true,
         link: function ($scope) {
 
+          $scope.user = couchinnService.getUser();
+
           $scope.logout = function () {
             couchinnService.logout()
             .then(function () {

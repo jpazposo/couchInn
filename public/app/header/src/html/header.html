@@ -1,7 +1,8 @@
 <div ng-cloak>
   <md-toolbar class="md-medium-tall" >
     <div layout="row">
-      <img class="logo" src="/images/Couchinn.png" ></img>
+      <img class="logo" src="/images/Couchinn.png" ng-click="goto('/')" />
+      <label ng-if="user">¡Bienvenido {{ user.nombre }}!</label>
     </div>
   </md-toolbar>
   <md-nav-bar
@@ -11,7 +12,7 @@
     <md-nav-item
       ng-repeat="button in buttons"
       md-nav-click="goto(button.location)"
-      
+
       name="button.name"
     >
       {{button.name}}

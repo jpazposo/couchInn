@@ -361,13 +361,14 @@ angular.module('lodgin').controller(
             );
             $location.path('/user-logged/' + $scope.user.nombre);
           })
-          .catch(function () {
+          .catch(function (err) {
+            var errorMsj = err.error || 'Un email será enviado a ' + $scope.user.username + ' detallando el error';
             $mdDialog.show(
               $mdDialog.alert()
                 .parent(angular.element(document.querySelector('#popupContainer')))
                 .clickOutsideToClose(true)
                 .title('Hubo un error intentando aceptar esta solicitud')
-                .textContent('Un email será enviado a ' + $scope.user.username + ' detallando el error')
+                .textContent(errorMsj)
                 .ariaLabel('Alert Dialog Demo')
                 .ok('reintentar')
             );
