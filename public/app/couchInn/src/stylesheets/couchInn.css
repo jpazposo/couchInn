@@ -40,12 +40,12 @@
   font-feature-settings: 'liga';
 }
 
-.logo{
+/*.logo{
   top: 0;
   left: 0;
   width: 370px;
   position: absolute;
-}
+}*/
 
 .heading{
   font-size: 200%;

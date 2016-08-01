@@ -101,9 +101,20 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
           var end = new Date(lodgin.fechaFin);
           var lodginRange = moment.range(start, end);
           var totalizerRange = moment.range(start, start);
+          var potentialNewBooking = {fechaInicio:req.body.fechaInicio, fechaFin:req.body.fechaFin};
+          var potentialNewBookingRange = moment.range(potentialNewBooking.fechaInicio, potentialNewBooking.fechaFin);
           var cant = 0;
 
-          lodgin.fechasReservadas.push({fechaInicio:req.body.fechaInicio, fechaFin:req.body.fechaFin})
+          // Validar si no hay una fecha ya reservada.
+          lodgin.fechasReservadas.forEach(function (fechas) {
+            var reserva = moment.range(fechas.fechaInicio, fechas.fechaFin);
+            if (potentialNewBookingRange.overlaps(reserva)){
+              console.log('Esta solicitud ya no se puede ocupar debido a que no hay más disponibilidad para la fecha solicitada');
+              res.status(500).json({error: 'Esta solicitud ya no se puede ocupar debido a que no hay más disponibilidad para la fecha solicitada'});
+            }
+          });
+
+          lodgin.fechasReservadas.push(potentialNewBooking);
 
           lodgin.fechasReservadas.forEach(function (fechas) {
             console.log('entro al foreach');
@@ -122,7 +133,7 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
           console.log('------------end----------------');
 
 
-          lodgin.save()
+          lodgin.save();
 
           res.json(application.lodgin);
         });
