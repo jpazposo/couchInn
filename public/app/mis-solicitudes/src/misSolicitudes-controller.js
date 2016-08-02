@@ -5,7 +5,8 @@ angular.module('misSolicitudes').controller(
     '$scope',
     'couchinnService',
     '$location',
-    function ($scope, couchinnService, $location) {
+    '$mdDialog',
+    function ($scope, couchinnService, $location, $mdDialog) {
       console.log('se cargó el controller misSolicitudesController');
 
       $scope.user = couchinnService.getUser();
@@ -21,7 +22,29 @@ angular.module('misSolicitudes').controller(
 
         });
 
+      $scope.modificar = function (idx) {
+        var application_to_modified = $scope.applications[idx];
+        console.log('se va a setear la solisitud a modificar:-----------');
+        console.log(JSON.stringify(application_to_modified));
+        couchinnService.setApplication(application_to_modified)
+        .then(function (application) {
+           console.log('successfull set application : ----------------');
+           console.log(JSON.stringify(application));
+           $mdDialog.show(
+             $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Modificacion de publicacion exitosa ')
+                .textContent('Se va a modificar la solicitud de la publicacion: ' + application.lodgin.nombre)
+                .ariaLabel('Alert Dialog Demo')
+                 .ok('Continuar')
+           );
+           $location.path('/actualizar-solisitud');
+           });
 
+
+
+      };
 
 
 

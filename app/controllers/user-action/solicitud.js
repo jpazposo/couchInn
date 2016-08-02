@@ -42,6 +42,40 @@ router.post('/solicitar/lodgin/:nombre/:username', function(req, res, next){
       .catch((err)=>res.status(404).json(err));
 });
 
+//update
+router.post('/update/solicitud', function(req, res, next){
+  Application.findOne({ _id: req.body._id })
+    .populate('lodgin')
+    .then(function (application) {
+       application.fechaInicio = req.body.fechaInicio || application.fechaInicio;
+       application.fechaFin = req.body.fechaFin || application.fechaFin;
+       application.save();
+       Lodgin.findOne(application.lodgin)
+         .populate('tipo', 'nombre')
+         .populate('user')
+         .populate('applicants')
+         .populate('applications')
+         .populate('owner')
+         .then(function (lodgin) {
+           res.json(application.lodgin);
+         });
+     })
+     .catch(function (err) {
+       res.status(500).json(err);
+     })
+});
+
+//read one
+router.get('/solicitud/:id', function(req, res, next){
+  Application.findOne({ _id: req.params.id })
+    .populate('lodgin')
+    .then(function (application) {
+      res.json(application);
+    }).catch(function (err) {
+       res.status(500).json(err);
+      });
+});
+
 router.post('/solicitudes/anular', function (req, res, next) {
   Application.findOne(req.body)
     .populate('lodgin')

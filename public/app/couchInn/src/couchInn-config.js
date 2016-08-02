@@ -114,6 +114,14 @@ angular.module("couchinn",
             )
 
             .when(
+              '/actualizar-solisitud',
+              {
+                templateUrl: 'app/mis-solicitudes/src/html/editSolicitud.html',
+                controller: 'editSolicitudController'
+              }
+            )
+
+            .when(
               '/addLodgin',
               {
                 templateUrl: 'app/lodgin/src/html/addLodgin.html',

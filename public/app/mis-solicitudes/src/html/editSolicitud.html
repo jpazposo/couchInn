@@ -1,0 +1,44 @@
+<couchinn-header buttons="headerButtons"></couchinn-header><br>
+<div class="heading">Modificar la solicitud</div><br>
+  <div class="container">
+    <ul style="list-style-type:none">
+      <li><b>Nombre Publicacion : </b> {{ lodgin.nombre }}</li>
+      <div layout-gt-sm="row">
+        <li><b>Fecha Inicio : </b>{{ lodgin.fechaInicio | date : shortDate }}</li>
+        <li><b>Fecha Fin : </b>{{ lodgin.fechaFin | date : shortDate }}</li>
+      </div>
+      <div><br>
+        <p><b>Nuevas fechas de la solicitud</b></p>
+        <md-content>
+          <md-datepicker
+            ng-model="application.fechaInicio"
+            md-placeholder="fecha inicial"
+            md-min-date="lodgin.fechaInicio"
+            md-max-date="lodgin.fechaFin">
+          </md-datepicker>
+        </md-content>
+
+        <md-content>
+          <md-datepicker
+            ng-model="application.fechaFin"
+            md-placeholder="fecha final"
+            md-min-date="application.fechaInicio"
+            md-max-date="lodgin.fechaFin">
+          </md-datepicker>
+        </md-content>
+      </div>
+    </ul>
+      <div ng-show="lodgin.fechasReservadas.length > 0">
+        <h2>Fechas Ya reservadas</h2>
+        <md-list>
+          <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
+
+            <div class="md-list-item-text">
+              <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
+            </div>
+          </md-list-item>
+        </md-list>
+      </div>
+
+    <md-button ng-click="solicitar()"> Modificar Solicitud</md-button>
+</div>

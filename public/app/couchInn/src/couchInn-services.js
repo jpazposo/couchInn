@@ -14,6 +14,7 @@ angular.module('couchinn').service(
           var tipoHospedaje = {};
           var lodgin = {};
           var pregunta = {};
+          var solicitud = {};
 
           this.registerUser = function  (user) {
             /**
@@ -84,8 +85,28 @@ angular.module('couchinn').service(
             store.set('pregunta', pregunta);
           };
 
+          this.getSolicitud = function (solicitud) {
+            return store.get('solicitud');
+          };
+
+          var setSolicitud = function (solicitud) {
+            store.remove('solicitud');
+            store.set('solicitud', solicitud);
+          };
+
+
           this.getLodgin = function (lodgin) {
             return store.get('lodgin');
+          };
+
+          this.setApplication = function (application) {
+            return $resource(
+              apiPath + 'solicitud/:id', {id: application._id}
+            ).get().$promise.then(function (application) {
+              console.log('la solicitud que se setea es: '+ application.lodgin.nombre);
+                setSolicitud(application);
+                return application;
+              });
           };
 
           var setLodgin = function (lodgin) {
@@ -225,6 +246,16 @@ angular.module('couchinn').service(
           this.solicitar = function (application) {
             return $resource(
              apiPath + 'solicitar/lodgin/:nombre/:username', {nombre: application.nombre , username: application.username}
+             ).save(application).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+                return lodgin;
+              });
+          };
+
+          this.modificarSolicitud = function (application) {
+            return $resource(
+             apiPath + 'update/solicitud'
              ).save(application).$promise
               .then(function (lodgin) {
                 setLodgin(lodgin);
