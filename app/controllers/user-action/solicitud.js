@@ -181,9 +181,9 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
 
           lodgin.save();
           console.log('llega hasta aca:  ' + solicitudAceptada);
-          Application.find({ lodgin: solicitudAceptada.lodgin._id , status: { $in: ['pendiente', 'aceptada'] }})
+          Application.find({ lodgin: solicitudAceptada.lodgin , status: { $in: ['pendiente', 'aceptada'] }})
            .then(function (applications) {
-              console.log('entro al applications');
+              console.log('entro al applications'+ solicitudAceptada.lodgin);
               applications.forEach(function (application) {
                 if ( moment(application.fechaInicio).format() > moment(solicitudAceptada.fechaInicio).format() && moment(application.fechaInicio).format() < moment(solicitudAceptada.fechaFin).format() || moment(application.fechaFin).format() > moment(solicitudAceptada.fechaInicio).format() && moment(application.fechaFin).format() < moment(solicitudAceptada.fechaFin).format() ){
                   application.status = 'rechazada';
