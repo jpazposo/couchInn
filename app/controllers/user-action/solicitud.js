@@ -47,8 +47,8 @@ router.post('/update/solicitud', function(req, res, next){
   Application.findOne({ _id: req.body._id })
     .populate('lodgin')
     .then(function (application) {
-       application.fechaInicio = req.body.fechaInicio || application.fechaInicio;
-       application.fechaFin = req.body.fechaFin || application.fechaFin;
+       application.fechaInicio = req.body.fechaInicio;
+       application.fechaFin = req.body.fechaFin;
        application.save();
        Lodgin.findOne(application.lodgin)
          .populate('tipo', 'nombre')

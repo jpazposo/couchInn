@@ -58,8 +58,7 @@ angular.module('lodgin').controller(
           return;
         }
 
-
-        couchinnService.modificarSolicitud($scope.application[idx])
+        couchinnService.modificarSolicitud($scope.application)
           .then(function(lodgin) {
           $mdDialog.show(
           $mdDialog.alert()
