@@ -11,6 +11,8 @@
       <p id="fechaIni">{{application.fechaInicio | date : shortDate}}</p>
       <label for="fechaFin">Fecha de Check OUT:</label>
       <p id="fechaFin">{{application.fechaFin | date : shortDate}}</p>
+      <label for="status">Estado:</label>
+      <p id="status">{{application.status}}</p>
       <div ng-if="application.status=='pendiente'">
         <p><md-button ng-click="modificar($index)"> Modificar </md-button></p>
       </div>
