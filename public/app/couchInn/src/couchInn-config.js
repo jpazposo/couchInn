@@ -16,7 +16,8 @@ angular.module("couchinn",
         'ajaxInterceptor',
         'angular-storage',
         'buscar',
-        'misSolicitudes'
+        'misSolicitudes',
+        'md.data.table'
     ]
 
 ).config(

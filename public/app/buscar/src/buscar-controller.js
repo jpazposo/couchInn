@@ -15,8 +15,25 @@ angular.module('buscar').controller(
     '$scope',
     'buscarService',
     'couchinnService',
-    function ($scope, buscarService, couchinnService) {
+    '$location',
+    function ($scope, buscarService, couchinnService, $location) {
       console.log('se cargó el controller buscarController');
+
+
+      $scope.selected = [];
+
+      $scope.$watchCollection('selected', function (newVal) {
+        console.log(newVal);
+      });
+
+      $scope.detalle = function (idx) {
+        var lodgin_to_show = $scope.publicaciones[idx];
+        console.log('se va a setear la publicacion que se va a mostrat:-----------');
+        console.log(JSON.stringify(lodgin_to_show));
+        couchinnService.setLodgin(lodgin_to_show)
+        $location.path('/detallar-publicacion');
+
+      };
 
 
       $scope.user = couchinnService.getUser();
