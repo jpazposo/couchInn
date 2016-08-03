@@ -28,9 +28,9 @@
 <!-- exact table from live demo -->
 <md-table-container>
   <table md-table md-row-select ng-model="selected">
-    <thead md-head md-order="query.order">
+    <thead md-head>
     <tr md-row>
-      <th md-column md-order-by="nameToLower"><span>Nombre</span></th>
+      <th md-column ><span>Nombre</span></th>
       <th md-column md-numeric md-order-by="calories.value"><span>Tipo</span></th>
       <th md-column md-numeric>Capacidad Máxima</th>
       <th md-column md-numeric>Fecha Inicio</th>
@@ -48,7 +48,6 @@
     >
 
       <td md-cell
-
       >{{ publicacion.nombre }}</td>
       <td md-cell>{{ publicacion.tipo.nombre }} </td>
       <td md-cell>{{ publicacion.capacidadMax }}</td>
