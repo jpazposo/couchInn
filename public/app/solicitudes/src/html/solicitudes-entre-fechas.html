@@ -9,8 +9,8 @@
       <md-datepicker
         ng-model="query.inicio"
         md-placeholder="fecha inicial"
-        md-min-date="minDate"
-        md-max-date="maxDate">
+
+        md-max-date="query.fin">
       </md-datepicker>
       <input type="hidden" ng-model="query.inicio" required>
     </md-content>
@@ -19,8 +19,7 @@
       <md-datepicker
         ng-model="query.fin"
         md-placeholder="fecha final"
-        md-min-date="minDate"
-        md-max-date="maxDate">
+        md-min-date="query.inicio">
       </md-datepicker>
       <input type="hidden" ng-model="query.fin" required>
     </md-content>
