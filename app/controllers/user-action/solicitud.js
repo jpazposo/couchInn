@@ -76,6 +76,16 @@ router.get('/solicitud/:id', function(req, res, next){
       });
 });
 
+router.get('/solicitudes', function(req, res, next){
+  Application.find()
+    .populate('lodgin')
+    .then(function (application) {
+      res.json(application);
+    }).catch(function (err) {
+    res.status(500).json(err);
+  });
+});
+
 router.post('/solicitudes/anular', function (req, res, next) {
   Application.findOne(req.body)
     .populate('lodgin')

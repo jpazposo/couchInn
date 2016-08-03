@@ -17,6 +17,7 @@ angular.module("couchinn",
         'angular-storage',
         'buscar',
         'misSolicitudes',
+        'solicitudes',
         'md.data.table'
     ]
 

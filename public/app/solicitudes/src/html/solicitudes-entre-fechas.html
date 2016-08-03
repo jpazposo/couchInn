@@ -1,0 +1,63 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+
+
+
+<form name="form" id="form" >
+
+  <div>
+    <md-content>
+      <md-datepicker
+        ng-model="query.inicio"
+        md-placeholder="fecha inicial"
+        md-min-date="minDate"
+        md-max-date="maxDate">
+      </md-datepicker>
+      <input type="hidden" ng-model="query.inicio" required>
+    </md-content>
+
+    <md-content>
+      <md-datepicker
+        ng-model="query.fin"
+        md-placeholder="fecha final"
+        md-min-date="minDate"
+        md-max-date="maxDate">
+      </md-datepicker>
+      <input type="hidden" ng-model="query.fin" required>
+    </md-content>
+  </div>
+
+  <md-button ng-click="find(query)" ng-disabled="form.$invalid"> Buscar</md-button>
+
+</form>
+
+
+
+<!-- exact table from live demo -->
+<md-table-container>
+  <table md-table>
+    <thead md-head>
+    <tr md-row>
+      <th md-column ><span>nombre del couch</span></th>
+      <th md-column ><span>descripcion del couch</span></th>
+      <th md-column md-numeric>Fecha Inicio</th>
+      <th md-column md-numeric>Fecha Fin</th>
+    </tr>
+    </thead>
+    <tbody md-body>
+    <tr md-row
+
+        class="publicacion-fila"
+        ng-class="{'premium': data.user.premium}"
+
+        ng-repeat="application in applications"
+    >
+
+      <td md-cell>{{ application.lodgin.nombre }}</td>
+      <td md-cell>{{ application.lodgin.descripcion }}</td>
+      <td md-cell>{{ application.fechaInicio | date : shortDate}}</td>
+      <td md-cell>{{ application.fechaFin | date : shortDate}} </td>
+
+    </tr>
+    </tbody>
+  </table>
+</md-table-container>

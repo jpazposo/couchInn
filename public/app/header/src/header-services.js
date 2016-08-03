@@ -86,6 +86,11 @@ angular.module('header').service(
           roles: ['admin', 'user']
         },
         {
+          location: 'solicitudes-aceptadas',
+          name: 'Solicitudes Aceptadas',
+          roles: ['admin']
+        },
+        {
           location: '/register',
           name: 'Registrate',
           roles:['anonymous']

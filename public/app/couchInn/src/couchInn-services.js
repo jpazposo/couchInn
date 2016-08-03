@@ -350,6 +350,19 @@ angular.module('couchinn').service(
           };
 
 
+          this.getApplicationByRange = function (query) {
+            var queryrange = moment.range(query.inicio, query.fin);
+            return $resource(
+              adminPath + 'solicitudes', {user: user.username}
+            ).get().$promise.then(function (response) {
+              return response.data.filter(function (application) {
+                var applicationRange = moment.range(application.fechaInicio, application.fechaFin);
+                return applicationRange.overlaps(queryrange);
+              });
+            });
+          };
+
+
 
 
         }
