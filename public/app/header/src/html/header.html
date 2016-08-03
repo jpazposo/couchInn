@@ -1,4 +1,4 @@
-<div ng-cloak>
+<div ng-cloak style="margin-bottom: 2rem;">
   <md-toolbar class="md-medium-tall" >
     <div layout="row">
       <img class="logo" src="/images/Couchinn.png" ng-click="goto('/')" />
@@ -9,14 +9,18 @@
   aria-label="barra de navegacion"
   >
 
-    <md-nav-item
-      ng-repeat="button in buttons"
-      md-nav-click="goto(button.location)"
 
-      name="button.name"
-    >
-      {{button.name}}
-    </md-nav-item>
+      <md-nav-item
+        ng-repeat="button in buttons"
+        md-nav-click="goto(button.location)"
+
+        name="button.name"
+      >
+        {{button.name}}
+      </md-nav-item>
+
+
+
 
   </md-nav-bar>
 </div>
