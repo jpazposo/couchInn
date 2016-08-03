@@ -159,6 +159,15 @@ angular.module("couchinn",
                 controller: 'donationController'
               }
              )
+
+            .when(
+              '/ganancia',
+              {
+                templateUrl: 'app/donation/src/html/ganancia.html',
+                controller: 'gananciaController'
+              }
+             )
+
             .when(
               '/mis-hospedajes',
               {

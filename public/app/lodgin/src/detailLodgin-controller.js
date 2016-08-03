@@ -44,7 +44,7 @@ angular.module('lodgin').controller(
           for (var i in lista){
             resultado = resultado + lista[i];
           }
-          return resultado/lista.length + '(votos: ' + lista.length + ')';
+          return resultado/lista.length + ' ( Votos: ' + lista.length + ' )';
         };
       };
 

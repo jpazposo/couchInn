@@ -210,14 +210,21 @@ angular.module('couchinn').service(
 
           };
 
-          this.getDonations = function  (user) {
+          this.getDonationsByUser = function  (user) {
 
             return $resource(
-             apiPath + 'donation'
+             apiPath + 'donation/:user', {user: user.id}
              ).get().$promise.then(function (response) {
-               return response.data.filter(function (donation) {
-               return donation.user.username === user.username;
-               });
+               return response.data;
+             });
+          };
+
+          this.getDonations = function  (donation) {
+
+            return $resource(
+             apiPath + 'donation/:fechaInicio/:fechaFin', {fechaInicio: donation.fechaInicio , fechaFin: donation.fechaFin}
+             ).get().$promise.then(function (response) {
+               return response.data;
              });
           };
 

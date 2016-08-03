@@ -3,6 +3,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Donation = mongoose.model('Donation');
 var User = mongoose.model('User');
+var moment = require('moment');
 module.exports = function (app) {
   app.use('/user-action/', router);
 };
@@ -44,13 +45,24 @@ router.post('/donation', function (req, res, next) {
 });
 
 // Read All
-router.get('/donation', function (req, res, next) {
-
-  return Donation.find({})
-    // Caso de éxito
-    .populate('user')
+router.get('/donation/:user', function (req, res, next) {
+  return Donation.find({ user: req.params.user })
     .exec(function (err, donations) {
       if (err) console.log(err);
-      res.json({ data: donations})
+      res.json({ data: donations });
+    })
+});
+
+
+
+router.get('/donation/:fechaInicio/:fechaFin', function (req, res, next) {
+  return Donation.find({})
+    .exec(function (err, donations) {
+       var donacioneEntreFechas = donations.filter(function (donation) {
+           return (moment(donation.fecha).format() > moment(req.params.fechaInicio).format()  && moment(donation.fecha).format() < moment(req.params.fechaFin).format());
+       });
+       console.log('donacion entre fechas: '+ donacioneEntreFechas);
+      if (err) console.log(err);
+      res.json({ data: donacioneEntreFechas });
     })
 });

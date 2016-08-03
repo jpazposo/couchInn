@@ -10,8 +10,8 @@ angular.module('donation').controller(
       console.log('se cargó el controller donationController');
 
       $scope.donation = {}; // modelo a completarse con el formulario.
-      $scope.donations = [];
       $scope.user = couchinnService.getUser();
+      $scope.donations = [];
       $scope.medioPago = [
        'RapiPago', 'PagoFacil', 'PayPal','Tarjeta de credito'
        ];
@@ -52,24 +52,27 @@ angular.module('donation').controller(
            });
         };
 
-        //Obtener Todos las donaciones
-           $scope.obtenerDonaciones = function () {
-           console.log('se solicita las publicaciones guardadas:-----------');
-           console.log(JSON.stringify($scope.donations));
 
-           couchinnService.getDonations($scope.user)
-            .then(function (donations) {
-              console.log('se obtuvieron las publicaciones: ----------------');
-              console.log(JSON.stringify(donations));
-              $scope.donations = donations;
-              console.log($scope.donations);
 
-            })
-            .catch(function (error) {
+           couchinnService.getDonationsByUser($scope.user)
+           .then(function (donations){
+            $scope.donations = donations
+            console.log($scope.donations);
+           });
 
-             // code 11000 means donation already exist
-             console.log(error);
-            });
+
+
+            $scope.calcularTotal = function (lista) {
+              var resultado = 0;
+              if (lista.length == 0){
+                return 'aun no a donado'
+              }
+              else{
+                for (var i in lista){
+                  resultado = resultado + lista[i].monto;
+                }
+                return resultado;
+              };
             };
 
        }

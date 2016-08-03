@@ -36,6 +36,11 @@ angular.module('header').service(
           roles: ['admin', 'user' ]
         },
         {
+          location: '/ganancia',
+          name: 'Ganancia',
+          roles: ['admin']
+        },
+        {
           location: '/nuevoTipoHospedaje',
           name: 'Agregar Tipo de Hospedaje',
           roles: ['admin']
