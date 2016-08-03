@@ -33,7 +33,7 @@ angular.module('solicitudes').controller(
                     .parent(angular.element(document.querySelector('#popupContainer')))
                     .clickOutsideToClose(true)
                     .title('Búsqueda sin éxito ')
-                    .textContent('Hubo un error que produjo que esta búsqueda no funcionara, error: ' + err)
+                    .textContent('Hubo un error que produjo que esta búsqueda no funcionara, error: ' + JSON.stringify(err))
                     .ariaLabel('Alert Dialog Demo')
                     .ok('Continuar')
                 );
