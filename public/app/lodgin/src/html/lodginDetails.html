@@ -134,10 +134,10 @@
 
   <div ng-show="lodgin.fechasReservadas.length > 0">
     <h2>Fechas Ya reservadas</h2>
-    <md-list>
-      <md-list-item class="md-2-line" ng-repeat="item in lodgin.fechasReservadas">
 
-        <div class="md-list-item-text">
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="item in lodgin.applications" ng-show="item.status == 'aceptada'">
+                <div class="md-list-item-text">
           <p> Ocupado desde {{item.fechaInicio | date : shortDate}} hasta {{item.fechaFin | date : shortDate}}</p>
         </div>
       </md-list-item>

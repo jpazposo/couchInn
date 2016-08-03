@@ -385,7 +385,10 @@ angular.module('lodgin').controller(
 
         var slectedRange = moment.range($scope.application.fechaInicio, $scope.application.fechaFin);
 
-        $scope.lodgin.fechasReservadas
+        $scope.lodgin.applications
+          .filter(function (app) {
+            return app.status == 'aceptada';
+          })
           .forEach(function (fechas) {
             var start = new Date(fechas.fechaInicio);
             var end = new Date(fechas.fechaFin);
