@@ -124,6 +124,8 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
     .then(function (application) {
       application.status = 'aceptada';
       application.save();
+      var solicitudAceptada = application;
+      console.log(solicitudAceptada);
       Lodgin.findOne(application.lodgin)
         .populate('tipo', 'nombre')
         .populate('user')
@@ -168,8 +170,20 @@ router.post('/solicitudes/aceptar', function (req, res, next) {
 
 
           lodgin.save();
-
-          res.json(application.lodgin);
+          console.log('llega hasta aca:  ' + solicitudAceptada);
+          Application.find({ lodgin: solicitudAceptada.lodgin._id , status: { $in: ['pendiente', 'aceptada'] }})
+           .then(function (applications) {
+              console.log('entro al applications');
+              applications.forEach(function (application) {
+                if ( moment(application.fechaInicio).format() > moment(solicitudAceptada.fechaInicio).format() && moment(application.fechaInicio).format() < moment(solicitudAceptada.fechaFin).format() || moment(application.fechaFin).format() > moment(solicitudAceptada.fechaInicio).format() && moment(application.fechaFin).format() < moment(solicitudAceptada.fechaFin).format() ){
+                  application.status = 'rechazada';
+                  application.save();
+                };
+              });
+              res.json(application.lodgin);
+          }).catch(function (err) {
+              res.status(500).json(err);
+            });
         });
     })
     .catch(function (err) {

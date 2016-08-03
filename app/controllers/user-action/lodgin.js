@@ -120,14 +120,21 @@ router.post('/update/lodgin', function (req, res, next) {
        lodgin.save()
 
         .then(function (lodgin) {
-          Application.findOne({ lodgin: lodgin._id , status: { $in: ['pendiente', 'aceptada'] }})
-          .then(function (application) {
-            if (application.fechaInicio<lodgin.fechaInicio || application.fechaFin>lodgin.fechaFin ){
-              application.status = 'rechazada';
-              application.save();
-            };
+          Application.find({ lodgin: lodgin._id , status: { $in: ['pendiente', 'aceptada'] }})
+          .then(function (applications) {
+            applications.forEach(function (application) {
+              if ( moment(application.fechaInicio).format() < moment(lodgin.fechaInicio).format() || moment(application.fechaFin).format() > moment(lodgin.fechaFin).format() ){
+                 application.status = 'rechazada';
+                 application.save();
+              };
+            });
+            res.status(201).json(lodgin);
+          })
+          .catch(function (err) {
+             console.error(err);
+             res.status(500).json(err);
           });
-          res.status(201).json(lodgin);
+
         })
         .catch(function (err) {
           console.error(err);
