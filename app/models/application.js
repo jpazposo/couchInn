@@ -9,7 +9,10 @@ var AplicationSchema = new Schema({
   lodgin: {type: Schema.ObjectId, ref: "Lodgin"},
   fechaInicio:{ type: Date, required: true },
   fechaFin: { type: Date, required: true },
-  status: {type: String, default: "pendiente"}
+  status: {type: String, default: "pendiente"},
+  calificoHuesped: {type: Boolean, default: "false"},
+  calificoPublicacion: {type: Boolean, default: "false"},
+  calificoHospedador: {type: Boolean, default: "false"}
 });
 
 module.exports = mongoose.model('Application', AplicationSchema);

@@ -171,6 +171,10 @@ angular.module('couchinn').service(
                   lodgin.applications.filter(function (application) {
                     return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
                   });
+                lodgin.calificarApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status == 'aceptada' && moment().isAfter(application.fechaFin));
+                  });
               });
               return response;
             });
@@ -219,7 +223,7 @@ angular.module('couchinn').service(
 
           this.solicitar = function (application) {
             return $resource(
-             apiPath + 'solicitar/lodgin/:nombre', {nombre: application.nombre}
+             apiPath + 'solicitar/lodgin/:nombre/:username', {nombre: application.nombre , username: application.username}
              ).save(application).$promise
               .then(function (lodgin) {
                 setLodgin(lodgin);
@@ -254,11 +258,12 @@ angular.module('couchinn').service(
           };
 
           this.getMisHospedajes = function (user) {
+            console.log(user);
             return $resource(
-              apiPath + 'lodgin'
+              apiPath + 'misHospedajes/:user', {user: user.id}
             ).get().$promise.then(function (response) {
               return response.data.filter(function (lodgin) {
-                return lodgin.user.username === user.username;
+                return !(lodgin.user.username === user.username);
               });
             }).then(function (response) {
               if (!response) return response;
@@ -266,6 +271,10 @@ angular.module('couchinn').service(
                 lodgin.validApplications =
                   lodgin.applications.filter(function (application) {
                     return (application.status != 'rechazada' && moment().isBefore(application.fechaFin));
+                  });
+                lodgin.calificarApplications =
+                  lodgin.applications.filter(function (application) {
+                    return (application.status == 'aceptada' && moment().isAfter(application.fechaFin));
                   });
               });
               return response;
@@ -276,6 +285,37 @@ angular.module('couchinn').service(
               })
             });
           };
+
+          this.calificarPublicacion = function (lodgin) {
+            return $resource(
+              apiPath + 'calificarPublicacion'
+             ).save(lodgin).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+                return lodgin;
+              });
+          };
+
+          this.calificarHospedador = function (lodgin) {
+            return $resource(
+              apiPath + 'calificarHospedador'
+             ).save(lodgin).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+                return lodgin;
+              });
+          };
+
+          this.calificarHuesped = function (lodgin) {
+            return $resource(
+              apiPath + 'calificarHuesped'
+             ).save(lodgin).$promise
+              .then(function (lodgin) {
+                setLodgin(lodgin);
+                return lodgin;
+              });
+          };
+
 
 
 

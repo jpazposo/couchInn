@@ -4,6 +4,7 @@ var express = require('express'),
   Lodgin = mongoose.model('Lodgin');
 var  TipoHospedaje = mongoose.model('TipoHospedaje');
 var User = mongoose.model('User');
+var Application = mongoose.model('Application');
 var Preguntas = mongoose.model('Preguntas');
 module.exports = function (app) {
   app.use('/user-action/', router);
@@ -55,13 +56,44 @@ router.get('/lodgin', function (req, res, next) {
     .populate('tipo', 'nombre')
     .populate('user')
     .populate('applicants')
-    .populate('applications')
-    .populate('owner')
+    .populate({
+      path: 'applications',
+      populate: { path: 'owner' }
+    })
     .exec(function (err, lodgins) {
       if (err) console.log(err);
       res.json({ data: lodgins})
     })
 });
+
+// Read All hospedajes
+router.get('/misHospedajes/:user', function (req, res, next) {
+  Application.find({owner : req.params.user , status : 'aceptada'})
+    .then(function (application) {
+      if (!application.length){
+        res.json({ data: application})
+      }
+      else{
+        Lodgin.findOne({id : application.lodgin})
+        .populate('tipo', 'nombre')
+        .populate('user')
+        .populate('applicants')
+        .populate({
+          path: 'applications',
+          populate: { path: 'owner' }
+        })
+        .exec(function (err, lodgins) {
+          if (err) console.log(err);
+          res.json({ data: lodgins})
+        })
+    };
+    })
+      .catch(function (err) {
+        console.error(err);
+       res.status(500).json(err);
+      });
+});
+
 
 // Update
 router.post('/update/lodgin', function (req, res, next) {
@@ -94,4 +126,125 @@ router.post('/update/lodgin', function (req, res, next) {
       }
       //Caso de error
     )
+});
+
+
+// calificaPublicacion
+router.post('/calificarPublicacion', function (req, res, next) {
+  Application.findOne({_id: req.body.solicitudCalificar})
+   .then(function (application) {
+     application.calificoPulicacion = true;
+     application.save()
+     .then(function (application) {
+      return Lodgin.findOne({_id: req.body._id})
+        .populate('tipo', 'nombre')
+        .populate('user')
+        .populate('applicants')
+        .populate('applications')
+        .populate({
+          path: 'applications',
+          populate: { path: 'owner' }
+        })
+        .then(function (lodgin) {
+
+          lodgin.puntuacion.push(req.body.puntuacionPublicacion);
+          lodgin.save()
+
+         .then(function (lodgin) {
+            res.status(201).json(lodgin);
+          })
+          .catch(function (err) {
+            console.error(err);
+            res.status(500).json(err);
+          });
+        });
+      //Caso de error
+    });
+  });
+});
+
+// calificarHospedador
+router.post('/calificarHospedador', function (req, res, next) {
+
+    User.findOne({_id: req.body.user})
+    .then(function (user) {
+       user.puntuacionHospedador.push(req.body.puntuacionHospedador);
+       user.save()
+       .then(function (user) {
+          Application.findOne({_id: req.body.solicitudCalificar})
+          .then(function (application) {
+            application.calificoHospedador = true;
+            application.save()
+            .then(function (application) {
+              return Lodgin.findOne({_id: req.body._id})
+                .populate('tipo', 'nombre')
+                .populate('user')
+                .populate('applicants')
+                .populate('applications')
+                .populate({
+                  path: 'applications',
+                  populate: { path: 'owner' }
+                })
+                .exec(function (err, lodgin) {
+                  if (err) console.log(err);
+                  res.status(201).json(lodgin)
+                 })
+            });
+          })
+          .catch(function (err) {
+            console.error(err);
+            res.status(500).json(err);
+          });
+       });
+    })
+          .catch(function (err) {
+            console.error(err);
+            res.status(500).json(err);
+      //Caso de error
+
+});
+});
+
+// calificarHuesped
+
+router.post('/calificarHuesped', function (req, res, next) {
+
+    Application.findOne({_id: req.body.solicitudCalificar})
+       .then(function (application) {
+         application.calificoHuesped = true;
+         application.save()
+         .then(function (application) {
+
+          User.findOne({_id: application.owner})
+          .then(function (user) {
+
+            user.puntuacionHuesped.push(req.body.puntuacionHuesped);
+            user.save()
+
+            .then(function (user) {
+              return Lodgin.findOne({_id: req.body._id})
+                .populate('tipo', 'nombre')
+                .populate('user')
+                .populate('applicants')
+                .populate({
+                  path: 'applications',
+                  populate: { path: 'owner' }
+                })
+                .exec(function (err, lodgin) {
+                  if (err) console.log(err);
+                  res.status(201).json(lodgin)
+                })
+            });
+          })
+          .catch(function (err) {
+            console.error(err);
+            res.status(500).json(err);
+          });
+      //Caso de error
+         });
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.status(500).json(err);
+    });
 });

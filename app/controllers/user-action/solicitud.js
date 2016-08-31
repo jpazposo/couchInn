@@ -12,14 +12,14 @@ module.exports = function (app) {
 };
 
 
-router.post('/solicitar/lodgin/:nombre', function(req, res, next){
+router.post('/solicitar/lodgin/:nombre/:username', function(req, res, next){
   /**
   * @param application: {fechaInicio: Date, fechaFin: Date }
   */
 
   Lodgin.findOne({ nombre: req.params.nombre })
       .then((lodgin)=>{
-          User.findOne({username: req.id})
+          User.findOne({username: req.params.username})
             .then(function (user) {
               /*lodgin.fechasReservadas.push(req.body);*/
               lodgin.applicants.push(user);

@@ -12,6 +12,7 @@ angular.module('lodgin').controller(
       $scope.lodgin = couchinnService.getLodgin();
       $scope.lodgin.fechaInicio = new Date($scope.lodgin.fechaInicio);
       $scope.lodgin.fechaFin = new Date($scope.lodgin.fechaFin);
+      $scope.today = new Date();
       console.log(JSON.stringify($scope.lodgin));
       $scope.pregunta = {};
       $scope.respuestas = [
@@ -36,10 +37,78 @@ angular.module('lodgin').controller(
 
       $scope.calcularPromedio = function (lista) {
         var resultado = 0;
-        for (i in lista) {
-          resultado = resultado + i;
+        if (lista.length == 0){
+          return 'Sin calificacion'
         }
-        return resultado / lista.length;
+        else{
+          for (var i in lista){
+            resultado = resultado + lista[i];
+          }
+          return resultado/lista.length + '(votos: ' + lista.length + ')';
+        };
+      };
+
+      $scope.calificarPublicacion = function (idx) {
+        $scope.lodgin.solicitudCalificar = $scope.lodgin.applications[idx]._id;
+        console.log('se va a calificar una publicacion:-----------');
+        couchinnService.calificarPublicacion($scope.lodgin)
+        .then(function (lodgin) {
+          console.log('se califico la publicacion correctamente : ----------------');
+          console.log(JSON.stringify(lodgin));
+          $scope.lodgin = lodgin;
+          $location.path('/detallar-publicacion');
+          $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Calificar Publicacion')
+            .textContent('La publicacion se califico correctamente')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Ok')
+          );
+        });
+      };
+
+      $scope.calificarHospedador = function (idx) {
+        $scope.lodgin.solicitudCalificar = $scope.lodgin.applications[idx]._id;
+        console.log('se va a calificar al hospedador:-----------');
+        couchinnService.calificarHospedador($scope.lodgin)
+         .then(function (lodgin) {
+           console.log('se califico al hospedador correctamente : ----------------');
+           console.log(JSON.stringify(lodgin));
+           $scope.lodgin = lodgin;
+           $location.path('/detallar-publicacion');
+           $mdDialog.show(
+             $mdDialog.alert()
+               .parent(angular.element(document.querySelector('#popupContainer')))
+               .clickOutsideToClose(true)
+               .title('Calificar Hospedador')
+               .textContent('El hospedador se califico correctamente')
+               .ariaLabel('Alert Dialog Demo')
+               .ok('Ok')
+           );
+         });
+      };
+
+      $scope.calificarHuesped = function (idx) {
+        $scope.lodgin.solicitudCalificar = $scope.lodgin.applications[idx]._id;
+        console.log('se va a calificar al huesped:-----------');
+        couchinnService.calificarHuesped($scope.lodgin)
+         .then(function (lodgin) {
+           console.log('se califico al huesped correctamente : ----------------');
+           console.log(JSON.stringify(lodgin));
+           $scope.lodgin = lodgin;
+           $location.path('/detallar-publicacion');
+           $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Calificar Hospedador')
+              .textContent('El huesped se califico correctamente')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Ok')
+           );
+         });
       };
 
 
@@ -217,7 +286,7 @@ angular.module('lodgin').controller(
         }
 
         $scope.application.nombre = nombre;
-
+        $scope.application.username = $scope.user.username;
 
         couchinnService.solicitar($scope.application)
           .then(function(lodgin) {

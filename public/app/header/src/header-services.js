@@ -38,47 +38,47 @@ angular.module('header').service(
         {
           location: '/nuevoTipoHospedaje',
           name: 'Agregar Tipo de Hospedaje',
-          roles: ['admin', 'user' ]
+          roles: ['admin']
         },
         {
           location: '/myDonations',
           name: 'Mis Donaciones',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/myLodgins',
           name: 'Mis Publicaciones',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/actualizar-perfil',
           name: 'Modificar mis datos',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/donate',
           name: 'Donar',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/addLodgin',
           name: 'Agregar Publicacion',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/logout',
           name: 'Cerrar Sesión',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/mis-solicitudes',
           name: 'ver mis solicitudes',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/mis-hospedajes',
           name: 'mis hospedajes',
-          roles: ['user']
+          roles: ['admin', 'user']
         },
         {
           location: '/register',
