@@ -1,0 +1,16 @@
+<couchinn-header buttons="headerButtons"></couchinn-header>
+
+<md-list>
+  <md-list-item class="md-2-line solicitud" ng-repeat="application in applications">
+    <div class="md-list-item-text">
+      <label for="nombre">Nombre del Couch:</label>
+      <h3 id="nombre"> {{application.lodgin.nombre}}</h3>
+      <label for="desc">Descripción del Couch:</label>
+      <p id="desc">{{application.lodgin.descripcion}}</p>
+      <label for="fechaIni">Fecha de Check IN:</label>
+      <p id="fechaIni">{{application.fechaInicio | date : shortDate}}</p>
+      <label for="fechaFin">Fecha de Check OUT:</label>
+      <p id="fechaFin">{{application.fechaFin | date : shortDate}}</p>
+    </div>
+  </md-list-item>
+</md-list>

@@ -1,12 +1,12 @@
 "use strict";
-angular.module('loggedUser').controller(
-  'loggedUserController',
+angular.module('misSolicitudes').controller(
+  'misSolicitudesController',
   [
     '$scope',
     'couchinnService',
     '$location',
     function ($scope, couchinnService, $location) {
-      console.log('se cargó el controller loggedUserController');
+      console.log('se cargó el controller misSolicitudesController');
 
       $scope.user = couchinnService.getUser();
       console.log($scope.user);
@@ -67,6 +67,16 @@ angular.module('loggedUser').controller(
         if ($scope.user.role == 'admin') return true;
         return button.rol == $scope.user.role;
       });
+
+
+      couchinnService.getApplications($scope.user)
+        .then((applications)=>{
+          $scope.applications = applications;
+        })
+        .catch((err)=>{
+          
+        });
+      
 
     }
   ]

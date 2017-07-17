@@ -18,6 +18,8 @@ var UserSchema = new Schema({
   publicaciones:{ type: Schema.ObjectId, ref: "Lodgin" },
   donaciones:{ type: Schema.ObjectId, ref: "Donation" },
   premium: { type: Boolean, default: false},
+  puntuacionHospedador: [Number],
+  puntuacionHuesped: [Number],
 });
 
 UserSchema.pre('save', function(next) {

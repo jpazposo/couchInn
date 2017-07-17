@@ -63,6 +63,11 @@ angular.module('lodgin').controller(
               rol: 'user'
             },
             {
+              location: '/mis-hospedajes',
+              name: 'mis hospedajes',
+              rol: 'user'
+            },
+            {
               location: '/logout',
               name: 'Cerrar Sesión',
               rol: 'user'
@@ -151,8 +156,17 @@ angular.module('lodgin').controller(
 
                   couchinnService.addLodgin($scope.lodgin)
                     .then(function (lodgin) {
-                      console.log('se guardo correctamente : ----------------');
+                      console.log('successfull created lodgin : ----------------');
                       console.log(JSON.stringify(lodgin));
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.querySelector('#popupContainer')))
+                          .clickOutsideToClose(true)
+                          .title('Creacion de publicacion exitosa ')
+                          .textContent('Se creo correctamente la publicacion: ' + $scope.lodgin.nombre)
+                          .ariaLabel('Alert Dialog Demo')
+                          .ok('Continuar')
+                      );
                       $location.path('/myLodgins');
                     })
                     .catch(function (error) {
