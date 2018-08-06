@@ -19,6 +19,7 @@ angular.module('lodgin').controller(
 
       couchinnService.getMisHospedajes($scope.user)
         .then(function (lodgins) {
+          console.log(lodgins);
           $scope.lodgins = lodgins;
         });
 

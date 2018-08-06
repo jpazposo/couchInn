@@ -258,12 +258,11 @@ angular.module('couchinn').service(
           };
 
           this.getMisHospedajes = function (user) {
-            console.log(user);
             return $resource(
               apiPath + 'misHospedajes/:user', {user: user.id}
             ).get().$promise.then(function (response) {
               return response.data.filter(function (lodgin) {
-                return !(lodgin.user.username === user.username);
+                return (lodgin.user.username !== user.username);
               });
             }).then(function (response) {
               if (!response) return response;

@@ -74,7 +74,7 @@ router.get('/misHospedajes/:user', function (req, res, next) {
         res.json({ data: application})
       }
       else{
-        Lodgin.findOne({id : application.lodgin})
+        Lodgin.find({id : application.lodgin})
         .populate('tipo', 'nombre')
         .populate('user')
         .populate('applicants')
